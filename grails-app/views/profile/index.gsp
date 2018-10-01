@@ -1,4 +1,4 @@
-<%@ page import="oslarkserver.User; org.springframework.validation.FieldError" %>
+<%@ page import="oslarkserver.ProfileController; oslarkserver.User; org.springframework.validation.FieldError" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,14 +12,14 @@
         <g:if test="${flash.message}">
             <div class="message" role="status">${flash.message}</div>
         </g:if>
-        <g:hasErrors bean="${this.role}">
+        <g:hasErrors bean="${this.profile}">
             <ul class="errors" role="alert">
-                <g:eachError bean="${user}" var="error">
+                <g:eachError bean="${profile}" var="error">
                     <li <g:if test="${error in FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
                 </g:eachError>
             </ul>
         </g:hasErrors>
-        <g:form resource="${user}" method="PUT">
+        <g:form action="update" method="PUT">
             <g:hiddenField name="version" value="${user.version}" />
             <fieldset class="form">
                 <f:field bean="${user}" property="username"/>
