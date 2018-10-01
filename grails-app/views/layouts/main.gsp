@@ -32,6 +32,17 @@
             <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;">
                 <ul class="nav navbar-nav navbar-right">
                     <g:pageProperty name="page.nav" />
+
+                    <sec:ifLoggedIn>
+                        <li class="dropdown">
+                            <a href="/#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello <sec:username /></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/#">Profile</a></li>
+                                <li><g:link controller='logout'>Logout</g:link></li>
+                            </ul>
+                        </li>
+                    </sec:ifLoggedIn>
+
                 </ul>
             </div>
         </div>
