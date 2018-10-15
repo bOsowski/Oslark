@@ -23,6 +23,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class LoginScreen extends AbstractGameScreen{
@@ -48,13 +50,14 @@ public class LoginScreen extends AbstractGameScreen{
 
         login.addListener(new ClickListener(){
             @Override
-            public void touchUp(InputEvent e, float x, float y, int point, int button){
+            public boolean touchDown(InputEvent e, float x, float y, int point, int button){
+                System.out.println("CLICKING");
                 try {
-                    System.out.println("CLICKING");
-                    login();
+                    login(username.getText(), password.getText());
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                return true;
             }
         });
         stage.addActor(username);
@@ -62,10 +65,10 @@ public class LoginScreen extends AbstractGameScreen{
         stage.addActor(login);
     }
 
-    public static void login() throws IOException {
+    public static void login(String username, String password) throws IOException {
         CookieManager cm = new CookieManager();
         CookieHandler.setDefault(cm);
-        String message = "username=admin&password=admin";
+        String message = "username="+username+"&password="+password;
 
         URL url = new URL("http://localhost:8080/login/authenticate");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -94,8 +97,13 @@ public class LoginScreen extends AbstractGameScreen{
         while ((inputLine = in.readLine()) != null) {
             response.append(inputLine);
         }
-        System.out.println(response);
+        Pattern pattern = Pattern.compile("Hello \\w+");
+        Matcher m = pattern.matcher(response.toString());
+        if(m.find()){
+            System.out.println(m.group(0));
+        }
         in.close();
+        connection.disconnect();
     }
 
     @Override
