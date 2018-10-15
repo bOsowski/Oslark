@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.bosowski.oslark.main.Session;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -50,12 +51,12 @@ public class LoginScreen extends AbstractGameScreen{
 
         login.addListener(new ClickListener(){
             @Override
-            public boolean touchDown(InputEvent e, float x, float y, int point, int button){
+            public boolean touchDown(InputEvent event, float x, float y, int point, int button){
                 System.out.println("CLICKING");
                 try {
-                    login(username.getText(), password.getText());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
+                    Session.instance.login(username.getText(), password.getText());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
                 return true;
             }
@@ -65,46 +66,7 @@ public class LoginScreen extends AbstractGameScreen{
         stage.addActor(login);
     }
 
-    public static void login(String username, String password) throws IOException {
-        CookieManager cm = new CookieManager();
-        CookieHandler.setDefault(cm);
-        String message = "username="+username+"&password="+password;
 
-        URL url = new URL("http://localhost:8080/login/authenticate");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-        connection.setUseCaches(false);
-        connection.setDoOutput(true);
-        connection.setDoInput(true);
-        //connection.getOutputStream().write(message.getBytes());
-        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
-        wr.writeBytes(message);
-        wr.flush();
-        wr.close();
-
-        int responseCode = connection.getResponseCode();
-        System.out.println("\nSending 'POST' request to URL : " + url);
-        System.out.println("Post parameters : " + message);
-        System.out.println("Response Code : " + responseCode+"\n");
-
-        System.out.println(connection.getHeaderFields().toString());
-
-        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine;
-        StringBuffer response = new StringBuffer();
-
-        while ((inputLine = in.readLine()) != null) {
-            response.append(inputLine);
-        }
-        Pattern pattern = Pattern.compile("Hello \\w+");
-        Matcher m = pattern.matcher(response.toString());
-        if(m.find()){
-            System.out.println(m.group(0));
-        }
-        in.close();
-        connection.disconnect();
-    }
 
     @Override
     public void render(float deltaTime) {
