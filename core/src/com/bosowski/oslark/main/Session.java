@@ -3,11 +3,13 @@ package com.bosowski.oslark.main;
 import com.badlogic.gdx.Gdx;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.CookieHandler;
 import java.net.CookieManager;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,13 +20,35 @@ public class Session {
     public static Session instance = new Session();
 
     private HttpURLConnection connection;
+    private CookieManager cookieManager = new CookieManager();
 
-    public boolean login(String username, String password) throws IOException {
-        CookieManager cm = new CookieManager();
-        CookieHandler.setDefault(cm);
+    private Session(){
+        CookieHandler.setDefault(cookieManager);
+    }
+
+    public void login(String username, String password) throws IOException {
         String message = "username="+username+"&password="+password;
+        POST("http://localhost:8080/login/authenticate", message);
+        //
+    }
 
-        URL url = new URL("http://localhost:8080/login/authenticate");
+    public String loadUser() throws IOException {
+        return GET("http://localhost:8080/profile/profile");
+    }
+
+    private String GET(String urlAddress) throws IOException {
+        URL url = new URL(urlAddress);
+        connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setDoInput(true);
+        connection.setDoOutput(true);
+        Gdx.app.debug(TAG, "Sending 'GET' request to URL : " + url);
+        Gdx.app.debug(TAG, "Connection redirected to : " + connection.getURL());
+        return getResponseAsString(connection);
+    }
+
+    private void POST(String urlAddress, String message) throws IOException {
+        URL url = new URL(urlAddress);
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
         connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -32,16 +56,17 @@ public class Session {
         connection.setDoOutput(true);
         connection.setDoInput(true);
         connection.getOutputStream().write(message.getBytes());
-        Gdx.app.debug(TAG, "Sending 'POST' request to URL : " + url);
         Gdx.app.debug(TAG, "Post parameters : " + message);
-        Gdx.app.debug(TAG, "Connection redirected to : " + connection.getURL());
-        if(connection.getURL().toString().toLowerCase().contains("error")){
-            return false;
-        }
-        return true;
+        connection.getHeaderFields();
     }
 
-    public
+    private String getResponseAsString(HttpURLConnection connection) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine = in.readLine();
+        in.close();
+        return inputLine;
+    }
+
 
 
 
