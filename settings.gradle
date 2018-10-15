@@ -1,2 +1,3 @@
 rootProject.name = 'OslarkServer'
-
+include ':OslarkDomains'
+project(':OslarkDomains').projectDir = new File("../OslarkDomains/")
