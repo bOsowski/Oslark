@@ -7,23 +7,23 @@ import grails.rest.Resource
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import grails.compiler.GrailsCompileStatic
+import com.bosowski.oslarkDomains.AbstractUser
 
-@Resource
 @Secured("ROLE_ADMIN")
 @GrailsCompileStatic
 @EqualsAndHashCode(includes='username')
 @ToString(includes='username', includeNames=true, includePackage=false)
-class User implements Serializable {
+class User extends AbstractUser implements Serializable {
 
 	private static final long serialVersionUID = 1
 
 	static SpringSecurityService springSecurityService
 
-	String username
 	String password
-	String firstName = ""
-	String lastName = ""
-	String emailAddress
+//	String username
+//	String firstName = ""
+//	String lastName = ""
+//	String emailAddress
 	boolean enabled = true
 	boolean accountExpired = false
 	boolean accountLocked = false
