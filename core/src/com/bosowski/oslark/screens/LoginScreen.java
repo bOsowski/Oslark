@@ -11,11 +11,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.CookieHandler;
+import java.net.CookieManager;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 
 public class LoginScreen extends AbstractGameScreen{
@@ -56,26 +63,38 @@ public class LoginScreen extends AbstractGameScreen{
     }
 
     public static void login() throws IOException {
+        CookieManager cm = new CookieManager();
+        CookieHandler.setDefault(cm);
+        String message = "username=admin&password=admin";
+
         URL url = new URL("http://localhost:8080/login/authenticate");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
-        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        connection.setUseCaches(false);
         connection.setDoOutput(true);
-        connection.getOutputStream().write("{\"username\" : \"admin\", \"password\" : \"admin\"}".getBytes("UTF-8"));
+        connection.setDoInput(true);
+        //connection.getOutputStream().write(message.getBytes());
+        DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+        wr.writeBytes(message);
+        wr.flush();
+        wr.close();
 
-        String cookieVal = hc.getHeaderField("Set-Cookie");
-        String sessionId;
-        if(cookieVal != null)
-        {
+        int responseCode = connection.getResponseCode();
+        System.out.println("\nSending 'POST' request to URL : " + url);
+        System.out.println("Post parameters : " + message);
+        System.out.println("Response Code : " + responseCode+"\n");
 
+        System.out.println(connection.getHeaderFields().toString());
 
-            BufferedReader in = new BufferedReader(
-                new InputStreamReader(
-                        connection.getInputStream()));
-        String decodedString;
-        while ((decodedString = in.readLine()) != null) {
-            System.out.println(decodedString);
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
         }
+        System.out.println(response);
         in.close();
     }
 

@@ -18,6 +18,7 @@ android {
     }
     defaultConfig {
         applicationId "com.bosowski.oslark"
+        minSdkVersion 26
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
