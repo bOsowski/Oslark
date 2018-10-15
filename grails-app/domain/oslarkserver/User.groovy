@@ -21,8 +21,9 @@ class User implements Serializable {
 
 	String username
 	String password
-	String firstName = null
-	String lastName = null
+	String firstName = ""
+	String lastName = ""
+	String emailAddress
 	boolean enabled = true
 	boolean accountExpired = false
 	boolean accountLocked = false
@@ -49,9 +50,7 @@ class User implements Serializable {
 	static transients = ['springSecurityService']
 
 	static constraints = {
-		firstName nullable: true
-		lastName nullable: true
-
+		//emailAddress email: true
 		password blank: false, password: true
 		username blank: false, unique: true
 	}
