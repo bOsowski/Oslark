@@ -21,7 +21,6 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        minSdkVersion = 9
     }
     buildTypes {
         release {
@@ -100,8 +99,8 @@ eclipse {
     }
 
     jdt {
-        sourceCompatibility = 1.6
-        targetCompatibility = 1.6
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
     }
 
     classpath {
