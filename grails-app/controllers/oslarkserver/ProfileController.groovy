@@ -9,7 +9,7 @@ import static org.springframework.http.HttpStatus.NOT_FOUND
 import static org.springframework.http.HttpStatus.NO_CONTENT
 import static org.springframework.http.HttpStatus.OK
 
-@Secured(["ROLE_ADMIN"])
+@Secured(["ROLE_ADMIN", "ROLE_USER"])
 class ProfileController{
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
@@ -17,6 +17,12 @@ class ProfileController{
     def index() {
         def user = User.getCurrentUser()
         return [user: user]
+    }
+
+    def profile(){
+        User currentUser = User.getCurrentUser()
+        response.outputStream << currentUser.toString().getBytes()
+        //render(status: 200, text: "currentUser = "+currentUser.toString())
     }
 
     @Transactional

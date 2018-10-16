@@ -3,11 +3,11 @@ package oslarkserver
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.plugin.springsecurity.userdetails.GrailsUser
-import grails.rest.Resource
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import grails.compiler.GrailsCompileStatic
 import com.bosowski.oslarkDomains.AbstractUser
+import oslarkserver.gameObjects.Character
 
 @Secured("ROLE_ADMIN")
 @GrailsCompileStatic
@@ -20,14 +20,14 @@ class User extends AbstractUser implements Serializable {
 	static SpringSecurityService springSecurityService
 
 	String password
-//	String username
-//	String firstName = ""
-//	String lastName = ""
-//	String emailAddress
 	boolean enabled = true
 	boolean accountExpired = false
 	boolean accountLocked = false
 	boolean passwordExpired = false
+    Date dateCreated
+    Date lastUpdated
+
+	static hasMany = [characters: Character]
 
 	Set<Role> getAuthorities() {
 		(UserRole.findAllByUser(this) as List<UserRole>)*.role as Set<Role>
@@ -50,7 +50,7 @@ class User extends AbstractUser implements Serializable {
 	static transients = ['springSecurityService']
 
 	static constraints = {
-		//emailAddress email: true
+		emailAddress email: true
 		password blank: false, password: true
 		username blank: false, unique: true
 	}
@@ -62,6 +62,22 @@ class User extends AbstractUser implements Serializable {
 
 	static User getCurrentUser(){
 		GrailsUser principal = (GrailsUser)springSecurityService.principal
+		println("Trying to find user with id ${principal.id}")
 		return findById((int)principal.id)
+	}
+
+
+	@Override
+	String toString() {
+		return "User{" +
+				"enabled=" + enabled +
+				", accountExpired=" + accountExpired +
+				", accountLocked=" + accountLocked +
+				", passwordExpired=" + passwordExpired +
+				", username='" + username + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", emailAddress='" + emailAddress + '\'' +
+				'}'
 	}
 }
