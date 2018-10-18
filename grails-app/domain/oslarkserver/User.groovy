@@ -7,7 +7,7 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import grails.compiler.GrailsCompileStatic
 import com.bosowski.oslarkDomains.AbstractUser
-import oslarkserver.gameObjects.Character
+import oslarkserver.gameObjects.GameCharacter
 
 @Secured("ROLE_ADMIN")
 @GrailsCompileStatic
@@ -27,7 +27,7 @@ class User extends AbstractUser implements Serializable {
     Date dateCreated
     Date lastUpdated
 
-	static hasMany = [characters: Character]
+	static hasMany = [characters: GameCharacter]
 
 	Set<Role> getAuthorities() {
 		(UserRole.findAllByUser(this) as List<UserRole>)*.role as Set<Role>
