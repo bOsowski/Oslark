@@ -1,6 +1,7 @@
 import oslarkserver.Role
 import oslarkserver.User
 import oslarkserver.UserRole
+import oslarkserver.gameObjects.GameCharacter
 
 class BootStrap {
 
@@ -13,6 +14,11 @@ class BootStrap {
 
         UserRole.findOrSaveWhere(user: admin, role: adminRole)
         UserRole.findOrSaveWhere(user: user, role: userRole)
+
+        admin.addToCharacters(new GameCharacter(name: "first"))
+        admin.addToCharacters(new GameCharacter(name: "second"))
+
+
     }
     def destroy = {
     }

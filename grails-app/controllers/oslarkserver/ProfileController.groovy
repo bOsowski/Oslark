@@ -1,5 +1,7 @@
 package oslarkserver
 
+import com.bosowski.oslarkDomains.AbstractUser
+import com.google.gson.Gson
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import oslarkserver.admin_only.UserController
@@ -21,8 +23,9 @@ class ProfileController{
 
     def profile(){
         User currentUser = User.getCurrentUser()
-        response.outputStream << currentUser.toString().getBytes()
-        //render(status: 200, text: "currentUser = "+currentUser.toString())
+        Gson gson = new Gson()
+        //response.outputStream << gson.toJson(currentUser, AbstractUser.class).getBytes()
+        render(status: 200, text: gson.toJson(currentUser, AbstractUser.class))
     }
 
     @Transactional
