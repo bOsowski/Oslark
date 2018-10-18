@@ -11,4 +11,7 @@ class Creature extends GameObject{
     static constraints = {
         level range: 1..99
     }
+
+    static mapping = {
+    }
 }

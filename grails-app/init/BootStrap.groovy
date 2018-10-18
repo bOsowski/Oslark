@@ -2,6 +2,7 @@ import oslarkserver.Role
 import oslarkserver.User
 import oslarkserver.UserRole
 import oslarkserver.gameObjects.GameCharacter
+import oslarkserver.gameObjects.GameObject
 
 class BootStrap {
 
@@ -17,6 +18,9 @@ class BootStrap {
 
         admin.addToCharacters(new GameCharacter(name: "first"))
         admin.addToCharacters(new GameCharacter(name: "second"))
+
+        def randomGameObject = new GameObject()
+        randomGameObject.save()
 
 
     }
