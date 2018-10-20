@@ -14,4 +14,5 @@ class Creature extends GameObject{
 
     static mapping = {
     }
+
 }

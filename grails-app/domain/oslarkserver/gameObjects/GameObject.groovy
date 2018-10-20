@@ -26,4 +26,5 @@ class GameObject {
 
     static mapping = {
     }
+
 }

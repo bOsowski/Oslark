@@ -2,9 +2,11 @@ package oslarkserver
 
 import com.bosowski.oslarkDomains.AbstractUser
 import com.google.gson.Gson
+import com.google.gson.JsonElement
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import oslarkserver.admin_only.UserController
+import oslarkserver.gameObjects.GameCharacter
 
 import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NOT_FOUND
@@ -22,10 +24,16 @@ class ProfileController{
     }
 
     def profile(){
-        User currentUser = User.getCurrentUser()
-        Gson gson = new Gson()
-        //response.outputStream << gson.toJson(currentUser, AbstractUser.class).getBytes()
-        render(status: 200, text: gson.toJson(currentUser, AbstractUser.class))
+        User user = User.getCurrentUser()
+        String charactersJson = ""
+        user.characters.eachWithIndex { it, index ->
+            charactersJson += it.toJson()
+            if(index < user.characters.size()-1){
+                charactersJson += ", "
+            }
+        }
+        String text = """{username:${user.username}, characters:[${charactersJson}]}"""
+        render(status: 200, text: text)
     }
 
     @Transactional

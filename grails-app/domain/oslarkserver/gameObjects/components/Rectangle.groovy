@@ -16,4 +16,15 @@ class Rectangle{
         this.height = rect.height
         this.width = rect.width
     }
+
+
+    @Override
+    public String toString() {
+        return "{" +
+                "x:" + x +
+                ", y:" + y +
+                ", width:" + width +
+                ", height:" + height +
+                '}'
+    }
 }
