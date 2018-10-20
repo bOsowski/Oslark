@@ -66,18 +66,23 @@ class User extends AbstractUser implements Serializable {
 		return findById((int)principal.id)
 	}
 
+	String getDisplayString() { return username }
 
 	@Override
-	String toString() {
+	public String toString() {
 		return "User{" +
-				"enabled=" + enabled +
+				"id=" + id +
+				", characters=" + characters +
+				", enabled=" + enabled +
 				", accountExpired=" + accountExpired +
 				", accountLocked=" + accountLocked +
 				", passwordExpired=" + passwordExpired +
+				", dateCreated=" + dateCreated +
+				", lastUpdated=" + lastUpdated +
 				", username='" + username + '\'' +
 				", firstName='" + firstName + '\'' +
 				", lastName='" + lastName + '\'' +
 				", emailAddress='" + emailAddress + '\'' +
-				'}'
+				'}';
 	}
 }
