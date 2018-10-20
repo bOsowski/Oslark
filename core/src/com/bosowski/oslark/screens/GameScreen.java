@@ -1,10 +1,11 @@
 package com.bosowski.oslark.screens;
 
 import com.badlogic.gdx.Game;
+import com.bosowski.oslark.gameObjects.Player;
 
 public class GameScreen extends AbstractGameScreen{
 
-    public GameScreen(Game game){
+    public GameScreen(Game game, Player player){
         super(game);
     }
 

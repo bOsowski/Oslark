@@ -1,5 +1,6 @@
 package com.bosowski.oslark.main;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
@@ -14,6 +15,7 @@ public class GameRenderer implements Disposable{
     private GameManager gameManager;
     private SpriteBatch batch;
     public static OrthographicCamera camera;
+    public static Screen currentScreen;
     //private OrthographicCamera GUIcamera;
 
     public GameRenderer(GameManager gameManager){

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.bosowski.oslark.main.Assets;
 import com.bosowski.oslark.screens.LoginScreen;
@@ -20,4 +21,5 @@ public class Oslark extends Game {
 
 		setScreen(new LoginScreen(this));
 	}
+
 }

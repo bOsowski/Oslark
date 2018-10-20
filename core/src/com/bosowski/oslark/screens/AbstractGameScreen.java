@@ -7,7 +7,7 @@ import com.bosowski.oslark.main.Assets;
 
 public abstract class AbstractGameScreen implements Screen{
 
-    protected Game	game;
+    protected Game game;
 
     public AbstractGameScreen(Game game) {
         this.game = game;

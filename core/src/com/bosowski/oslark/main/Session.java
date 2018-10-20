@@ -62,9 +62,13 @@ public class Session {
 
     private String getResponseAsString(HttpURLConnection connection) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        String inputLine = in.readLine();
+        StringBuilder sb = new StringBuilder();
+        String inputLine;
+        while ((inputLine = in.readLine()) != null){
+            sb.append(inputLine);
+        }
         in.close();
-        return inputLine;
+        return sb.toString();
     }
 
 

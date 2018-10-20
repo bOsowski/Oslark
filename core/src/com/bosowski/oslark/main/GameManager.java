@@ -11,7 +11,6 @@ public class GameManager extends InputAdapter{
     public static final String TAG = GameManager.class.getName();
     public World world = World.instance;
 
-
     public GameManager() {
         init();
     }
