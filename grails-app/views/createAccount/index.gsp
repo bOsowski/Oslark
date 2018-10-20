@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="layout" content="main" />
-    <g:set var="entityName" value="${message(code: 'user.label', default: 'User')}" />
+    <g:set var="entityName" value="${message(code: 'user.label', default: 'Account')}" />
     <title><g:message code="default.create.label" args="[entityName]" /></title>
 </head>
 <body>
@@ -10,7 +10,6 @@
 <div class="nav" role="navigation">
     <ul>
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
-        <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
     </ul>
 </div>
 <div id="create-user" class="content scaffold-create" role="main">
@@ -27,7 +26,13 @@
     </g:hasErrors>
     <g:form action="save">
         <fieldset class="form">
-            <f:username bean="user"/>
+            <label>Username</label> <g:textField name="username" /><br>
+            <label>Password</label> <g:passwordField name="password" /><br>
+            <label>Email Address</label> <g:textField name="emailAddress" /><br>
+            <label>First Name</label> <g:textField name="firstName" /><br>
+            <label>Last Name</label> <g:textField name="lastName" /><br>
+
+
         </fieldset>
         <fieldset class="buttons">
             <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
