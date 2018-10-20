@@ -11,4 +11,10 @@ class Vector3 extends Vector2{
 
     static constraints = {
     }
+
+
+    @Override
+    public String toString() {
+        return "{x:${x}, y:${y}, z:${z}}"
+    }
 }
