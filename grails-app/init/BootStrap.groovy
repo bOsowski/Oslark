@@ -3,6 +3,8 @@ import oslarkserver.User
 import oslarkserver.UserRole
 import oslarkserver.gameObjects.GameCharacter
 import oslarkserver.gameObjects.GameObject
+import oslarkserver.gameObjects.enums.CharacterClass
+import oslarkserver.gameObjects.enums.Gender
 
 class BootStrap {
 
@@ -16,8 +18,13 @@ class BootStrap {
         UserRole.findOrSaveWhere(user: admin, role: adminRole)
         UserRole.findOrSaveWhere(user: user, role: userRole)
 
-        admin.addToCharacters(new GameCharacter(name: "first"))
-        admin.addToCharacters(new GameCharacter(name: "second"))
+        admin.addToCharacters(new GameCharacter(name: "maleKnight", gender: Gender.MALE, characterClass: CharacterClass.KNIGHT))
+        admin.addToCharacters(new GameCharacter(name: "femaleKnight", gender: Gender.FEMALE, characterClass: CharacterClass.KNIGHT))
+        admin.addToCharacters(new GameCharacter(name: "maleElf", gender: Gender.MALE, characterClass: CharacterClass.ELF))
+        admin.addToCharacters(new GameCharacter(name: "femaleElf", gender: Gender.FEMALE, characterClass: CharacterClass.ELF))
+        admin.addToCharacters(new GameCharacter(name: "maleWizard", gender: Gender.MALE, characterClass: CharacterClass.WIZARD))
+        admin.addToCharacters(new GameCharacter(name: "femaleWizard", gender: Gender.FEMALE, characterClass: CharacterClass.WIZARD))
+
 
         def randomGameObject = new GameObject()
         randomGameObject.save()
