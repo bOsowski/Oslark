@@ -44,8 +44,7 @@ public class LoginScreen extends AbstractGameScreen{
                 System.out.println("CLICKING");
                 try {
                     Session.instance.login(username.getText(), password.getText());
-                    String userJson = Session.instance.loadUser();
-                    game.setScreen(new CharacterSelectionScreen(game, userJson));
+                    game.setScreen(new CharacterSelectionScreen(game));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

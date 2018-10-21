@@ -2,6 +2,7 @@ package com.bosowski.oslark.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.bosowski.oslark.main.GameManager;
 import com.bosowski.oslark.main.GameRenderer;
@@ -25,6 +26,9 @@ public class GameScreen extends AbstractGameScreen {
         // Do not update game world when paused.
         if (!paused) {
             gameManager.update(deltaTime);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)){
+            game.setScreen(new CharacterSelectionScreen(game));
         }
     }
 

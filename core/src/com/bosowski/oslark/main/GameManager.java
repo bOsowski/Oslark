@@ -40,19 +40,19 @@ public class GameManager extends InputAdapter{
         if(Gdx.input.isKeyPressed(Input.Keys.W)){
             World.instance.getPlayer().move(Constants.PLAYER_MOVE_SPEED,deltaTime, Direction.UP);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.S)){
+        if(Gdx.input.isKeyPressed(Input.Keys.S)){
             World.instance.getPlayer().move(Constants.PLAYER_MOVE_SPEED,deltaTime, Direction.DOWN);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.D)){
+        if(Gdx.input.isKeyPressed(Input.Keys.D)){
             World.instance.getPlayer().move(Constants.PLAYER_MOVE_SPEED,deltaTime, Direction.RIGHT);
         }
-        else if(Gdx.input.isKeyPressed(Input.Keys.A)){
+        if(Gdx.input.isKeyPressed(Input.Keys.A)){
             World.instance.getPlayer().move(Constants.PLAYER_MOVE_SPEED,deltaTime, Direction.LEFT);
         }
         else if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
             World.instance.getPlayer().attack();
         }
-        else{
+        else if(!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S) && !Gdx.input.isKeyPressed(Input.Keys.D) && !Gdx.input.isKeyPressed(Input.Keys.A)){
             World.instance.getPlayer().setState(State.IDLE);
         }
 

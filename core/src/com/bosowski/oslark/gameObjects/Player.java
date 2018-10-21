@@ -18,8 +18,34 @@ import com.bosowski.oslarkDomains.enums.State;
  */
 
 public class Player extends Creature{
-    public Player(String name, Animator animator, Vector2 scale, boolean collides, Rectangle collisionBox, float totalHitPoints, float hitPoints, float damage, State state, Direction direction, float speed, int level, Vector3 position) {
+
+    public enum Gender{
+        MALE("male"), FEMALE("female");
+
+        public final String name;
+
+        Gender(String name){
+            this.name = name;
+        }
+    }
+
+    public enum CharacterClass {
+        KNIGHT("knight"), WIZARD("wizard"), ELF("elf");
+
+        public final String name;
+
+        CharacterClass(String name){
+            this.name = name;
+        }
+    }
+
+    Gender gender;
+    CharacterClass characterClass;
+
+    public Player(String name, Animator animator, Vector2 scale, boolean collides, Rectangle collisionBox, float totalHitPoints, float hitPoints, float damage, State state, Direction direction, float speed, int level, Vector3 position, Gender gender, CharacterClass characterClass) {
         super(name, animator, scale, collides, collisionBox, totalHitPoints, hitPoints, damage, state, direction, speed, level, position);
+        this.gender = gender;
+        this.characterClass = characterClass;
     }
 
 //    public Player(String name, Animator animator, Vector2 scale, boolean collides, Rectangle collisionBox){

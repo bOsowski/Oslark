@@ -17,6 +17,7 @@ import com.bosowski.oslark.World;
 import com.bosowski.oslark.components.Animator;
 import com.bosowski.oslark.gameObjects.Creature;
 import com.bosowski.oslark.gameObjects.Player;
+import com.bosowski.oslark.gameObjects.Terrain;
 import com.bosowski.oslark.main.Assets;
 import com.bosowski.oslark.main.GameRenderer;
 import com.bosowski.oslark.main.Session;
@@ -34,17 +35,23 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
 
     Stage stage;
 
-    public CharacterSelectionScreen(Game game, String userJson) {
+    public CharacterSelectionScreen(Game game) {
         super(game);
         Skin fieldSkins = new Skin(Gdx.files.internal("uiskin.json"));
         stage = new Stage();
 
+        String userJson = null;
+        try {
+            userJson = Session.instance.loadUser();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         System.out.println(userJson);
         JSONObject obj = new JSONObject(userJson);
         System.out.println(obj.get("username"));
         JSONArray characterArray = obj.getJSONArray("characters");
         TextField label = new TextField("Choose your character", fieldSkins);
-        label.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+        label.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()-100);
         stage.addActor(label);
 
         HashMap<String, Player> characters = new HashMap<>();
@@ -53,12 +60,12 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
         for(Object character: characterArray){
             String characterName = ((JSONObject)character).getString("name");
             int characterLevel = ((JSONObject)character).getInt("level");
-            String characterClass = ((JSONObject)character).getString("characterClass");
+            Player.CharacterClass characterClass = Player.CharacterClass.valueOf(((JSONObject)character).getString("characterClass"));
             TextButton characterButton = new TextButton(characterName+"(level "+characterLevel+" "+characterClass, fieldSkins);
 
-
-
-            Animator animator = new Animator(Assets.instance.stateAnimations.get(characterClass));
+            Player.Gender gender = Player.Gender.valueOf(((JSONObject) character).getString("gender"));
+            Animator animator = new Animator(Assets.instance.stateAnimations.get(characterClass.name+gender.name));
+            System.out.println("###############   "+characterClass.name+gender.name);
             JSONObject scaleObject = new JSONObject(((JSONObject)character).get("scale").toString());
             Vector2 scale = new Vector2(scaleObject.getFloat("x"), scaleObject.getFloat("y"));
             boolean collides = ((JSONObject) character).getBoolean("collides");
@@ -74,7 +81,7 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
             JSONObject positionObject = new JSONObject(((JSONObject)character).get("position").toString());
             Vector3 position = new Vector3(positionObject.getFloat("x"), positionObject.getFloat("y"), positionObject.getFloat("z"));
 
-            Player player = new Player(characterName, animator, scale, collides, collisionBox, totalHitpoints, hitpoints, damage, state, direction, speed, characterLevel, position);
+            Player player = new Player(characterName, animator, scale, collides, collisionBox, totalHitpoints, hitpoints, damage, state, direction, speed, characterLevel, position, gender, characterClass);
             characters.put(characterName, player);
             characterButton.setPosition(label.getX(), label.getY()-50*i);
             characterButton.addListener(new ClickListener(){
@@ -83,6 +90,12 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
                     System.out.println("Picked "+characterName);
                     World.instance.setPlayer(characters.get(characterName));
                     game.setScreen(new GameScreen(game));
+                    for(int posx = 0; posx<10; posx++){
+                        for(int posy = 0; posy<10; posy++){
+                            Terrain terrain = new Terrain("floor", Assets.instance.textures.get("floor1"), Terrain.TerrainType.NORMAL, new Vector2(1,1), false,new Rectangle(), new Vector3(posx, posy, -1));
+                            World.instance.instantiate(terrain);
+                        }
+                    }
                     return true;
                 }
             });

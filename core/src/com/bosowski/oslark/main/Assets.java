@@ -25,7 +25,7 @@ public class Assets implements Disposable, AssetErrorListener{
     private AssetManager assetManager;
     public final HashMap<String, TextureRegion> textures = new HashMap<>();
     public final HashMap<String, Animation> animations = new HashMap<>();
-    public final HashMap<String, HashMap<Direction, HashMap<State, Animation>>> stateAnimations = new HashMap<>();
+    public final HashMap<String, HashMap<State, Animation>> stateAnimations = new HashMap<>();
 
 
 
@@ -63,18 +63,33 @@ public class Assets implements Disposable, AssetErrorListener{
         }
 
         for(String animationName: animations.keySet()){
+            System.out.println(animationName);
             if(animationName.contains("_")){
-                String[] split = animationName.split("_");
-                if(!stateAnimations.containsKey(split[0])){
-                    stateAnimations.put(split[0], new HashMap<>());
+                if(animationName.contains("male") || animationName.contains("female")){
+                    String[] split = animationName.split("_");
+                    if(!stateAnimations.containsKey(split[0]+split[1])){
+                        stateAnimations.put(split[0]+split[1], new HashMap<>());
+                    }
+                    if(!stateAnimations.get(split[0]+split[1]).containsKey(State.getState(split[2]))){
+                        stateAnimations.get(split[0]+split[1]).put(State.getState(split[2]), animations.get(animationName));
+                    }
+                    stateAnimations.get(split[0]+split[1]).put(State.getState(split[2]), animations.get(animationName));
+                    System.out.println(split[0]+split[1]);
+
                 }
-                if(!stateAnimations.get(split[0]).containsKey(Direction.getDirection(split[1]))){
-                    stateAnimations.get(split[0]).put(Direction.getDirection(split[1]), new HashMap<>());
+                else{
+                    String[] split = animationName.split("_");
+                    if(!stateAnimations.containsKey(split[0])){
+                        stateAnimations.put(split[0], new HashMap<>());
+                    }
+                    if(!stateAnimations.get(split[0]).containsKey(State.getState(split[1]))){
+                        stateAnimations.get(split[0]).put(State.getState(split[1]), animations.get(animationName));
+                    }
+
+                    stateAnimations.get(split[0]).put(State.getState(split[1]), animations.get(animationName));
                 }
 
-                stateAnimations.get(split[0]).get(Direction.getDirection(split[1])).put(State.getState(split[2]), animations.get(animationName));
             }
-
         }
     }
 

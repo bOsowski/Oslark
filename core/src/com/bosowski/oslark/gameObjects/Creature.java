@@ -30,7 +30,7 @@ public abstract class Creature extends GameObject{
         this.totalHitPoints = totalHitPoints;
         this.hitPoints = hitPoints;
         this.animator = animator;
-        this.state = state;
+        setState(state);
         this.direction = direction;
         this.damage = damage;
         this.speed = speed;
@@ -42,7 +42,7 @@ public abstract class Creature extends GameObject{
         this.totalHitPoints = original.totalHitPoints;
         this.hitPoints = original.hitPoints;
         this.animator = original.animator;
-        this.state = original.state;
+        setState(original.state);
         this.direction = original.direction;
         this.hasAttacked = original.hasAttacked;
         this.damage = original.damage;
@@ -189,10 +189,11 @@ public abstract class Creature extends GameObject{
     }
 
     public void setState(State state) {
-        if(this.state != state && this.state != State.DIE){
+        if(this.state != state && this.state != State.DIE && state != State.ATTACK){
             stateTime = 0;
             this.state = state;
-            animation = animator.getAnimations().get(direction).get(state);
+            System.out.println(animator.getAnimations().toString());
+            animation = animator.getAnimations().get(state);
         }
     }
 
@@ -201,8 +202,13 @@ public abstract class Creature extends GameObject{
     }
 
     public void setDirection(Direction direction) {
+        if((direction == Direction.LEFT || direction == Direction.RIGHT) &&  direction != this.direction){
+            //change direction
+            setScale(new Vector2(Math.abs(scale.x)*direction.value.x, scale.y));
+        }
         this.direction = direction;
-        animation = animator.getAnimations().get(direction).get(state);
+
+        //animation = animator.getAnimations().get(direction).get(state);
     }
 
 
