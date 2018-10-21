@@ -2,10 +2,12 @@ package oslarkserver.gameObjects
 
 import oslarkserver.User
 import oslarkserver.gameObjects.enums.CharacterClass
+import oslarkserver.gameObjects.enums.Gender
 
 class GameCharacter extends Creature{
 
-    CharacterClass characterClass = CharacterClass.DEFAULT
+    CharacterClass characterClass
+    Gender gender = Gender.MALE
 
     static transient belongsTo = [user : User]
 
@@ -18,8 +20,9 @@ class GameCharacter extends Creature{
     String getDisplayString() { return name }
 
     String toJson(){
-        return "{id:${id}, name:${name}, postion:${position}, scale:${scale}, characterClass:${characterClass.name}, state:${state}, speed:${speed}, level:${level}, " +
-                "direction:${direction}, rotation:${rotation}, stateTime:${stateTime}, dimension:${dimension}, origin:${origin}, collisionBox:${collisionBox}, collides:${collides}}"
+        return "{id:${id}, name:${name}, position:${position}, scale:${scale}, characterClass:${characterClass}, state:${state.name}, speed:${speed}, level:${level}, " +
+                "direction:${direction.name}, rotation:${rotation}, stateTime:${stateTime}, dimension:${dimension}, origin:${origin}, collisionBox:${collisionBox}, collides:${collides}, " +
+                "totalHitpoints:${totalHitpoints}, hitpoints:${hitpoints}, damage:${damage}, gender:${gender}}"
     }
 
 }
