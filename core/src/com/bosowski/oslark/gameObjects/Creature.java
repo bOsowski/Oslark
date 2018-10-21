@@ -22,8 +22,20 @@ public abstract class Creature extends GameObject{
     protected State state = State.MOVE;
     protected Direction direction = Direction.DOWN;
     protected float speed = 0;
+    protected int level = 1;
 
 
+    public Creature(String name, Animator animator, Vector2 scale, boolean collides, Rectangle collisionBox, float totalHitPoints, float hitPoints, float damage, State state, Direction direction, float speed, int level, Vector3 position){
+        super(name, scale, collides, collisionBox, position);
+        this.totalHitPoints = totalHitPoints;
+        this.hitPoints = hitPoints;
+        this.animator = animator;
+        this.state = state;
+        this.direction = direction;
+        this.damage = damage;
+        this.speed = speed;
+        this.level = level;
+    }
 
     public Creature(Creature original){
         super(original);

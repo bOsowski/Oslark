@@ -17,13 +17,13 @@ public class Terrain extends GameObject {
         this.terrain = terrain.terrain;
     }
 
-    public Terrain(int id, String name, TextureRegion texture, TerrainType terrain, Vector2 scale, boolean collides, Rectangle collisionBox){
-        super(id, name, texture, scale, collides, collisionBox);
+    public Terrain(String name, TextureRegion texture, TerrainType terrain, Vector2 scale, boolean collides, Rectangle collisionBox, Vector3 position){
+        super(name, texture, scale, collides, collisionBox, position);
         this.terrain = terrain;
     }
 
-    public Terrain(int id, String name, Animation animation, TerrainType terrain, Vector2 scale, boolean collides, Rectangle collisionBox){
-        super(id, name, animation, scale, collides, collisionBox);
+    public Terrain(String name, Animation animation, TerrainType terrain, Vector2 scale, boolean collides, Rectangle collisionBox, Vector3 position){
+        super(name, animation, scale, collides, collisionBox, position);
         this.terrain = terrain;
     }
 
@@ -35,7 +35,6 @@ public class Terrain extends GameObject {
     public String toString() {
         return "Terrain{" +
                 "terrain=" + terrain +
-                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", position=" + position +
                 ", rotation=" + rotation +

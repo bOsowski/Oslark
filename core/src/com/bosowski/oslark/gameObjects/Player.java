@@ -10,25 +10,28 @@ import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.components.Animator;
 import com.bosowski.oslark.main.Assets;
 import com.bosowski.oslark.main.GameRenderer;
+import com.bosowski.oslarkDomains.enums.Direction;
+import com.bosowski.oslarkDomains.enums.State;
 
 /**
  * Created by bOsowski on 11/02/2018.
  */
 
 public class Player extends Creature{
-    OrthographicCamera camera;
+    public Player(String name, Animator animator, Vector2 scale, boolean collides, Rectangle collisionBox, float totalHitPoints, float hitPoints, float damage, State state, Direction direction, float speed, int level, Vector3 position) {
+        super(name, animator, scale, collides, collisionBox, totalHitPoints, hitPoints, damage, state, direction, speed, level, position);
+    }
 
-//    public Player(int id, String name, Animator animator, Vector2 scale, boolean collides, Rectangle collisionBox){
-//        super(id, name, animator, scale, collides, collisionBox);
+//    public Player(String name, Animator animator, Vector2 scale, boolean collides, Rectangle collisionBox){
+//        super(name, animator, scale, collides, collisionBox);
 //    }
-
+//
     public Player(Creature original){
         super(original);
-        camera = GameRenderer.camera;
     }
 
     public void update(float deltaTime){
-        camera.position.set(position);
-        camera.update();
+        GameRenderer.camera.position.set(position);
+        GameRenderer.camera.update();
     }
 }

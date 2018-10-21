@@ -10,15 +10,9 @@ import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.main.Assets;
 import com.bosowski.oslarkDomains.enums.State;
 
-/**
- * Created by bOsowski on 27/01/2018.
- *
- * This is a base class for every object in the game.
- *
- */
 public abstract class GameObject{
 
-    protected int id = -1;                       // id of -1 suggests the object has not been set up properly
+    //protected int id = -1;                       // id of -1 suggests the object has not been set up properly
     protected String name = "undefined";
     protected Vector3 position =  Vector3.Zero;  // The z component represents the depth.
     protected float rotation = 0;
@@ -34,7 +28,6 @@ public abstract class GameObject{
 
 
     protected GameObject(GameObject original){
-        this.id = original.id;
         this.name = original.name;
         this.position = new Vector3(original.position);
         this.rotation = original.rotation;
@@ -48,14 +41,12 @@ public abstract class GameObject{
         this.collides = original.collides;
     }
 
-    protected GameObject(int id, String name, Vector3 position) {
-        this.id = id;
+    protected GameObject(String name, Vector3 position) {
         this.name = name;
         this.position = position;
     }
 
-    public GameObject(int id, String name, TextureRegion texture, Vector3 position, boolean collides, Rectangle collisionBox) {
-        this.id = id;
+    public GameObject(String name, TextureRegion texture, Vector3 position, boolean collides, Rectangle collisionBox) {
         this.name = name;
         this.texture = texture;
         this.position = position;
@@ -63,35 +54,34 @@ public abstract class GameObject{
         this.collisionBox = new Rectangle(collisionBox);
     }
 
-    public GameObject(int id, String name, Animation animation, Vector2 scale, boolean collides, Rectangle collisionBox) {
-        this.id = id;
+    public GameObject(String name, Animation animation, Vector2 scale, boolean collides, Rectangle collisionBox, Vector3 position) {
         this.name = name;
         this.animation = animation;
         this.scale = scale;
         this.collides = collides;
         this.collisionBox = new Rectangle(collisionBox);
+        this.position = position;
         System.out.println("Assigning animation. Animation state = "+this.animation);
     }
 
-    public GameObject(int id, String name, TextureRegion texture, Vector2 scale, boolean collides, Rectangle collisionBox) {
-        this.id = id;
+    public GameObject(String name, TextureRegion texture, Vector2 scale, boolean collides, Rectangle collisionBox, Vector3 position) {
         this.name = name;
         this.texture = texture;
         this.scale = scale;
         this.collides = collides;
         this.collisionBox = new Rectangle(collisionBox);
+        this.position = position;
     }
 
-    protected GameObject(int id, String name, Vector2 scale, boolean collides, Rectangle collisionBox) {
-        this.id = id;
+    protected GameObject(String name, Vector2 scale, boolean collides, Rectangle collisionBox, Vector3 position) {
         this.name = name;
         this.scale = scale;
         this.collides = collides;
         this.collisionBox = new Rectangle(collisionBox);
+        this.position = position;
     }
 
-    protected GameObject(int id, String name, Vector3 position, Vector2 scale, Vector2 dimension, Vector2 origin, boolean collides, Rectangle collisionBox){
-        this.id = id;
+    protected GameObject(String name, Vector3 position, Vector2 scale, Vector2 dimension, Vector2 origin, boolean collides, Rectangle collisionBox){
         this.name = name;
         this.position = position;
         this.scale = scale;
@@ -101,8 +91,7 @@ public abstract class GameObject{
         this.collisionBox = new Rectangle(collisionBox);
     }
 
-    protected GameObject(int id, String name, Animation animation, TextureRegion texture, Vector3 position, Vector2 scale, Vector2 dimension, Vector2 origin, boolean collides, Rectangle collisionBox){
-        this.id = id;
+    protected GameObject(String name, Animation animation, TextureRegion texture, Vector3 position, Vector2 scale, Vector2 dimension, Vector2 origin, boolean collides, Rectangle collisionBox){
         this.name = name;
         this.animation = animation;
         this.texture = texture;
@@ -169,14 +158,6 @@ public abstract class GameObject{
     }
 
     public abstract void update(float deltaTime);
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

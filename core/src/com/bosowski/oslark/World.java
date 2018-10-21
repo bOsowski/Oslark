@@ -20,9 +20,9 @@ import java.util.HashMap;
  */
 
 public class World {
-    ArrayList<GameObject> gameObjects = new ArrayList<>();
-    final HashMap<Integer, GameObject> gameObjectsById = new HashMap<>();
-    Player player;
+   private ArrayList<GameObject> gameObjects = new ArrayList<>();
+   private final HashMap<Integer, GameObject> gameObjectsById = new HashMap<>();
+   Player player;
 
     public static final World instance = new World();
 
@@ -105,6 +105,7 @@ public class World {
 
     public void setPlayer(Player player) {
         this.player = player;
+        gameObjects.add(player);
     }
 
     public static World getInstance() {
