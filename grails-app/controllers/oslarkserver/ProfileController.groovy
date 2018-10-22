@@ -7,6 +7,7 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import oslarkserver.admin_only.UserController
 import oslarkserver.gameObjects.GameCharacter
+import oslarkserver.gameObjects.Terrain
 
 import static org.springframework.http.HttpStatus.CREATED
 import static org.springframework.http.HttpStatus.NOT_FOUND
@@ -34,6 +35,25 @@ class ProfileController{
         }
         String text = """{username:${user.username}, characters:[${charactersJson}]}"""
         render(status: 200, text: text)
+    }
+
+    def world(){
+        String charName = request.getParameter("characterName")
+        println("Trying to find character ${charName}")
+        GameCharacter character = GameCharacter.findByName(charName)
+        if(character.user != User.getCurrentUser()){
+            throw new Exception("This user does not have this character!")
+        }
+        StringBuilder sb = new StringBuilder("{terrain:[")
+        Set<Terrain> terrain = Terrain.findAllByWorld(character.world)
+        terrain.eachWithIndex { Terrain it, index ->
+            sb.append(it.toJson())
+            if(index < terrain.size()-1){
+                sb.append(", ")
+            }
+        }
+        sb.append("]}")
+        render(status: 200, text: sb.toString())
     }
 
     @Transactional

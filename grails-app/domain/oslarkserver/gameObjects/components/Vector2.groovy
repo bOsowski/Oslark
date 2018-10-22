@@ -15,7 +15,11 @@ class Vector2 {
 
 
     @Override
-    public String toString() {
+    String toString() {
+        return """{x:${x}, y:${y}}"""
+    }
+
+    String toJson() {
         return """{x:${x}, y:${y}}"""
     }
 }
