@@ -7,6 +7,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
+import org.json.JSONObject;
+
 
 public class Terrain extends GameObject {
 
@@ -15,6 +17,11 @@ public class Terrain extends GameObject {
     public Terrain(Terrain terrain){
         super(terrain);
         this.terrain = terrain.terrain;
+    }
+
+    public Terrain(JSONObject jsonObject){
+        super(jsonObject.getJSONObject("super"));
+        this.terrain = TerrainType.valueOf(jsonObject.getString("terrainType"));
     }
 
     public Terrain(String name, TextureRegion texture, TerrainType terrain, Vector2 scale, boolean collides, Rectangle collisionBox, Vector3 position){

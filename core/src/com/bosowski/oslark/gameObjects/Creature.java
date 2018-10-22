@@ -6,9 +6,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.components.Animator;
+import com.bosowski.oslark.main.Assets;
 import com.bosowski.oslark.utils.Constants;
 import com.bosowski.oslarkDomains.enums.Direction;
 import com.bosowski.oslarkDomains.enums.State;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -23,6 +26,18 @@ public abstract class Creature extends GameObject{
     protected Direction direction = Direction.DOWN;
     protected float speed = 0;
     protected int level = 1;
+
+
+    public Creature(JSONObject jsonObject){
+        super(jsonObject.getJSONObject("super"));
+        this.level = jsonObject.getInt("level");
+        this.totalHitPoints = jsonObject.getFloat("totalHitpoints");
+        this.hitPoints = jsonObject.getFloat("hitpoints");
+        this.damage = jsonObject.getFloat("damage");
+        this.speed = jsonObject.getFloat("speed");
+        this.state = State.getState(jsonObject.getString("state"));
+        this.animator = new Animator(Assets.instance.stateAnimations.get(name));
+    }
 
 
     public Creature(String name, Animator animator, Vector2 scale, boolean collides, Rectangle collisionBox, float totalHitPoints, float hitPoints, float damage, State state, Direction direction, float speed, int level, Vector3 position){
@@ -192,9 +207,8 @@ public abstract class Creature extends GameObject{
         if(this.state != state && this.state != State.DIE && state != State.ATTACK){
             stateTime = 0;
             this.state = state;
-            System.out.println(animator.getAnimations().toString());
-            animation = animator.getAnimations().get(state);
         }
+        animation = animator.getAnimations().get(state);
     }
 
     public Direction getDirection() {
@@ -212,4 +226,27 @@ public abstract class Creature extends GameObject{
     }
 
 
+    public float getDamage() {
+        return damage;
+    }
+
+    public void setDamage(float damage) {
+        this.damage = damage;
+    }
+
+    public float getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
 }

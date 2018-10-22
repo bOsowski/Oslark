@@ -1,6 +1,7 @@
 package com.bosowski.oslark.gameObjects;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,11 +9,16 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.main.Assets;
+import com.bosowski.oslarkDomains.enums.Direction;
 import com.bosowski.oslarkDomains.enums.State;
+
+import org.json.JSONObject;
 
 public abstract class GameObject{
 
-    //protected int id = -1;                       // id of -1 suggests the object has not been set up properly
+    public static final String TAG = GameObject.class.getName();
+
+    protected int id = -1;                       // id of -1 suggests the object has not been set up properly
     protected String name = "undefined";
     protected Vector3 position =  Vector3.Zero;  // The z component represents the depth.
     protected float rotation = 0;
@@ -27,7 +33,51 @@ public abstract class GameObject{
     protected boolean collides = false;
 
 
+    protected GameObject(JSONObject jsonObject){
+        this.id = jsonObject.getInt("id");
+        this.name = jsonObject.getString("name");
+        this.position = new Vector3(
+                jsonObject.getJSONObject("position").getFloat("x"),
+                jsonObject.getJSONObject("position").getFloat("y"),
+                jsonObject.getJSONObject("position").getFloat("z")
+        );
+        this.rotation = jsonObject.getFloat("rotation");
+        this.stateTime = jsonObject.getFloat("stateTime");
+        this.scale = new Vector2(
+                jsonObject.getJSONObject("scale").getFloat("x"),
+                jsonObject.getJSONObject("scale").getFloat("y")
+        );
+        this.dimension = new Vector2(
+                jsonObject.getJSONObject("dimension").getFloat("x"),
+                jsonObject.getJSONObject("dimension").getFloat("y")
+        );
+        this.origin = new Vector2(
+                jsonObject.getJSONObject("origin").getFloat("x"),
+                jsonObject.getJSONObject("origin").getFloat("y")
+        );
+        this.collisionBox = new Rectangle(
+                jsonObject.getJSONObject("collisionBox").getFloat("x"),
+                jsonObject.getJSONObject("collisionBox").getFloat("y"),
+                jsonObject.getJSONObject("collisionBox").getFloat("width"),
+                jsonObject.getJSONObject("collisionBox").getFloat("height")
+        );
+        this.collides = jsonObject.getBoolean("collides");
+
+
+        if(Assets.instance.animations.containsKey(name)){
+            this.animation = Assets.instance.animations.get(name);
+        }
+        else if(Assets.instance.textures.containsKey(name)){
+            this.texture = Assets.instance.textures.get(name);
+        }
+        else{
+            this.texture = Assets.instance.textures.get("undefined");
+            Gdx.app.error(TAG, "Unable to load any textures for object '"+name+"' ("+id+")");
+        }
+    }
+
     protected GameObject(GameObject original){
+        this.id = original.id;
         this.name = original.name;
         this.position = new Vector3(original.position);
         this.rotation = original.rotation;

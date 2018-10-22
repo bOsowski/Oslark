@@ -29,8 +29,8 @@ public class LoginScreen extends AbstractGameScreen{
         super(game);
         stage = new Stage();
         Skin fieldSkins = new Skin(Gdx.files.internal("uiskin.json"));
-        username = new TextField("username", fieldSkins);
-        password = new TextField("password", fieldSkins);
+        username = new TextField("admin", fieldSkins);
+        password = new TextField("admin", fieldSkins);
         login = new TextButton("Login", fieldSkins);
         username.setPosition(Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         password.setPosition(username.getX(), username.getY()-50);

@@ -36,6 +36,10 @@ public class Session {
         return GET("http://localhost:8080/profile/profile");
     }
 
+    public String loadWorld(String characterName) throws IOException {
+        return POST("http://localhost:8080/profile/world", characterName);
+    }
+
     private String GET(String urlAddress) throws IOException {
         URL url = new URL(urlAddress);
         connection = (HttpURLConnection) url.openConnection();
@@ -47,7 +51,7 @@ public class Session {
         return getResponseAsString(connection);
     }
 
-    private void POST(String urlAddress, String message) throws IOException {
+    private String POST(String urlAddress, String message) throws IOException {
         URL url = new URL(urlAddress);
         connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("POST");
@@ -58,6 +62,7 @@ public class Session {
         connection.getOutputStream().write(message.getBytes());
         Gdx.app.debug(TAG, "Post parameters : " + message);
         connection.getHeaderFields();
+        return getResponseAsString(connection);
     }
 
     private String getResponseAsString(HttpURLConnection connection) throws IOException {
