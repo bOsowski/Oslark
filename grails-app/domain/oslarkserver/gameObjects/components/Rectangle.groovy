@@ -19,7 +19,16 @@ class Rectangle{
 
 
     @Override
-    public String toString() {
+    String toString() {
+        return "{" +
+                "x:" + x +
+                ", y:" + y +
+                ", width:" + width +
+                ", height:" + height +
+                '}'
+    }
+
+    String toJson() {
         return "{" +
                 "x:" + x +
                 ", y:" + y +

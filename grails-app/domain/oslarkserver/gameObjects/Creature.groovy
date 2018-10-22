@@ -18,4 +18,8 @@ class Creature extends GameObject{
     static mapping = {
     }
 
+    String toJson(){
+        return "{super:${super.toJson()}, state:${state.name}, speed:${speed}, level:${level}, " +
+                "totalHitpoints:${totalHitpoints}, hitpoints:${hitpoints}, damage:${damage}}"
+    }
 }

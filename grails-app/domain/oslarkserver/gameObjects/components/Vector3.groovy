@@ -14,7 +14,11 @@ class Vector3 extends Vector2{
 
 
     @Override
-    public String toString() {
+    String toString() {
+        return "{x:${x}, y:${y}, z:${z}}"
+    }
+
+    String toJson() {
         return "{x:${x}, y:${y}, z:${z}}"
     }
 }
