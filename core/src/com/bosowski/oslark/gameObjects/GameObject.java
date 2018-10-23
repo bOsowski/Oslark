@@ -91,19 +91,6 @@ public abstract class GameObject{
         this.collides = original.collides;
     }
 
-    protected GameObject(String name, Vector3 position) {
-        this.name = name;
-        this.position = position;
-    }
-
-    public GameObject(String name, TextureRegion texture, Vector3 position, boolean collides, Rectangle collisionBox) {
-        this.name = name;
-        this.texture = texture;
-        this.position = position;
-        this.collides = collides;
-        this.collisionBox = new Rectangle(collisionBox);
-    }
-
     public GameObject(String name, Animation animation, Vector2 scale, boolean collides, Rectangle collisionBox, Vector3 position) {
         this.name = name;
         this.animation = animation;
@@ -131,28 +118,12 @@ public abstract class GameObject{
         this.position = position;
     }
 
-    protected GameObject(String name, Vector3 position, Vector2 scale, Vector2 dimension, Vector2 origin, boolean collides, Rectangle collisionBox){
+    public GameObject(int id, String name, Vector3 position, boolean collides) {
+        this.id = id;
         this.name = name;
         this.position = position;
-        this.scale = scale;
-        this.dimension = dimension;
-        this.origin = origin;
         this.collides = collides;
-        this.collisionBox = new Rectangle(collisionBox);
     }
-
-    protected GameObject(String name, Animation animation, TextureRegion texture, Vector3 position, Vector2 scale, Vector2 dimension, Vector2 origin, boolean collides, Rectangle collisionBox){
-        this.name = name;
-        this.animation = animation;
-        this.texture = texture;
-        this.position = position;
-        this.scale = scale;
-        this.dimension = dimension;
-        this.origin = origin;
-        this.collides = collides;
-        this.collisionBox = new Rectangle(collisionBox);
-    }
-
 
     public void render(SpriteBatch batch){
         if(animation != null){

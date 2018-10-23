@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.components.Animator;
 import com.bosowski.oslark.gameObjects.Creature;
+import com.bosowski.oslark.gameObjects.GameObject;
 import com.bosowski.oslark.gameObjects.Player;
 import com.bosowski.oslark.gameObjects.Terrain;
 import com.bosowski.oslark.main.Assets;
@@ -85,10 +86,15 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
                     JSONArray terrain = jsonObj.getJSONArray("terrain");
                     for(Object tile: terrain){
                         Terrain terrainTile = new Terrain((JSONObject)tile);
-                        World.instance.instantiate(terrainTile);
+                        //World.instance.instantiate(terrainTile);
                         System.out.println("Loaded terrain: "+terrainTile);
                     }
-
+                    ArrayList<GameObject> test = new ArrayList<>();
+                    test.addAll(createCorridor(new Vector3(0,0,0), 5, 3, true, true, true));
+                    test.addAll(createCorridor(new Vector3(5,7,0), 3, 10, true, true, true));
+                    for(GameObject obj: test){
+                        World.instance.instantiate(obj);
+                    }
                     game.setScreen(new GameScreen(game));
 //                    for(int posx = 0; posx<10; posx++){
 //                        for(int posy = 0; posy<10; posy++){
@@ -103,6 +109,25 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
             i++;
         }
 
+    }
+
+    public static ArrayList<GameObject> createCorridor(Vector3 position, int length, int width, boolean shutoffOnLeft, boolean shutOffOnRight, boolean shutOffOnTop){
+        ArrayList<GameObject> result = new ArrayList<>();
+
+        for(int x = 0; x<length; x++) {
+            for(int y = 0; y<width; y++){
+                Terrain floor = new Terrain(0, "floor1", new Vector3(position.x+x, position.y-y, position.z-0.1f), true);
+                result.add(floor);
+            }
+            if(shutOffOnTop){
+                Terrain wall = new Terrain(0, "wallMid", new Vector3(position.x+x, position.y+1, position.z-1f), false);
+                Terrain wallTop = new Terrain(0, "wallMid", new Vector3(position.x+x, position.y+2, position.z-1f), false);
+                result.add(wall);
+                result.add(wallTop);
+            }
+        }
+
+        return result;
     }
 
     @Override

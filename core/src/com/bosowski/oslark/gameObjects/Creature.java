@@ -143,7 +143,7 @@ public abstract class Creature extends GameObject{
     public ArrayList<Terrain.TerrainType> checkCollisions(float deltaTime){
         ArrayList<Terrain.TerrainType> terrainCollisions = new ArrayList<>();
         for(GameObject gameObject: World.instance.getGameObjects()){
-            if(gameObject instanceof Terrain && collisionBox.overlaps(gameObject.collisionBox)){
+            if(gameObject instanceof Terrain && gameObject.collides && collisionBox.overlaps(gameObject.collisionBox)){
                 switch (((Terrain)gameObject).getTerrain()){
                     case MUCK:
                         //System.out.println("On muck");

@@ -1,22 +1,47 @@
 package com.bosowski.oslark.gameObjects;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.bosowski.oslark.main.Assets;
 
 import org.json.JSONObject;
 
 
 public class Terrain extends GameObject {
 
-    private TerrainType terrain;
+    private TerrainType terrain = TerrainType.NORMAL;
 
     public Terrain(Terrain terrain){
         super(terrain);
         this.terrain = terrain.terrain;
+    }
+
+    public Terrain(int id, String name, Vector3 position, boolean collides){
+        super(id,name,position, collides);
+        this.id = id;
+        this.name = name;
+        this.position = position;
+        //this.rotation = 0;
+        //this.stateTime = jsonObject.getFloat("stateTime");
+        this.origin = new Vector2(0,0 );
+        this.collides = collides;
+
+        if(Assets.instance.animations.containsKey(name)){
+            this.animation = Assets.instance.animations.get(name);
+        }
+        else if(Assets.instance.textures.containsKey(name)){
+            this.texture = Assets.instance.textures.get(name);
+        }
+        else{
+            this.texture = Assets.instance.textures.get("undefined");
+            Gdx.app.error(TAG, "Unable to load any textures for object '"+name+"' ("+id+")");
+        }
+        this.collisionBox = new Rectangle(0, 0, texture.getRegionWidth(), texture.getRegionHeight());
     }
 
     public Terrain(JSONObject jsonObject){
