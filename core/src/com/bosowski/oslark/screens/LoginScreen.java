@@ -67,7 +67,7 @@ public class LoginScreen extends AbstractGameScreen{
 
     @Override
     public void resize(int width, int height) {
-
+        
     }
 
     @Override

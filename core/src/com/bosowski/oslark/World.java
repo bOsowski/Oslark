@@ -5,10 +5,14 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.gameObjects.Creature;
 import com.bosowski.oslark.gameObjects.GameObject;
 import com.bosowski.oslark.gameObjects.Player;
+import com.bosowski.oslark.gameObjects.Terrain;
+import com.bosowski.oslark.generation.areas.Passage;
+import com.bosowski.oslark.generation.areas.TileArea;
 import com.bosowski.oslarkDomains.enums.State;
 
 import java.util.ArrayList;
@@ -86,6 +90,17 @@ public class World {
             if(subject != other && subject.collides() && other.collides()){
                 Rectangle subjectFutureRect = new Rectangle(futurePos.x, futurePos.y, subject.getCollisionBox().width, subject.getCollisionBox().height);
                 if(subjectFutureRect.overlaps(other.getCollisionBox())){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean isOnTerrain(Vector2 position) {
+        for (GameObject terrain : gameObjects) {
+            if (terrain instanceof Terrain) {
+                if (terrain.getCollisionBox().contains(position.x, position.y)) {
                     return true;
                 }
             }

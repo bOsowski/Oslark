@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.bosowski.oslark.components.Animator;
+import com.bosowski.oslark.generation.areas.Passage;
+import com.bosowski.oslark.generation.areas.TileArea;
 import com.bosowski.oslark.main.Assets;
 import com.bosowski.oslark.main.GameRenderer;
 import com.bosowski.oslarkDomains.enums.Direction;

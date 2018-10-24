@@ -19,6 +19,8 @@ import com.bosowski.oslark.gameObjects.Creature;
 import com.bosowski.oslark.gameObjects.GameObject;
 import com.bosowski.oslark.gameObjects.Player;
 import com.bosowski.oslark.gameObjects.Terrain;
+import com.bosowski.oslark.generation.areas.Passage;
+import com.bosowski.oslark.generation.areas.TileArea;
 import com.bosowski.oslark.main.Assets;
 import com.bosowski.oslark.main.GameRenderer;
 import com.bosowski.oslark.main.Session;
@@ -28,12 +30,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.internal.bind.JsonTreeReader;
 
 import org.json.*;
+import org.lwjgl.util.vector.Vector2f;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CharacterSelectionScreen extends AbstractGameScreen {
+public class CharacterSelectionScreen extends AbstractGameScreen{
 
     Stage stage;
 
@@ -89,12 +92,9 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
                         //World.instance.instantiate(terrainTile);
                         System.out.println("Loaded terrain: "+terrainTile);
                     }
-                    ArrayList<GameObject> test = new ArrayList<>();
-                    test.addAll(createCorridor(new Vector3(0,0,0), 5, 3, true, true, true));
-                    test.addAll(createCorridor(new Vector3(5,7,0), 3, 10, true, true, true));
-                    for(GameObject obj: test){
-                        World.instance.instantiate(obj);
-                    }
+
+                    new Passage(new TileArea(), new TileArea());
+
                     game.setScreen(new GameScreen(game));
 //                    for(int posx = 0; posx<10; posx++){
 //                        for(int posy = 0; posy<10; posy++){

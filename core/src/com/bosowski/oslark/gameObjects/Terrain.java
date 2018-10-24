@@ -41,7 +41,7 @@ public class Terrain extends GameObject {
             this.texture = Assets.instance.textures.get("undefined");
             Gdx.app.error(TAG, "Unable to load any textures for object '"+name+"' ("+id+")");
         }
-        this.collisionBox = new Rectangle(0, 0, texture.getRegionWidth(), texture.getRegionHeight());
+        this.collisionBox = new Rectangle(0, 0, 1, 1);
     }
 
     public Terrain(JSONObject jsonObject){
