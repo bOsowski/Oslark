@@ -43,8 +43,10 @@ pre {
     width: 40px;
 
 }
+
+/*TODO: header color here*/
 .navbar-default, .navbar-static-top {
-    background-color: #4D8618;
+    background-color: #70594e;
     border: 0px;
 }
 a.navbar-brand {
