@@ -47,6 +47,7 @@ dependencies {
     compile "org.hibernate:hibernate-core:5.1.1.Final"
     compile "org.hibernate:hibernate-ehcache:5.1.1.Final"
     console "org.grails:grails-console"
+    compile 'org.grails.plugins:fields:2.2.8'
     profile "org.grails.profiles:web"
     compile "org.grails.plugins:scaffolding"
     provided "org.codehaus.groovy:groovy-ant"

@@ -25,6 +25,7 @@ class GameCharacterController {
         if(params.user != User.getCurrentUser().id){
            render code: 500
         }
+
         respond new GameCharacter(params)
     }
 

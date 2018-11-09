@@ -30,7 +30,9 @@
                 <g:hiddenField name="user" value="${User.getCurrentUser().id}" />
                 <fieldset class="form">
                     <f:field bean="${gameCharacter}" property="name"/>
+                    <f:field bean="${gameCharacter}" property="gender"/>
                     <f:field bean="${gameCharacter}" property="characterClass"/>
+                    <f:field bean="${gameCharacter}" property="world"/>
                 </fieldset>
                 <fieldset class="buttons">
                     <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
