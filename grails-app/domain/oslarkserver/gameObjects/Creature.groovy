@@ -5,7 +5,7 @@ import oslarkserver.gameObjects.enums.State
 class Creature extends GameObject{
 
     State state = State.IDLE
-    float speed = 0
+    float speed = 10
     int level = 1
     float totalHitpoints = 1
     float hitpoints = 1

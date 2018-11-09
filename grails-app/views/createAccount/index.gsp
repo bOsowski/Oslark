@@ -1,3 +1,4 @@
+<%@ page import="oslarkserver.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,13 +27,11 @@
     </g:hasErrors>
     <g:form action="save">
         <fieldset class="form">
-            <label>Username</label> <g:textField name="username" /><br>
-            <label>Password</label> <g:passwordField name="password" /><br>
-            <label>Email Address</label> <g:textField name="emailAddress" /><br>
-            <label>First Name</label> <g:textField name="firstName" /><br>
-            <label>Last Name</label> <g:textField name="lastName" /><br>
-
-
+            <f:field bean="${user}" property="username"/>
+            <f:field bean="${user}" property="password"/>
+            <f:field bean="${user}" property="emailAddress"/>
+            <f:field bean="${user}" property="firstName"/>
+            <f:field bean="${user}" property="lastName"/>
         </fieldset>
         <fieldset class="buttons">
             <g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />

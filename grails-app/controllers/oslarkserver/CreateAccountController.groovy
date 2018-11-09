@@ -8,6 +8,8 @@ class CreateAccountController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index() {
+        def user = new User()
+        [user : user]
     }
 
     def constraints = {
@@ -24,12 +26,6 @@ class CreateAccountController {
         println(request.getParameterMap())
         String username = request.getParameter("username")
         String email = request.getParameter("emailAddress")
-        if(User.findByUsername(username)){
-            throw new Exception("This username already exists!")
-        }
-        if(User.findByEmailAddress(email)){
-            throw new Exception("This email address is alrady taken!")
-        }
 
         User user = new User(
                 username: username,
@@ -38,10 +34,25 @@ class CreateAccountController {
                 password: request.getParameter("password"),
                 emailAddress: email
         )
+
         user.save flush:true
 
-        UserRole userRole = new UserRole(user: user, role: Role.findByAuthority("ROLE_USER"))
+        if(user.hasErrors()){
+            transactionStatus.setRollbackOnly()
+            respond user.errors, view:'index'
+            return
+        }
+
+        Role role = Role.findByAuthority("ROLE_USER")
+        UserRole userRole = new UserRole(user: user, role: role)
+
         userRole.save flush:true
+
+
+
+        if(userRole.hasErrors()){
+            log.warn("Failed to save the userRole. $userRole: $userRole.errors")
+        }
 
         //render "Successfully created user ${User.findByUsername(user.username).toString()}"
         redirect(controller: "login", action: "auth")

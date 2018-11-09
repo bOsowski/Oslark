@@ -1,18 +1,9 @@
 package oslarkserver
 
-import com.bosowski.oslarkDomains.AbstractUser
-import com.google.gson.Gson
-import com.google.gson.JsonElement
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
-import oslarkserver.admin_only.UserController
 import oslarkserver.gameObjects.GameCharacter
 import oslarkserver.gameObjects.Terrain
-
-import static org.springframework.http.HttpStatus.CREATED
-import static org.springframework.http.HttpStatus.NOT_FOUND
-import static org.springframework.http.HttpStatus.NO_CONTENT
-import static org.springframework.http.HttpStatus.OK
 
 @Secured(["ROLE_ADMIN", "ROLE_USER"])
 class ProfileController{
