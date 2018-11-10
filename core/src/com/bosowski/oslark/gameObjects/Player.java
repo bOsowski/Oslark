@@ -10,12 +10,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.bosowski.oslark.components.Animator;
+import com.bosowski.oslark.enums.Direction;
+import com.bosowski.oslark.enums.State;
 import com.bosowski.oslark.generation.areas.Passage;
 import com.bosowski.oslark.generation.areas.TileArea;
 import com.bosowski.oslark.main.Assets;
 import com.bosowski.oslark.main.GameRenderer;
-import com.bosowski.oslarkDomains.enums.Direction;
-import com.bosowski.oslarkDomains.enums.State;
 
 import org.json.JSONObject;
 
@@ -43,10 +43,6 @@ public class Player extends Creature{
         this.characterClass = characterClass;
     }
 
-//    public Player(String name, Animator animator, Vector2 scale, boolean collides, Rectangle collisionBox){
-//        super(name, animator, scale, collides, collisionBox);
-//    }
-//
     public Player(Creature original){
         super(original);
     }

@@ -4,12 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector2;
-import com.bosowski.oslark.generation.areas.Passage;
-import com.bosowski.oslark.generation.areas.TileArea;
 import com.bosowski.oslark.main.GameManager;
 import com.bosowski.oslark.main.GameRenderer;
-import com.bosowski.oslark.screens.AbstractGameScreen;
 
 public class GameScreen extends AbstractGameScreen {
 
@@ -19,6 +15,7 @@ public class GameScreen extends AbstractGameScreen {
 
     public GameScreen(Game game) {
         super(game);
+        setUpUI();
     }
 
     @Override
@@ -37,8 +34,7 @@ public class GameScreen extends AbstractGameScreen {
 
     @Override
     public void resize(int width, int height) {
-//        GameRenderer.camera.viewportWidth = width%20;
-//        GameRenderer.camera.viewportHeight = height%20;
+        super.resize(width, height);
     }
 
     @Override
@@ -56,6 +52,11 @@ public class GameScreen extends AbstractGameScreen {
     @Override
     public void pause() {
         paused = true;
+    }
+
+    @Override
+    protected void setUpUI() {
+        //todo: create UI here.
     }
 
     @Override

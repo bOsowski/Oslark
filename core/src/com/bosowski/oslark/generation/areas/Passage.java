@@ -5,13 +5,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.gameObjects.Terrain;
 
-import org.lwjgl.util.vector.Vector2f;
-
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Passage extends Thread{
+public class Passage{
 
     private TileArea tiles = new TileArea();
 
@@ -44,11 +42,6 @@ public class Passage extends Thread{
         int locationHeight = location.height;
 
         return new Vector2(locationWidth/2, locationHeight/2);
-    }
-
-    @Override
-    public void run() {
-
     }
 
     public void createMaze(){
@@ -92,12 +85,6 @@ public class Passage extends Thread{
                 System.out.println("Popping the stack.");
                 currentPosition = new Vector2(stack.pop());
             }
-
-//            try {
-//                sleep(5);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
         }
         System.out.println("FINISHED");
     }

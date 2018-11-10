@@ -8,9 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.bosowski.oslark.enums.State;
 import com.bosowski.oslark.main.Assets;
-import com.bosowski.oslarkDomains.enums.Direction;
-import com.bosowski.oslarkDomains.enums.State;
 
 import org.json.JSONObject;
 

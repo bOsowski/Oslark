@@ -20,8 +20,6 @@ public class Oslark extends Game {
 	
 	@Override
 	public void create () {
-
-
 		// Set Libgdx log level
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 

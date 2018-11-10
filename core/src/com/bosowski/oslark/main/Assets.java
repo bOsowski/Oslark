@@ -9,9 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
+import com.bosowski.oslark.enums.State;
 import com.bosowski.oslark.utils.Constants;
-import com.bosowski.oslarkDomains.enums.Direction;
-import com.bosowski.oslarkDomains.enums.State;
 
 import java.util.HashMap;
 

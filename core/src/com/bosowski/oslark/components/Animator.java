@@ -1,8 +1,7 @@
 package com.bosowski.oslark.components;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.bosowski.oslarkDomains.enums.Direction;
-import com.bosowski.oslarkDomains.enums.State;
+import com.bosowski.oslark.enums.State;
 
 import java.util.HashMap;
 

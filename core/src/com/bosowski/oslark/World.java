@@ -7,13 +7,13 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.bosowski.oslark.enums.State;
 import com.bosowski.oslark.gameObjects.Creature;
 import com.bosowski.oslark.gameObjects.GameObject;
 import com.bosowski.oslark.gameObjects.Player;
 import com.bosowski.oslark.gameObjects.Terrain;
 import com.bosowski.oslark.generation.areas.Passage;
 import com.bosowski.oslark.generation.areas.TileArea;
-import com.bosowski.oslarkDomains.enums.State;
 
 import java.util.ArrayList;
 import java.util.Collections;

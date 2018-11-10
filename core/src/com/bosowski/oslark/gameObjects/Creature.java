@@ -6,10 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.components.Animator;
+import com.bosowski.oslark.enums.Direction;
+import com.bosowski.oslark.enums.State;
 import com.bosowski.oslark.main.Assets;
 import com.bosowski.oslark.utils.Constants;
-import com.bosowski.oslarkDomains.enums.Direction;
-import com.bosowski.oslarkDomains.enums.State;
 
 import org.json.JSONObject;
 

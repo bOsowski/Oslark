@@ -3,9 +3,9 @@ package com.bosowski.oslark.main;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.bosowski.oslark.World;
+import com.bosowski.oslark.enums.Direction;
+import com.bosowski.oslark.enums.State;
 import com.bosowski.oslark.utils.Constants;
-import com.bosowski.oslarkDomains.enums.Direction;
-import com.bosowski.oslarkDomains.enums.State;
 
 public class GameManager extends InputAdapter{
     public static final String TAG = GameManager.class.getName();
