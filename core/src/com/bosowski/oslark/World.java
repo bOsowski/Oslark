@@ -1,9 +1,6 @@
 package com.bosowski.oslark;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -12,11 +9,8 @@ import com.bosowski.oslark.gameObjects.Creature;
 import com.bosowski.oslark.gameObjects.GameObject;
 import com.bosowski.oslark.gameObjects.Player;
 import com.bosowski.oslark.gameObjects.Terrain;
-import com.bosowski.oslark.generation.areas.Passage;
-import com.bosowski.oslark.generation.areas.TileArea;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 /**

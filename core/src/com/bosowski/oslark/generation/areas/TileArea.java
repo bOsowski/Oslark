@@ -1,6 +1,5 @@
 package com.bosowski.oslark.generation.areas;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.World;
@@ -8,7 +7,6 @@ import com.bosowski.oslark.gameObjects.GameObject;
 import com.bosowski.oslark.gameObjects.Terrain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class TileArea {
     private ArrayList<Vector2> tiles = new ArrayList<>();
@@ -16,48 +14,41 @@ public class TileArea {
     int width;
     int height;
 
-    public TileArea(int width, int height){
+    public TileArea(int width, int height) {
         this.width = width;
         this.height = height;
     }
 
-    public TileArea(){
+    public TileArea() {
     }
 
-    public Vector2 getTile(int x, int y){
-        System.out.println("Trying to get ("+x+", "+y+")");
-        int index = x + width*y;
+    public Vector2 getTile(int x, int y) {
+        System.out.println("Trying to get (" + x + ", " + y + ")");
+        int index = x + width * y;
         System.out.println(index);
         return tiles.get(index);
     }
 
-    public void add(Vector2 pos){
-        ArrayList<Vector2> directions = new ArrayList<>(Arrays.asList(
-                new Vector2(0,0),
-                new Vector2(0,1),
-                new Vector2(0,-1),
-                new Vector2(1,0),
-                new Vector2(1,1),
-                new Vector2(1,-1),
-                new Vector2(-1,-1),
-                new Vector2(-1,0),
-                new Vector2(-1,1)
-                ));
+    public ArrayList<Vector2> add(Vector2 pos, Maze.MazeSize mazeSize) {
 
-        for(Vector2 dir: directions){
-            Terrain terrain = new Terrain(0, "floor1", new Vector3(pos.x+dir.x, pos.y+dir.y, -1), false);
+        ArrayList<Vector2> createdTiles = new ArrayList<>();
+        //Vector2 dir = new Vector2(0,0);
+        for (Vector2 dir : mazeSize.getDirections()) {
+            Terrain terrain = new Terrain(0, "floor1", new Vector3(pos.x + dir.x, pos.y + dir.y, -1), false);
             World.instance.instantiate(terrain);
-            System.out.println("Adding a tile at "+pos.toString());
-            tiles.add(pos);
+            System.out.println("Adding a tile at " + terrain.getPosition().toString());
+            tiles.add(new Vector2(pos).add(dir));
+            createdTiles.add(new Vector2(pos).add(dir));
             instantiatedGameObjects.add(terrain);
         }
 
+        return createdTiles;
     }
 
-    public void remove(Vector2 pos){
+    public void remove(Vector2 pos) {
         GameObject tileToRemove = null;
-        for(GameObject obj: instantiatedGameObjects){
-            if(obj.getPosition() == new Vector3(pos.x, pos.y, -1)){
+        for (GameObject obj : instantiatedGameObjects) {
+            if (obj.getPosition() == new Vector3(pos.x, pos.y, -1)) {
                 tileToRemove = obj;
                 break;
             }
@@ -66,11 +57,11 @@ public class TileArea {
     }
 
 
-    public ArrayList<Vector2> getTiles(){
-        return  tiles;
+    public ArrayList<Vector2> getTiles() {
+        return tiles;
     }
 
-    public void setTiles(ArrayList<Vector2> tiles){
+    public void setTiles(ArrayList<Vector2> tiles) {
         this.tiles = tiles;
     }
 }

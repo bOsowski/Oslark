@@ -3,28 +3,20 @@ package com.bosowski.oslark.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bosowski.oslark.World;
-import com.bosowski.oslark.gameObjects.GameObject;
 import com.bosowski.oslark.gameObjects.Player;
 import com.bosowski.oslark.gameObjects.Terrain;
-import com.bosowski.oslark.generation.areas.Passage;
-import com.bosowski.oslark.generation.areas.TileArea;
+import com.bosowski.oslark.generation.areas.Maze;
 import com.bosowski.oslark.main.Session;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class CharacterSelectionScreen extends AbstractGameScreen {
@@ -80,7 +72,8 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
                         System.out.println("Loaded terrain: " + terrainTile);
                     }
 
-                    new Passage(new TileArea(), new TileArea());
+
+                    new Maze();
 
                     game.setScreen(new GameScreen(game));
                     return true;
@@ -91,24 +84,24 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
         }
     }
 
-    public static ArrayList<GameObject> createCorridor(Vector3 position, int length, int width, boolean shutoffOnLeft, boolean shutOffOnRight, boolean shutOffOnTop) {
-        ArrayList<GameObject> result = new ArrayList<>();
-
-        for (int x = 0; x < length; x++) {
-            for (int y = 0; y < width; y++) {
-                Terrain floor = new Terrain(0, "floor1", new Vector3(position.x + x, position.y - y, position.z - 0.1f), true);
-                result.add(floor);
-            }
-            if (shutOffOnTop) {
-                Terrain wall = new Terrain(0, "wallMid", new Vector3(position.x + x, position.y + 1, position.z - 1f), false);
-                Terrain wallTop = new Terrain(0, "wallMid", new Vector3(position.x + x, position.y + 2, position.z - 1f), false);
-                result.add(wall);
-                result.add(wallTop);
-            }
-        }
-
-        return result;
-    }
+//    public static ArrayList<GameObject> createCorridor(Vector3 position, int length, int width, boolean shutoffOnLeft, boolean shutOffOnRight, boolean shutOffOnTop) {
+//        ArrayList<GameObject> result = new ArrayList<>();
+//
+//        for (int x = 0; x < length; x++) {
+//            for (int y = 0; y < width; y++) {
+//                Terrain floor = new Terrain(0, "floor1", new Vector3(position.x + x, position.y - y, position.z - 0.1f), true);
+//                result.add(floor);
+//            }
+//            if (shutOffOnTop) {
+//                Terrain wall = new Terrain(0, "wallMid", new Vector3(position.x + x, position.y + 1, position.z - 1f), false);
+//                Terrain wallTop = new Terrain(0, "wallMid", new Vector3(position.x + x, position.y + 2, position.z - 1f), false);
+//                result.add(wall);
+//                result.add(wallTop);
+//            }
+//        }
+//
+//        return result;
+//    }
 
     @Override
     public void render(float deltaTime) {
