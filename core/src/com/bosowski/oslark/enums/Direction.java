@@ -1,16 +1,17 @@
 package com.bosowski.oslark.enums;
 
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public enum Direction {
-    UP("up", new Vector3(0.0f,1.0f,0.0f)), RIGHT("right", new Vector3(1.0f,0.0f,0.0f)), DOWN("down", new Vector3(0.0f,-1.0f,0.0f)), LEFT("left", new Vector3(-1.0f,0.0f,0.0f)),TOPRIGHT("left", new Vector3(1.0f,1.0f,0.0f)),BOTTOMRIGHT("left", new Vector3(1.0f,-1.0f,0.0f)), BOTTOMLEFT("left", new Vector3(-1.0f,-1.0f,0.0f)), TOPLEFT("left", new Vector3(-1.0f,1.0f,0.0f)), INVALID("invalid", new Vector3(0.0f,0.0f,0.0f));
+    UP("up", new Vector2(0.0f,1.0f)), RIGHT("right", new Vector2(1.0f,0.0f)), DOWN("down", new Vector2(0.0f,-1.0f)), LEFT("left", new Vector2(-1.0f,0.0f)),TOPRIGHT("left", new Vector2(1.0f,1.0f)),BOTTOMRIGHT("left", new Vector2(1.0f,-1.0f)), BOTTOMLEFT("left", new Vector2(-1.0f,-1.0f)), TOPLEFT("left", new Vector2(-1.0f,1.0f)), INVALID("invalid", new Vector2(0.0f,0.0f));
 
     public final String name;
-    public final Vector3 value;
+    public final Vector2 value;
 
-    Direction(String name, Vector3 value){
+    Direction(String name, Vector2 value){
         this.name = name;
         this.value = value;
     }
@@ -30,6 +31,10 @@ public enum Direction {
         }
     }
 
+    public static Vector2 getDirection(Direction direction){
+        return direction.value;
+    }
+
     public static Direction getRandom(){
         Random rand = new Random();
         switch (rand.nextInt(4)){
@@ -45,5 +50,14 @@ public enum Direction {
                 System.err.println("Direction.getRandom - ERROR.");
                 return null;
         }
+    }
+
+    public static ArrayList<Direction> getDirections(){
+        ArrayList<Direction> directions = new ArrayList<>();
+        directions.add(UP);
+        directions.add(DOWN);
+        directions.add(LEFT);
+        directions.add(RIGHT);
+        return directions;
     }
 }

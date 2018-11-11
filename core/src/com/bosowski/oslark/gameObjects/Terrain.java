@@ -54,7 +54,7 @@ public class Terrain extends GameObject {
     @Override
     public String toString() {
         return "Terrain{" +
-                "terrain=" + terrain +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", position=" + position +
                 ", rotation=" + rotation +
@@ -64,6 +64,8 @@ public class Terrain extends GameObject {
                 ", scale=" + scale +
                 ", dimension=" + dimension +
                 ", origin=" + origin +
+                ", collisionBox=" + collisionBox +
+                ", collides=" + collides +
                 '}';
     }
 

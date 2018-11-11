@@ -4,10 +4,12 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.World;
+import com.bosowski.oslark.enums.Direction;
 import com.bosowski.oslark.gameObjects.Terrain;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,28 +17,46 @@ import static java.lang.Thread.sleep;
 
 public class Maze implements Runnable{
 
-    private TileArea mazeTiles = new TileArea();
+    //private TileArea mazeTiles = new TileArea();
+    private HashMap<Vector2, DungeonCell> mazeCells = new HashMap<>();
     private ArrayList<DungeonRoom> dungeonRooms = new ArrayList<>();
 
     public Maze() {
 
     }
 
+    public void removeWalls(){
+        for(Vector2 pos: mazeCells.keySet()){
+            for(Direction direction: Direction.getDirections()){
+                if(mazeCells.containsKey(new Vector2(pos).add(direction.value))){
+//                    try {
+//                        sleep(10);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+                    mazeCells.get(pos).walls.remove(direction);
+                }
+            }
+            mazeCells.get(pos).instantiate();
+        }
+        System.out.println("Walls removed.");
+    }
+
     @Override
     public void run() {
-                //mazeTiles.add(new Vector2(7, 1), MazeSize.BIG);
-        for(int i = 0; i<1000; i++){
-            try {
-                sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            DungeonRoom room = new DungeonRoom(2, 5, new Rectangle(0,0,100,10), dungeonRooms);
-            if(room.create()){
-                dungeonRooms.add(room);
-            }
-        }
-        //createMaze(new Vector2(0, 0), new Vector2(1000, 10), MazeSize.SMALL);
+//        for(int i = 0; i<1000; i++){
+////            try {
+////                sleep(100);
+////            } catch (InterruptedException e) {
+////                e.printStackTrace();
+////            }
+//            DungeonRoom room = new DungeonRoom(5, 25, new Rectangle(-25,-25,100,100), dungeonRooms);
+//            if(room.create()){
+//                dungeonRooms.add(room);
+//            }
+//        }
+//        createMaze(new Vector2(0, 0), new Vector2(3, 3), MazeSize.SMALL);
+//        removeWalls();
     }
 
 
@@ -109,35 +129,31 @@ public class Maze implements Runnable{
         int mulVec = mazeSize.getValue();
 
         Stack<Vector2> stack = new Stack<>();
-
         Vector2 currentPosition = new Vector2(leftCorner);
 
         stack.add(currentPosition);
-        mazeTiles.add(stack.peek(), mazeSize);
+        DungeonCell cell = new DungeonCell("floor1", new Vector3(currentPosition.x, currentPosition.y, -1), false);
+//        cell.instantiate();
+        mazeCells.put(currentPosition, cell);
 
         while (!stack.isEmpty()) {
-            try {
-                sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            final ArrayList<Vector2> directions = new ArrayList<>();
-            directions.add(new Vector2(0, mulVec));
-            directions.add(new Vector2(0, -mulVec));
-            directions.add(new Vector2(mulVec, 0));
-            directions.add(new Vector2(-mulVec, 0));
+            final ArrayList<Direction> directions = new ArrayList<>(Direction.getDirections());
 
             while (!directions.isEmpty()) {
-                final Vector2 chosenDir = directions.get(ThreadLocalRandom.current().nextInt(0, directions.size()));
-                currentPosition = new Vector2(new Vector2(currentPosition).add(chosenDir));//.add(chosenDir);
-                if (containsPos(currentPosition, mazeSize.getDirections()) /*|| containsPos(new Vector2(currentPosition).sub(chosenDir), mazeSize.getDirections())*/ || currentPosition.x < leftCorner.x || currentPosition.x > rightCorner.x || currentPosition.y < leftCorner.y || currentPosition.y > rightCorner.y) {
+                final Direction chosenDir = directions.get(ThreadLocalRandom.current().nextInt(0, directions.size()));
+                currentPosition = new Vector2(new Vector2(currentPosition).add(chosenDir.value)).add(chosenDir.value);
+                if (mazeCells.containsKey(currentPosition) || mazeCells.containsKey((new Vector2(currentPosition).sub(chosenDir.value))) || currentPosition.x < leftCorner.x || currentPosition.x > rightCorner.x || currentPosition.y < leftCorner.y || currentPosition.y > rightCorner.y) {
                     directions.remove(chosenDir);
                     currentPosition = new Vector2(stack.peek());
                 } else {
-                    mazeTiles.add(currentPosition, mazeSize);
+                    cell = new DungeonCell("floor1", new Vector3(currentPosition.x, currentPosition.y, -1), false);
+                    mazeCells.put(currentPosition, cell);
                     stack.add(currentPosition);
-                    //Vector2 secondTile = new Vector2(currentPosition).sub(chosenDir);
-                    //mazeTiles.add(secondTile, mazeSize);
+//                    cell.instantiate();
+                    Vector2 secondTile = new Vector2(currentPosition).sub(chosenDir.value);
+                    cell = new DungeonCell("floor1", new Vector3(secondTile.x, secondTile.y, -1), false);
+                    mazeCells.put(secondTile, cell);
+//                    cell.instantiate();
                     break;
                 }
             }
@@ -146,20 +162,5 @@ public class Maze implements Runnable{
             }
         }
         System.out.println("FINISHED");
-    }
-
-    public boolean containsPos(Vector2 position, ArrayList<Vector2> neighbouringPositionsToCheck) {
-
-        for (Vector2 tile : mazeTiles.getTiles()) {
-        }
-        for (Vector2 tile : mazeTiles.getTiles()) {
-            for (Vector2 other : neighbouringPositionsToCheck) {
-                Vector2 posToCheck = new Vector2(other).add(position);
-                if (tile.x == posToCheck.x && tile.y == posToCheck.y) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }

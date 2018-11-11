@@ -38,10 +38,12 @@ public class TileArea {
 
     public void add(Vector2 pos, Maze.MazeSize mazeSize) {
         for (Vector2 dir : mazeSize.getDirections()) {
-            Terrain terrain = new Terrain(0, "floor1", new Vector3(pos.x + dir.x, pos.y + dir.y, -1), false);
-            World.instance.instantiate(terrain);
+            //Terrain terrain = new Terrain(0, "floor1", new Vector3(pos.x + dir.x, pos.y + dir.y, -1), false);
+            DungeonCell cell = new DungeonCell("floor1", new Vector3(pos.x + dir.x, pos.y + dir.y, -1), false);
+            cell.instantiate();
+            //World.instance.instantiate(cell);
             tiles.add(new Vector2(pos).add(dir));
-            instantiatedGameObjects.add(terrain);
+            instantiatedGameObjects.add(cell);
         }
     }
 

@@ -14,10 +14,10 @@ public class DungeonCell extends Terrain {
 
     public DungeonCell(String name, Vector3 position, boolean collides) {
         super(name, position, collides);
-        walls.put(Direction.UP, new Terrain("wallUp", new Vector3(position.x, position.y+1f, 0), true));
-        walls.put(Direction.DOWN, new Terrain("wallDown", new Vector3(position.x, position.y, 0), true));
-        walls.put(Direction.LEFT, new Terrain("wallLeft", new Vector3(position.x, position.y, 0), true));
-        walls.put(Direction.RIGHT, new Terrain("wallRight", new Vector3(position.x, position.y, 0), true));
+        walls.put(Direction.UP, new Terrain("wallUp", new Vector3(position.x, position.y+1f, 0), false));
+        walls.put(Direction.DOWN, new Terrain("wallDown", new Vector3(position.x, position.y, 0), false));
+        walls.put(Direction.LEFT, new Terrain("wallLeft", new Vector3(position.x, position.y, 0), false));
+        walls.put(Direction.RIGHT, new Terrain("wallRight", new Vector3(position.x, position.y, 0), false));
 
         walls.get(Direction.LEFT).setDimension(new Vector2(0.2f,2f));
         walls.get(Direction.RIGHT).setDimension(new Vector2(-0.2f,2f));
