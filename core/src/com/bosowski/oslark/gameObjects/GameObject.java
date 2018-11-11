@@ -124,6 +124,12 @@ public abstract class GameObject{
         this.collides = collides;
     }
 
+    public GameObject(String name, Vector3 position, boolean collides) {
+        this.name = name;
+        this.position = position;
+        this.collides = collides;
+    }
+
     public void render(SpriteBatch batch){
         if(animation != null){
             if(this instanceof Creature && ((Creature)this).getState() == State.DIE){

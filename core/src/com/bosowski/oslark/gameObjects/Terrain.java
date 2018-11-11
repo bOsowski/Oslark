@@ -23,25 +23,13 @@ public class Terrain extends GameObject {
 
     public Terrain(int id, String name, Vector3 position, boolean collides){
         super(id,name,position, collides);
-        this.id = id;
-        this.name = name;
-        this.position = position;
-        //this.rotation = 0;
-        //this.stateTime = jsonObject.getFloat("stateTime");
         this.origin = new Vector2(0,0 );
-        this.collides = collides;
+        setUp();
+    }
 
-        if(Assets.instance.animations.containsKey(name)){
-            this.animation = Assets.instance.animations.get(name);
-        }
-        else if(Assets.instance.textures.containsKey(name)){
-            this.texture = Assets.instance.textures.get(name);
-        }
-        else{
-            this.texture = Assets.instance.textures.get("undefined");
-            Gdx.app.error(TAG, "Unable to load any textures for object '"+name+"' ("+id+")");
-        }
-        this.collisionBox = new Rectangle(0, 0, 1, 1);
+    public Terrain(String name, Vector3 position, boolean collides){
+        super(name, position, collides);
+        setUp();
     }
 
     public Terrain(JSONObject jsonObject){
@@ -77,6 +65,20 @@ public class Terrain extends GameObject {
                 ", dimension=" + dimension +
                 ", origin=" + origin +
                 '}';
+    }
+
+    private void setUp(){
+        if(Assets.instance.animations.containsKey(name)){
+            this.animation = Assets.instance.animations.get(name);
+        }
+        else if(Assets.instance.textures.containsKey(name)){
+            this.texture = Assets.instance.textures.get(name);
+        }
+        else{
+            this.texture = Assets.instance.textures.get("undefined");
+            Gdx.app.error(TAG, "Unable to load any textures for object '"+name+"' ("+id+")");
+        }
+        this.collisionBox = new Rectangle(0, 0, 1, 1);
     }
 
     @Override

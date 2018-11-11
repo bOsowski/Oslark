@@ -29,20 +29,20 @@ public class TileArea {
         return tiles.get(index);
     }
 
-    public ArrayList<Vector2> add(Vector2 pos, Maze.MazeSize mazeSize) {
+    public void add(Vector2 pos) {
+        Terrain terrain = new Terrain(0, "objects/floor1", new Vector3(pos.x, pos.y, -1), false);
+        World.instance.instantiate(terrain);
+        tiles.add(pos);
+        instantiatedGameObjects.add(terrain);
+    }
 
-        ArrayList<Vector2> createdTiles = new ArrayList<>();
-        //Vector2 dir = new Vector2(0,0);
+    public void add(Vector2 pos, Maze.MazeSize mazeSize) {
         for (Vector2 dir : mazeSize.getDirections()) {
             Terrain terrain = new Terrain(0, "floor1", new Vector3(pos.x + dir.x, pos.y + dir.y, -1), false);
             World.instance.instantiate(terrain);
-            System.out.println("Adding a tile at " + terrain.getPosition().toString());
             tiles.add(new Vector2(pos).add(dir));
-            createdTiles.add(new Vector2(pos).add(dir));
             instantiatedGameObjects.add(terrain);
         }
-
-        return createdTiles;
     }
 
     public void remove(Vector2 pos) {

@@ -25,7 +25,7 @@ public class GameRenderer implements Disposable{
 
     private void init(){
         batch = new SpriteBatch();
-        camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH*2, Constants.VIEWPORT_HEIGHT*2);
+        camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);
         camera.position.set(Vector3.Zero);
         camera.update();
         //GUIcamera = new OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT);

@@ -97,12 +97,15 @@ public abstract class Creature extends GameObject{
         Vector3 futurePos = new Vector3(position);
         futurePos.mulAdd(direction.value, deltaTime*amount);
         setDirection(direction);
-        if(!World.instance.willCollide(this, futurePos) && World.instance.isOnTerrain(new Vector2(futurePos.x, futurePos.y))) {
+
+
+
+        //if(!World.instance.willCollide(this, futurePos) && World.instance.isOnTerrain(new Vector2(futurePos.x, futurePos.y))) {
             position = futurePos;
             setState(State.MOVE);
             return true;
-        }
-        return false;
+       // }
+        //return false;
     }
 
     public void receiveDamage(float damage){
@@ -142,36 +145,37 @@ public abstract class Creature extends GameObject{
 
     public ArrayList<Terrain.TerrainType> checkCollisions(float deltaTime){
         ArrayList<Terrain.TerrainType> terrainCollisions = new ArrayList<>();
-        for(GameObject gameObject: World.instance.getGameObjects()){
-            if(gameObject instanceof Terrain && gameObject.collides && collisionBox.overlaps(gameObject.collisionBox)){
-                switch (((Terrain)gameObject).getTerrain()){
-                    case MUCK:
-                        //System.out.println("On muck");
-                        terrainCollisions.add(Terrain.TerrainType.MUCK);
-                        break;
-                    case NORMAL:
-                        //System.out.println("On normal");
-                        terrainCollisions.add(Terrain.TerrainType.NORMAL);
-                        break;
-                    case OBSTRUCTION:
-                        //System.out.println("On obstruction");
-                        terrainCollisions.add(Terrain.TerrainType.OBSTRUCTION);
-                        break;
-                    case FIRE:
-                        //System.out.println("On fire");
-                        terrainCollisions.add(Terrain.TerrainType.FIRE);
-                        break;
-                    case WATER:
-                        //System.out.println("On water");
-                        terrainCollisions.add(Terrain.TerrainType.WATER);
-                        break;
-                    default:
-                        //System.out.println("On default");
-                        break;
-                }
-            }
-        }
         return terrainCollisions;
+//        for(GameObject gameObject: World.instance.getGameObjects()){
+//            if(gameObject instanceof Terrain && gameObject.collides && collisionBox.overlaps(gameObject.collisionBox)){
+//                switch (((Terrain)gameObject).getTerrain()){
+//                    case MUCK:
+//                        //System.out.println("On muck");
+//                        terrainCollisions.add(Terrain.TerrainType.MUCK);
+//                        break;
+//                    case NORMAL:
+//                        //System.out.println("On normal");
+//                        terrainCollisions.add(Terrain.TerrainType.NORMAL);
+//                        break;
+//                    case OBSTRUCTION:
+//                        //System.out.println("On obstruction");
+//                        terrainCollisions.add(Terrain.TerrainType.OBSTRUCTION);
+//                        break;
+//                    case FIRE:
+//                        //System.out.println("On fire");
+//                        terrainCollisions.add(Terrain.TerrainType.FIRE);
+//                        break;
+//                    case WATER:
+//                        //System.out.println("On water");
+//                        terrainCollisions.add(Terrain.TerrainType.WATER);
+//                        break;
+//                    default:
+//                        //System.out.println("On default");
+//                        break;
+//                }
+//            }
+//        }
+//        return terrainCollisions;
     }
 
     public void reactOnEnvironment(float deltaTime) {

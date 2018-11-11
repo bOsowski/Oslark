@@ -1,5 +1,6 @@
 package com.bosowski.oslark;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -33,21 +34,29 @@ public class World {
 
     public void update(float deltaTime) {
         sortWorld();
-        for(GameObject gameObject: gameObjects){
-            if(gameObject instanceof Creature && ((Creature) gameObject).getState() == State.DIE){
-                continue;
+        try{
+            for(GameObject gameObject: gameObjects){
+                if(gameObject instanceof Creature && ((Creature) gameObject).getState() == State.DIE){
+                    continue;
+                }
+                //todo: fix this.gameObject.getCollisionBox().setPosition(gameObject.getPosition().x, gameObject.getPosition().y);
+                if(gameObject.collides() && gameObject instanceof Creature){
+                    ((Creature) gameObject).reactOnEnvironment(deltaTime);
+                }
+                gameObject.update(deltaTime);
             }
-            gameObject.getCollisionBox().setPosition(gameObject.getPosition().x, gameObject.getPosition().y);
-            if(gameObject.collides() && gameObject instanceof Creature){
-                ((Creature) gameObject).reactOnEnvironment(deltaTime);
-            }
-            gameObject.update(deltaTime);
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
     public void render(SpriteBatch batch) {
-        for(GameObject gameObject: gameObjects) {
-            gameObject.render(batch);
+        try{
+            for(GameObject gameObject: gameObjects) {
+                gameObject.render(batch);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -59,20 +68,28 @@ public class World {
         }
     }
 
+    public void destroy(GameObject gameObject){
+        gameObjects.remove(gameObject);
+    }
+
     private void sortWorld(){
-        gameObjects.sort((a, b) -> {
-            if (a.getPosition().z > b.getPosition().z) {
-                return 1;
-            } else if (a.getPosition().z < b.getPosition().z) {
-                return -1;
-            } else if (a.getPosition().y < b.getPosition().y) {
-                return 1;
-            } else if (a.getPosition().y > b.getPosition().y) {
-                return -1;
-            } else {
-                return 0;
-            }
-        });
+        try{
+            gameObjects.sort((a, b) -> {
+                if (a.getPosition().z > b.getPosition().z) {
+                    return 1;
+                } else if (a.getPosition().z < b.getPosition().z) {
+                    return -1;
+                } else if (a.getPosition().y < b.getPosition().y) {
+                    return 1;
+                } else if (a.getPosition().y > b.getPosition().y) {
+                    return -1;
+                } else {
+                    return 0;
+                }
+            });
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public ArrayList<GameObject> getGameObjects(){

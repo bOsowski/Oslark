@@ -64,6 +64,7 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    System.out.println(worldJson);
                     JSONObject jsonObj = new JSONObject(worldJson);
                     JSONArray terrain = jsonObj.getJSONArray("terrain");
                     for (Object tile : terrain) {
@@ -73,7 +74,7 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
                     }
 
 
-                    new Maze();
+                    new Thread(new Maze()).start();
 
                     game.setScreen(new GameScreen(game));
                     return true;
