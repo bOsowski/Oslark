@@ -6,6 +6,7 @@ import com.bosowski.oslark.World;
 import com.bosowski.oslark.enums.Direction;
 import com.bosowski.oslark.gameObjects.Terrain;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DungeonCell extends Terrain {
@@ -35,10 +36,38 @@ public class DungeonCell extends Terrain {
         walls.get(Direction.RIGHT).setOrigin(new Vector2(-0.5f,0.5f));
     }
 
-    public void instantiate(){
+    private void instantiate(){
         World.instance.instantiate(this);
         for(Terrain wall: walls.values()){
             World.instance.instantiate(wall);
         }
+    }
+
+    public Vector2 getVector2(){
+        return new Vector2(position.x, position.y);
+    }
+
+    public void removeWalls(HashMap<Vector2, DungeonCell> otherCells) {
+        for (DungeonCell otherCell : otherCells.values()) {
+            for (Direction direction : Direction.getDirections()) {
+                if (otherCells.containsKey(otherCell.getVector2().add(direction.value))) {
+                    otherCells.get(otherCell.getVector2()).walls.remove(direction);
+                }
+            }
+            //otherCells.get(otherCell.getVector2()).instantiate();
+        }
+        //System.out.println("Walls removed.");
+        instantiate();
+    }
+
+    public ArrayList<DungeonCell> getNeighbours(HashMap<Vector2, DungeonCell> otherCells){
+        ArrayList<DungeonCell> neighbours = new ArrayList<>();
+        for(Direction direction: Direction.getDirections()){
+            Vector2 neighbourPosition = getVector2().add(direction.value);
+            if(otherCells.containsKey(neighbourPosition)){
+                neighbours.add(otherCells.get(neighbourPosition));
+            }
+        }
+        return neighbours;
     }
 }

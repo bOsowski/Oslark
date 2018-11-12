@@ -1,16 +1,18 @@
 package com.bosowski.oslark.generation.areas;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.enums.Direction;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DungeonRoom {
 
-    private ArrayList<DungeonCell> cells = new ArrayList<>();
+    private HashMap<Vector2, DungeonCell> cells = new HashMap<>();
     private Rectangle bounds;
 
     private int minSize;
@@ -39,7 +41,6 @@ public class DungeonRoom {
             }
         }
         System.out.println("Creating "+bounds.toString());
-//        String name = "floor" + rand.nextInt(1, 9);
 
         //create the tiles
         for (int x = 0; x < bounds.width; x++) {
@@ -48,31 +49,35 @@ public class DungeonRoom {
             }
         }
 
-        for(DungeonCell cell: cells){
-            if(cell.getPosition().x != bounds.x){
-                cell.walls.remove(Direction.LEFT);
-            }
-            if(cell.getPosition().x != bounds.x+bounds.width-1){
-                cell.walls.remove(Direction.RIGHT);
-            }
-            if(cell.getPosition().y != bounds.y){
-                cell.walls.remove(Direction.DOWN);
-            }
-            if(cell.getPosition().y != bounds.y+bounds.height-1){
-                cell.walls.remove(Direction.UP);
-            }
-            cell.instantiate();
-        }
+//        for(DungeonCell cell: cells.values()){
+//            if(cell.getPosition().x != bounds.x){
+//                cell.walls.remove(Direction.LEFT);
+//            }
+//            if(cell.getPosition().x != bounds.x+bounds.width-1){
+//                cell.walls.remove(Direction.RIGHT);
+//            }
+//            if(cell.getPosition().y != bounds.y){
+//                cell.walls.remove(Direction.DOWN);
+//            }
+//            if(cell.getPosition().y != bounds.y+bounds.height-1){
+//                cell.walls.remove(Direction.UP);
+//            }
+//            cell.instantiate();
+//        }
         return true;
     }
 
     private void add(float x, float y) {
         DungeonCell cell = new DungeonCell("floor1", new Vector3((int)x, (int)y, -1), false);
-        cells.add(cell);
+        cells.put(new Vector2(x, y), cell);
     }
 
     private int rand(float min, float max){
         return ThreadLocalRandom.current().nextInt((int)min, (int)max+1);
+    }
+
+    public HashMap<Vector2, DungeonCell> getCells(){
+        return cells;
     }
 
     public Rectangle getBounds() {
@@ -80,7 +85,10 @@ public class DungeonRoom {
     }
 
     public void clear() {
-        cells.forEach(World.instance::destroy);
+        for(DungeonCell cell: cells.values()){
+            World.instance.destroy(cell);
+        }
+        cells.clear();
     }
 
 }

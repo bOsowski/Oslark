@@ -3,6 +3,9 @@ package com.bosowski.oslark.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -10,6 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.gameObjects.Player;
 import com.bosowski.oslark.gameObjects.Terrain;
+import com.bosowski.oslark.generation.areas.Dungeon;
+import com.bosowski.oslark.generation.areas.DungeonCell;
+import com.bosowski.oslark.generation.areas.DungeonRoom;
 import com.bosowski.oslark.generation.areas.Maze;
 import com.bosowski.oslark.main.Session;
 
@@ -17,7 +23,10 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Vector;
 
 public class CharacterSelectionScreen extends AbstractGameScreen {
 
@@ -75,7 +84,50 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
 
 
                     //new Thread(new Maze()).start();
-                    new Maze().run();
+                    ArrayList<DungeonRoom> rooms = new ArrayList<>();
+                    HashMap<Vector2, DungeonCell> allTiles = new HashMap<>();
+                    for(int i = 0; i<250; i++){
+                        DungeonRoom room = new DungeonRoom(2,15, new Rectangle(0,0,100,100), rooms);
+                        if(room.create()){
+                            rooms.add(room);
+                            allTiles.putAll(room.getCells());
+                            System.out.println("Adding "+room.getCells().size()+" tiles.");
+                        }
+                    }
+
+                    Maze maze = new Maze(new Rectangle(0,0,100,100), rooms);
+                    maze.create();
+                    allTiles.putAll(maze.getCells());
+                    System.out.println("Adding "+maze.getCells().size()+" tiles.");
+
+
+                    int cellsRemoved = 0;
+                    do{
+                        cellsRemoved = 0;
+                        ArrayList<DungeonCell> cellsToRemove = new ArrayList<>();
+                        for(DungeonCell cell: maze.getCells().values()){
+                            ArrayList<DungeonCell> neighbours = cell.getNeighbours(allTiles);
+                            if(neighbours.size() == 1){
+                                World.instance.destroy(cell);
+                                allTiles.remove(cell.getVector2());
+                                cellsToRemove.add(cell);
+                                cellsRemoved++;
+                            }
+                        }
+                        for(DungeonCell cellToRemove: cellsToRemove){
+                            maze.getCells().remove(cellToRemove.getVector2());
+                        }
+                    }while(cellsRemoved != 0);
+
+
+                    System.out.println("Finished shrinking maze.");
+
+                    for(DungeonCell cell: allTiles.values()){
+                        cell.removeWalls(allTiles);
+                    }
+                    System.out.println("Finished removing walls.");
+//                    maze.removeWalls();
+                    player.setPosition(new Vector3(rooms.get(0).getBounds().x, rooms.get(0).getBounds().y, 0f));
 
                     game.setScreen(new GameScreen(game));
                     return true;
