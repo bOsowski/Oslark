@@ -48,16 +48,20 @@ public class DungeonCell extends Terrain {
     }
 
     public void removeWalls(HashMap<Vector2, DungeonCell> otherCells) {
-        for (DungeonCell otherCell : otherCells.values()) {
             for (Direction direction : Direction.getDirections()) {
-                if (otherCells.containsKey(otherCell.getVector2().add(direction.value))) {
-                    otherCells.get(otherCell.getVector2()).walls.remove(direction);
+                if (otherCells.containsKey(getVector2().add(direction.value))) {
+                    walls.remove(direction);
                 }
             }
-            //otherCells.get(otherCell.getVector2()).instantiate();
-        }
-        //System.out.println("Walls removed.");
         instantiate();
+    }
+
+    public void clear(){
+        for(Terrain wall: walls.values()){
+            World.instance.destroy(wall);
+        }
+        walls.clear();
+        World.instance.destroy(this);
     }
 
     public ArrayList<DungeonCell> getNeighbours(HashMap<Vector2, DungeonCell> otherCells){

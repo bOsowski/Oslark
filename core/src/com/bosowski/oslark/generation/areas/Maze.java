@@ -97,4 +97,12 @@ public class Maze {
     public HashMap<Vector2, DungeonCell> getCells() {
         return cells;
     }
+
+    public void clear() {
+        for(DungeonCell cell: cells.values()){
+            cell.clear();
+        }
+        cells.clear();
+        rooms.clear();
+    }
 }

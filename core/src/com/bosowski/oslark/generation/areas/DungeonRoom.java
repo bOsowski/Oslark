@@ -86,7 +86,7 @@ public class DungeonRoom {
 
     public void clear() {
         for(DungeonCell cell: cells.values()){
-            World.instance.destroy(cell);
+            cell.clear();
         }
         cells.clear();
     }
