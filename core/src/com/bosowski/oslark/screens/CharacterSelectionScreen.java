@@ -69,7 +69,7 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
                     JSONArray terrain = jsonObj.getJSONArray("terrain");
                     for (Object tile : terrain) {
                         Terrain terrainTile = new Terrain((JSONObject) tile);
-                        World.instance.instantiate(terrainTile);
+                        //World.instance.instantiate(terrainTile);
                         System.out.println("Loaded terrain: " + terrainTile);
                     }
 

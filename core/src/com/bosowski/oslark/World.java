@@ -101,8 +101,7 @@ public class World {
 
     public boolean isOnTerrain(Vector2 position) {
         for (GameObject terrain : gameObjects) {
-            if(terrain instanceof Terrain){
-                System.out.println(terrain.toString());
+            if(terrain instanceof DungeonCell){
                 if (terrain.getCollisionBox().contains(position.x, position.y)) {
                     return true;
                 }

@@ -55,8 +55,8 @@ public class Maze implements Runnable{
 //                dungeonRooms.add(room);
 //            }
 //        }
-//        createMaze(new Vector2(0, 0), new Vector2(3, 3), MazeSize.SMALL);
-//        removeWalls();
+        createMaze(new Vector2(0, 0), new Vector2(100, 100), MazeSize.SMALL);
+        removeWalls();
     }
 
 

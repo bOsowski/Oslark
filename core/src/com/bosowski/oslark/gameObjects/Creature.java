@@ -93,7 +93,6 @@ public abstract class Creature extends GameObject{
             amount = amount/2;
             stateTime -= deltaTime/2;
         }
-        System.out.println(position);
         Vector3 futurePos = new Vector3(position);
         futurePos.mulAdd(new Vector3(direction.value.x, direction.value.y, 0), deltaTime*amount);
         setDirection(direction);

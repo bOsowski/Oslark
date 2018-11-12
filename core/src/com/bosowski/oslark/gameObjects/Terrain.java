@@ -23,12 +23,12 @@ public class Terrain extends GameObject {
 
     public Terrain(int id, String name, Vector3 position, boolean collides){
         super(id,name,position, collides);
-        this.origin = new Vector2(0,0 );
         setUp();
     }
 
     public Terrain(String name, Vector3 position, boolean collides){
         super(name, position, collides);
+        //this.origin = new Vector2(0,0 );
         setUp();
     }
 
@@ -80,7 +80,7 @@ public class Terrain extends GameObject {
             this.texture = Assets.instance.textures.get("undefined");
             Gdx.app.error(TAG, "Unable to load any textures for object '"+name+"' ("+id+")");
         }
-        this.collisionBox = new Rectangle(0, 0, 1, 1);
+        this.collisionBox = new Rectangle(this.position.x-origin.x, this.position.y, 1, 1);
     }
 
     @Override
