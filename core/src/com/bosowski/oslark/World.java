@@ -1,10 +1,13 @@
 package com.bosowski.oslark;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.bosowski.oslark.enums.State;
 import com.bosowski.oslark.gameObjects.Creature;
 import com.bosowski.oslark.gameObjects.GameObject;
@@ -40,7 +43,7 @@ public class World {
                 continue;
             }
             if (gameObject instanceof Creature) {
-                gameObject.getCollisionBox().setPosition(gameObject.getPosition().x, gameObject.getPosition().y);
+                gameObject.getCollisionBox().setPosition(gameObject.getPosition().x-gameObject.getOrigin().x/2, gameObject.getPosition().y-gameObject.getOrigin().y);
                 if (gameObject.collides()) {
                     ((Creature) gameObject).reactOnEnvironment(deltaTime);
                 }
@@ -49,9 +52,23 @@ public class World {
         }
     }
 
+    private ShapeRenderer sr = new ShapeRenderer();
+    static private boolean projectionMatrixSet = false;
+
     public void render(SpriteBatch batch) {
         for (GameObject gameObject : gameObjects) {
             gameObject.render(batch);
+//            batch.end();
+//            if(gameObject.getCollisionBox() != null && !(gameObject instanceof DungeonCell)){
+//                if(!projectionMatrixSet){
+//                    sr.setProjectionMatrix(batch.getProjectionMatrix());
+//                }
+//                sr.begin(ShapeRenderer.ShapeType.Filled);
+//                sr.setColor(Color.RED);
+//                sr.rect(gameObject.getCollisionBox().x, gameObject.getCollisionBox().y, gameObject.getCollisionBox().width, gameObject.getCollisionBox().height);
+//                sr.end();
+//            }
+//            batch.begin();
         }
     }
 
@@ -90,8 +107,10 @@ public class World {
     public boolean willCollide(GameObject subject, Vector3 futurePos) {
         for (GameObject other : gameObjects) {
             if (subject != other && subject.collides() && other.collides()) {
-                Rectangle subjectFutureRect = new Rectangle(futurePos.x, futurePos.y, subject.getCollisionBox().width, subject.getCollisionBox().height);
+                //gameObject.getCollisionBox().setPosition();
+                Rectangle subjectFutureRect = new Rectangle(futurePos.x-subject.getOrigin().x/2, futurePos.y-subject.getOrigin().y, subject.getCollisionBox().width, subject.getCollisionBox().height);
                 if (subjectFutureRect.overlaps(other.getCollisionBox())) {
+                    System.out.println("Collides with "+other.getName());
                     return true;
                 }
             }
@@ -99,10 +118,15 @@ public class World {
         return false;
     }
 
-    public boolean isOnTerrain(Vector2 position) {
+    /**
+     * @deprecated
+     * @param bounds
+     * @return
+     */
+    public boolean isOnTerrain(Rectangle bounds) {
         for (GameObject terrain : gameObjects) {
             if(terrain instanceof DungeonCell){
-                if (terrain.getCollisionBox().contains(position.x, position.y)) {
+                if (terrain.getCollisionBox().contains(bounds)) {
                     return true;
                 }
             }

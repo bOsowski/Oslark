@@ -95,9 +95,13 @@ public abstract class Creature extends GameObject{
         }
         Vector3 futurePos = new Vector3(position);
         futurePos.mulAdd(new Vector3(direction.value.x, direction.value.y, 0), deltaTime*amount);
+        Rectangle futureBounds = new Rectangle();
+        futureBounds.setPosition(futurePos.x, futurePos.y);
+        futureBounds.setWidth(collisionBox.getWidth());
+        futureBounds.setHeight(collisionBox.getHeight());
         setDirection(direction);
 
-        if(!World.instance.willCollide(this, futurePos) && World.instance.isOnTerrain(new Vector2(futurePos.x, futurePos.y))) {
+        if(!World.instance.willCollide(this, futurePos)) {
             position = futurePos;
             setState(State.MOVE);
             return true;

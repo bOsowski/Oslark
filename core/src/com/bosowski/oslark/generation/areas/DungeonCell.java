@@ -14,15 +14,24 @@ public class DungeonCell extends Terrain {
 
     public DungeonCell(String name, Vector3 position, boolean collides) {
         super(name, position, collides);
-        walls.put(Direction.UP, new Terrain("wallUp", new Vector3(position.x, position.y+1f, 0), false));
-        walls.put(Direction.DOWN, new Terrain("wallDown", new Vector3(position.x, position.y, 0), false));
-        walls.put(Direction.LEFT, new Terrain("wallLeft", new Vector3(position.x, position.y, 0), false));
-        walls.put(Direction.RIGHT, new Terrain("wallRight", new Vector3(position.x, position.y, 0), false));
+        walls.put(Direction.UP, new Terrain("wallUp", new Vector3(position.x, position.y+1f, 0), true));
+        walls.get(Direction.UP).getCollisionBox().y =  walls.get(Direction.UP).getCollisionBox().y - walls.get(Direction.UP).getOrigin().y;
 
+        walls.put(Direction.DOWN, new Terrain("wallDown", new Vector3(position.x, position.y, 0), true));
+        walls.get(Direction.DOWN).getCollisionBox().y =  walls.get(Direction.DOWN).getCollisionBox().y - walls.get(Direction.DOWN).getOrigin().y;
+        walls.get(Direction.DOWN).getCollisionBox().height =  0.1f;
+
+        walls.put(Direction.LEFT, new Terrain("wallLeft", new Vector3(position.x, position.y, 0), true));
+        walls.get(Direction.LEFT).getCollisionBox().y =  walls.get(Direction.LEFT).getCollisionBox().y - walls.get(Direction.LEFT).getOrigin().y;
         walls.get(Direction.LEFT).setDimension(new Vector2(0.2f,2f));
-        walls.get(Direction.RIGHT).setDimension(new Vector2(-0.2f,2f));
-
+        walls.get(Direction.LEFT).getCollisionBox().width =  walls.get(Direction.LEFT).getDimension().x;
         walls.get(Direction.LEFT).setOrigin(new Vector2(0.5f,0.5f));
+
+        walls.put(Direction.RIGHT, new Terrain("wallRight", new Vector3(position.x, position.y, 0), true));
+        walls.get(Direction.RIGHT).setDimension(new Vector2(-0.2f,2f));
+        walls.get(Direction.RIGHT).getCollisionBox().x =  walls.get(Direction.RIGHT).getPosition().x + walls.get(Direction.RIGHT).getOrigin().x;
+        walls.get(Direction.RIGHT).getCollisionBox().y =  walls.get(Direction.RIGHT).getPosition().y - walls.get(Direction.RIGHT).getOrigin().y;
+        walls.get(Direction.RIGHT).getCollisionBox().width =  walls.get(Direction.RIGHT).getDimension().x;
         walls.get(Direction.RIGHT).setOrigin(new Vector2(-0.5f,0.5f));
     }
 
