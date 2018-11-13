@@ -7,6 +7,7 @@ import oslarkserver.World
 import oslarkserver.gameObjects.GameCharacter
 import oslarkserver.gameObjects.GameObject
 import oslarkserver.gameObjects.Terrain
+import oslarkserver.gameObjects.components.Rectangle
 import oslarkserver.gameObjects.components.Vector3
 import oslarkserver.gameObjects.enums.CharacterClass
 import oslarkserver.gameObjects.enums.Gender
@@ -26,12 +27,12 @@ class BootStrap {
         UserRole.findOrSaveWhere(user: admin, role: adminRole)
         UserRole.findOrSaveWhere(user: user, role: userRole)
 
-        admin.addToCharacters(new GameCharacter(name: "maleKnight", gender: Gender.MALE, characterClass: CharacterClass.KNIGHT, world: world, speed: 10))
-        admin.addToCharacters(new GameCharacter(name: "femaleKnight", gender: Gender.FEMALE, characterClass: CharacterClass.KNIGHT, world: world, speed: 10))
-        admin.addToCharacters(new GameCharacter(name: "maleElf", gender: Gender.MALE, characterClass: CharacterClass.ELF, world: world, speed: 10))
-        admin.addToCharacters(new GameCharacter(name: "femaleElf", gender: Gender.FEMALE, characterClass: CharacterClass.ELF, world: world, speed: 10))
-        admin.addToCharacters(new GameCharacter(name: "maleWizard", gender: Gender.MALE, characterClass: CharacterClass.WIZARD, world: world, speed: 10))
-        admin.addToCharacters(new GameCharacter(name: "femaleWizard", gender: Gender.FEMALE, characterClass: CharacterClass.WIZARD, world: world, speed: 10))
+        admin.addToCharacters(new GameCharacter(name: "maleKnight", gender: Gender.MALE, characterClass: CharacterClass.KNIGHT, world: world, speed: 10, collides: true,  collisionBox: new Rectangle(x: 0, y: 0, width: 0.65, height: 0.25)))
+        admin.addToCharacters(new GameCharacter(name: "femaleKnight", gender: Gender.FEMALE, characterClass: CharacterClass.KNIGHT, world: world, speed: 10, collides: true,  collisionBox: new Rectangle(x: 0, y: 0, width: 0.65, height: 0.25)))
+        admin.addToCharacters(new GameCharacter(name: "maleElf", gender: Gender.MALE, characterClass: CharacterClass.ELF, world: world, speed: 10, collides: true, collisionBox: new Rectangle(x: 0, y: 0, width: 0.65, height: 0.25)))
+        admin.addToCharacters(new GameCharacter(name: "femaleElf", gender: Gender.FEMALE, characterClass: CharacterClass.ELF, world: world, speed: 10, collides: true, collisionBox: new Rectangle(x: 0, y: 0, width: 0.65, height: 0.25)))
+        admin.addToCharacters(new GameCharacter(name: "maleWizard", gender: Gender.MALE, characterClass: CharacterClass.WIZARD, world: world, speed: 10, collides: true, collisionBox: new Rectangle(x: 0, y: 0, width: 0.65, height: 0.25)))
+        admin.addToCharacters(new GameCharacter(name: "femaleWizard", gender: Gender.FEMALE, characterClass: CharacterClass.WIZARD, world: world, speed: 10, collides: true, collisionBox: new Rectangle(x: 0, y: 0, width: 0.65, height: 0.25)))
 
         (0..10).each{ x ->
             (0..10).each { y->

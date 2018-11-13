@@ -16,7 +16,7 @@ class GameObject {
     Vector2 scale = new Vector2(1,1)
     Vector2 dimension = new Vector2(1,1)
     Vector2 origin = new Vector2(0.5, 0.5)
-    Rectangle collisionBox = new Rectangle(x: 0, y: 1, width: 10, height: 10)
+    Rectangle collisionBox = new Rectangle(x: 0, y: 0, width: 1, height: 1)
     boolean collides = false
 
     static belongsTo = [world: World]

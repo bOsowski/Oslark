@@ -1,25 +1,26 @@
 package oslarkserver.gameObjects
 
+import oslarkserver.gameObjects.components.Rectangle
 import oslarkserver.gameObjects.enums.State
 
-class Creature extends GameObject{
+class Creature extends GameObject {
 
-    State state = State.IDLE
-    float speed = 10
-    int level = 1
-    float totalHitpoints = 1
-    float hitpoints = 1
-    float damage = 0
+  State state = State.IDLE
+  float speed = 10
+  int level = 1
+  float totalHitpoints = 1
+  float hitpoints = 1
+  float damage = 0
 
-    static constraints = {
-        level range: 1..99
-    }
+  static constraints = {
+    level range: 1..99
+  }
 
-    static mapping = {
-    }
+  static mapping = {
+  }
 
-    String toJson(){
-        return "{super:${super.toJson()}, state:${state.name}, speed:${speed}, level:${level}, " +
-                "totalHitpoints:${totalHitpoints}, hitpoints:${hitpoints}, damage:${damage}}"
-    }
+  String toJson() {
+    return "{super:${super.toJson()}, state:${state.name}, speed:${speed}, level:${level}, " +
+        "totalHitpoints:${totalHitpoints}, hitpoints:${hitpoints}, damage:${damage}}"
+  }
 }

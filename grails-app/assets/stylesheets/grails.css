@@ -39,14 +39,13 @@ pre {
     font-size: 18px !important;
     text-decoration: none;
 }
-.grails-icon img {
+.oslark_icon img {
     width: 40px;
-
 }
 
 /*TODO: header color here*/
 .navbar-default, .navbar-static-top {
-    background-color: #70594e;
+    background-color: #483b3a;
     border: 0px;
 }
 a.navbar-brand {

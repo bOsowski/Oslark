@@ -85,7 +85,7 @@ img {
 
 /*TODO: footer color*/
 .footer {
-    background: #664f44;
+    background: #483b3a;
     color: #000;
     clear: both;
     font-size: 0.8em;
@@ -561,15 +561,15 @@ a.skip {
     left: -9999px;
 }
 
-.grails-logo-container {
-    background:#947565 no-repeat 50% 30%;
+.oslark_logo_container {
+    background:#31262d no-repeat 50% 30%;
     margin-bottom: 20px;
     color: white;
     height:300px;
     text-align:center;
 }
 
-img.grails-logo {
+img.oslark_logo {
     height:340px;
     margin-top:-10px;
 }

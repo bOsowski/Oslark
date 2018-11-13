@@ -1,26 +1,25 @@
 package oslarkserver.gameObjects
 
 import oslarkserver.User
-import oslarkserver.World
 import oslarkserver.gameObjects.enums.CharacterClass
 import oslarkserver.gameObjects.enums.Gender
 
-class GameCharacter extends Creature{
+class GameCharacter extends Creature {
 
-    CharacterClass characterClass
-    Gender gender = Gender.MALE
+  CharacterClass characterClass
+  Gender gender = Gender.MALE
 
-    static transient belongsTo = [user : User]
+  static transient belongsTo = [user: User]
 
-    static constraints = {
-        name unique: true
-        world nullable: false
-    }
+  static constraints = {
+    name unique: true
+    world nullable: false
+  }
 
-    static embedded = ['position']
+  static embedded = ['position']
 
-    String toJson(){
-        return "{super:${super.toJson()}, characterClass:${characterClass}, gender:${gender}}"
-    }
+  String toJson() {
+    return "{super:${super.toJson()}, characterClass:${characterClass}, gender:${gender}}"
+  }
 
 }
