@@ -40,7 +40,6 @@ public class DungeonRoom {
                 return false;
             }
         }
-        System.out.println("Creating "+bounds.toString());
 
         //create the tiles
         for (int x = 0; x < bounds.width; x++) {
@@ -48,36 +47,46 @@ public class DungeonRoom {
                 add(bounds.x + x, bounds.y + y);
             }
         }
-
-//        for(DungeonCell cell: cells.values()){
-//            if(cell.getPosition().x != bounds.x){
-//                cell.walls.remove(Direction.LEFT);
-//            }
-//            if(cell.getPosition().x != bounds.x+bounds.width-1){
-//                cell.walls.remove(Direction.RIGHT);
-//            }
-//            if(cell.getPosition().y != bounds.y){
-//                cell.walls.remove(Direction.DOWN);
-//            }
-//            if(cell.getPosition().y != bounds.y+bounds.height-1){
-//                cell.walls.remove(Direction.UP);
-//            }
-//            cell.instantiate();
-//        }
         return true;
     }
 
     private void add(float x, float y) {
-        DungeonCell cell = new DungeonCell("floor1", new Vector3((int)x, (int)y, -1), false);
+        DungeonCell cell = new DungeonCell("floor1", new Vector3((int) x, (int) y, -1), false);
         cells.put(new Vector2(x, y), cell);
     }
 
-    private int rand(float min, float max){
-        return ThreadLocalRandom.current().nextInt((int)min, (int)max+1);
+    private int rand(float min, float max) {
+        return ThreadLocalRandom.current().nextInt((int) min, (int) max + 1);
     }
 
-    public HashMap<Vector2, DungeonCell> getCells(){
+    public HashMap<Vector2, DungeonCell> getCells() {
         return cells;
+    }
+
+    public boolean isIsolated(HashMap<Vector2, DungeonCell> otherCells) {
+        for (Direction direction : Direction.getDirections()) {
+            for (int x = (int) bounds.x; x < bounds.x + bounds.width; x++) {
+                if (
+                        (otherCells.containsKey(new Vector2(x, bounds.y).add(direction.value))
+                                || otherCells.containsKey(new Vector2(x, bounds.y + bounds.height).add(direction.value)))
+                                && !cells.containsKey(new Vector2(x, bounds.y).add(direction.value))
+                                && !cells.containsKey(new Vector2(x, bounds.y + bounds.height).add(direction.value))
+                        ) {
+                    return false;
+                }
+            }
+            for (int y = (int) bounds.y; y < bounds.y + bounds.height; y++) {
+                if (
+                        (otherCells.containsKey(new Vector2(bounds.x, y).add(direction.value))
+                                || otherCells.containsKey(new Vector2(bounds.x + bounds.width, y).add(direction.value)))
+                                && !cells.containsKey(new Vector2(bounds.x, y).add(direction.value))
+                                && !cells.containsKey(new Vector2(bounds.x + bounds.width, y).add(direction.value))
+                        ) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public Rectangle getBounds() {
@@ -85,8 +94,9 @@ public class DungeonRoom {
     }
 
     public void clear() {
-        for(DungeonCell cell: cells.values()){
+        for (DungeonCell cell : cells.values()) {
             cell.clear();
+            System.out.println("Room clearing..");
         }
         cells.clear();
     }

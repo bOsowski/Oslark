@@ -53,11 +53,12 @@ public class Maze {
     }
 
     public void create() {
-        for (int x = (int) parentArea.x; x < parentArea.x + parentArea.width; x++) {
-            for (int y = (int) parentArea.y; y < parentArea.y + parentArea.height; y++) {
+        for (int x = (int) parentArea.x; x < parentArea.x + parentArea.width; x+=2) {
+            for (int y = (int) parentArea.y; y < parentArea.y + parentArea.height; y+=2) {
+                System.out.println("Trying to create maze at ("+x+", "+y+")");
                 DungeonCell cell;
                 Stack<Vector2> stack = new Stack<>();
-                Vector2 currentPosition = parentArea.getPosition(new Vector2(x, y));
+                Vector2 currentPosition = new Vector2(x, y);
 
                 if (isFree(currentPosition)) {
                     stack.add(currentPosition);

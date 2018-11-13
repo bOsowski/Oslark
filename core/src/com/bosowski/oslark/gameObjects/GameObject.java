@@ -62,7 +62,6 @@ public abstract class GameObject{
         );
         this.collides = jsonObject.getBoolean("collides");
 
-
         if(Assets.instance.animations.containsKey(name)){
             this.animation = Assets.instance.animations.get(name);
         }

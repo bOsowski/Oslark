@@ -2,6 +2,7 @@ package com.bosowski.oslark;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
@@ -43,7 +44,7 @@ public class World {
                 continue;
             }
             if (gameObject instanceof Creature) {
-                gameObject.getCollisionBox().setPosition(gameObject.getPosition().x-gameObject.getOrigin().x/2, gameObject.getPosition().y-gameObject.getOrigin().y);
+                gameObject.getCollisionBox().setPosition(gameObject.getPosition().x - gameObject.getOrigin().x / 2, gameObject.getPosition().y - gameObject.getOrigin().y);
                 if (gameObject.collides()) {
                     ((Creature) gameObject).reactOnEnvironment(deltaTime);
                 }
@@ -58,18 +59,22 @@ public class World {
     public void render(SpriteBatch batch) {
         for (GameObject gameObject : gameObjects) {
             gameObject.render(batch);
-//            batch.end();
-//            if(gameObject.getCollisionBox() != null && !(gameObject instanceof DungeonCell)){
-//                if(!projectionMatrixSet){
-//                    sr.setProjectionMatrix(batch.getProjectionMatrix());
-//                }
-//                sr.begin(ShapeRenderer.ShapeType.Filled);
-//                sr.setColor(Color.RED);
-//                sr.rect(gameObject.getCollisionBox().x, gameObject.getCollisionBox().y, gameObject.getCollisionBox().width, gameObject.getCollisionBox().height);
-//                sr.end();
-//            }
-//            batch.begin();
+            //showCollision(gameObject, batch);
         }
+    }
+
+    private void showCollision(GameObject gameObject, SpriteBatch batch) {
+        batch.end();
+        if (gameObject.getCollisionBox() != null && !(gameObject instanceof DungeonCell)) {
+            if (!projectionMatrixSet) {
+                sr.setProjectionMatrix(batch.getProjectionMatrix());
+            }
+            sr.begin(ShapeRenderer.ShapeType.Filled);
+            sr.setColor(Color.RED);
+            sr.rect(gameObject.getCollisionBox().x, gameObject.getCollisionBox().y, gameObject.getCollisionBox().width, gameObject.getCollisionBox().height);
+            sr.end();
+        }
+        batch.begin();
     }
 
     public void instantiate(GameObject gameObject) {
@@ -107,10 +112,8 @@ public class World {
     public boolean willCollide(GameObject subject, Vector3 futurePos) {
         for (GameObject other : gameObjects) {
             if (subject != other && subject.collides() && other.collides()) {
-                //gameObject.getCollisionBox().setPosition();
-                Rectangle subjectFutureRect = new Rectangle(futurePos.x-subject.getOrigin().x/2, futurePos.y-subject.getOrigin().y, subject.getCollisionBox().width, subject.getCollisionBox().height);
+                Rectangle subjectFutureRect = new Rectangle(futurePos.x - subject.getOrigin().x / 2, futurePos.y - subject.getOrigin().y, subject.getCollisionBox().width, subject.getCollisionBox().height);
                 if (subjectFutureRect.overlaps(other.getCollisionBox())) {
-                    System.out.println("Collides with "+other.getName());
                     return true;
                 }
             }
@@ -119,13 +122,13 @@ public class World {
     }
 
     /**
-     * @deprecated
      * @param bounds
      * @return
+     * @deprecated
      */
     public boolean isOnTerrain(Rectangle bounds) {
         for (GameObject terrain : gameObjects) {
-            if(terrain instanceof DungeonCell){
+            if (terrain instanceof DungeonCell) {
                 if (terrain.getCollisionBox().contains(bounds)) {
                     return true;
                 }

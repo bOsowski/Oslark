@@ -13,7 +13,7 @@ import com.bosowski.oslark.generation.areas.Dungeon;
 public class GameManager extends InputAdapter {
     public static final String TAG = GameManager.class.getName();
     public World world = World.instance;
-    private static Dungeon dungeon = new Dungeon(new Rectangle(0, 0, 300, 300));
+    private static Dungeon dungeon;
 
 
     public GameManager() {
@@ -55,8 +55,10 @@ public class GameManager extends InputAdapter {
             World.instance.getPlayer().move(World.instance.getPlayer().getSpeed(), deltaTime, Direction.LEFT);
         } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             //World.instance.getPlayer().attack();
-            dungeon.clear();
-            dungeon = new Dungeon( new Rectangle(0, 0, 50, 50));
+            if(dungeon != null){
+                dungeon.clear();
+            }
+            dungeon = new Dungeon( new Rectangle(0, 0, 100, 100), 2,5, 250);
             dungeon.create();
         } else if (!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S) && !Gdx.input.isKeyPressed(Input.Keys.D) && !Gdx.input.isKeyPressed(Input.Keys.A)) {
             World.instance.getPlayer().setState(State.IDLE);

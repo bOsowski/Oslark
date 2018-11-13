@@ -13,13 +13,13 @@ import java.util.concurrent.ThreadLocalRandom;
 public class DungeonCell extends Terrain {
 
     HashMap<Direction, Terrain> walls = new HashMap<>();
-    private static final float chanceOfDifferentTexture = 0.01f;
+    private static final float chanceOfDifferentTexture = 0.03f;
 
     public DungeonCell(String name, Vector3 position, boolean collides) {
         super(ThreadLocalRandom.current().nextFloat() <= chanceOfDifferentTexture ? "floor"+ThreadLocalRandom.current().nextInt(4,11) : "floor4", position, collides);
     }
 
-    private void instantiate() {
+    public void instantiate() {
         World.instance.instantiate(this);
         for (Terrain wall : walls.values()) {
             World.instance.instantiate(wall);
@@ -36,7 +36,6 @@ public class DungeonCell extends Terrain {
                 addWall(direction);
             }
         }
-        instantiate();
     }
 
     public void clear() {
