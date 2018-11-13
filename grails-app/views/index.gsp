@@ -46,8 +46,8 @@
     </content>
 
     <div class="svg" role="presentation">
-        <div class="grails-logo-container">
-            <asset:image src="homepage_logo.png" class="grails-logo"/>
+        <div class="oslark_logo_container">
+            <asset:image src="homepage_logo.png" class="oslark_logo"/>
         </div>
     </div>
 

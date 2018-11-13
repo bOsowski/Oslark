@@ -19,12 +19,13 @@ class ProfileController{
         User user = User.getCurrentUser()
         String charactersJson = ""
         user.characters.eachWithIndex { it, index ->
-            charactersJson += it.toJson()
+            charactersJson += GameCharacter.findById(it.id).toJson()
             if(index < user.characters.size()-1){
                 charactersJson += ", "
             }
         }
         String text = """{username:${user.username}, characters:[${charactersJson}]}"""
+        println(text.toString())
         render(status: 200, text: text)
     }
 

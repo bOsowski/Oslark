@@ -8,4 +8,10 @@ class World {
 
     static constraints = {
     }
+
+    @Override
+    String toString() {
+        return "World #${this.id}"
+    }
+
 }
