@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.enums.Direction;
 import com.bosowski.oslark.enums.State;
@@ -12,7 +13,7 @@ import com.bosowski.oslark.generation.areas.Dungeon;
 public class GameManager extends InputAdapter {
     public static final String TAG = GameManager.class.getName();
     public World world = World.instance;
-    private static Dungeon dungeon = new Dungeon();
+    private static Dungeon dungeon = new Dungeon(new Rectangle(0, 0, 300, 300));
 
 
     public GameManager() {
@@ -55,7 +56,7 @@ public class GameManager extends InputAdapter {
         } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             //World.instance.getPlayer().attack();
             dungeon.clear();
-            dungeon = new Dungeon();
+            dungeon = new Dungeon( new Rectangle(0, 0, 50, 50));
             dungeon.create();
         } else if (!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S) && !Gdx.input.isKeyPressed(Input.Keys.D) && !Gdx.input.isKeyPressed(Input.Keys.A)) {
             World.instance.getPlayer().setState(State.IDLE);

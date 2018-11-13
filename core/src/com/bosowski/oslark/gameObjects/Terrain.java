@@ -69,7 +69,7 @@ public class Terrain extends GameObject {
                 '}';
     }
 
-    private void setUp(){
+    protected void setUp(){
         if(Assets.instance.animations.containsKey(name)){
             this.animation = Assets.instance.animations.get(name);
         }
