@@ -1,11 +1,13 @@
 package oslarkserver.gameObjects
 
 import oslarkserver.gameObjects.components.Rectangle
+import oslarkserver.gameObjects.enums.Direction
 import oslarkserver.gameObjects.enums.State
 
 class Creature extends GameObject {
 
   State state = State.IDLE
+  Direction direction = Direction.DOWN
   float speed = 10
   int level = 1
   float totalHitpoints = 1
@@ -20,7 +22,7 @@ class Creature extends GameObject {
   }
 
   String toJson() {
-    return "{super:${super.toJson()}, state:${state.name}, speed:${speed}, level:${level}, " +
+    return "{super:${super.toJson()}, state:${state.name}, speed:${speed}, level:${level}, direction:${direction}, " +
         "totalHitpoints:${totalHitpoints}, hitpoints:${hitpoints}, damage:${damage}}"
   }
 }
