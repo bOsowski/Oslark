@@ -31,7 +31,7 @@ class DungeonRoom {
     bounds.width = rand(minSize, maxSize)
     bounds.x = rand((int) parentArea.x, (int) (parentArea.x + parentArea.width - bounds.width))
     bounds.y = rand((int) parentArea.y, (int) (parentArea.y + parentArea.height - bounds.height))
-
+    println bounds
     //check if the generated room is colliding with other rooms
     otherRooms.each {
       if (bounds.overlaps(it.getBounds())) {
@@ -40,16 +40,18 @@ class DungeonRoom {
     }
 
     //create the tiles
-    (0..bounds.width).each { x ->
-      (0..bounds.height).each { y ->
-        add(bounds.x + x as float, bounds.y + y as float)
+    for (int x = 0; x < bounds.width; x++) {
+      for (int y = 0; y < bounds.height; y++) {
+        add(bounds.x + x as float, bounds.y + y as float);
       }
     }
+    assert cells.size() == (int)(bounds.width * bounds.height)
     return true
   }
 
   private void add(float x, float y) {
     DungeonCell cell = new DungeonCell(new Vector2((int) x, (int) y))
+    assert !cells.containsKey(new Vector2(x, y),)
     cells.put(new Vector2(x, y), cell)
   }
 
