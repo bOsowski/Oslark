@@ -8,7 +8,13 @@ import com.badlogic.gdx.math.Rectangle;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.enums.Direction;
 import com.bosowski.oslark.enums.State;
+import com.bosowski.oslark.gameObjects.Terrain;
 import com.bosowski.oslark.generation.areas.Dungeon;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 public class GameManager extends InputAdapter {
     public static final String TAG = GameManager.class.getName();
@@ -53,7 +59,29 @@ public class GameManager extends InputAdapter {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             World.instance.getPlayer().move(World.instance.getPlayer().getSpeed(), deltaTime, Direction.LEFT);
-        } else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.O)){
+            World.showCollisionBoxes = !World.showCollisionBoxes;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
+            world.getGameObjects().clear();
+            world.instantiate(world.getPlayer());
+            String worldJson;
+            try {
+                worldJson = Session.instance.loadWorld("characterName=" + World.instance.getPlayer().getName());
+                System.out.println(worldJson);
+                JSONObject jsonObj = new JSONObject(worldJson);
+                JSONArray terrain = jsonObj.getJSONArray("terrain");
+                for (Object tile : terrain) {
+                    Terrain terrainTile = new Terrain((JSONObject) tile);
+                    World.instance.instantiate(terrainTile);
+                    System.out.println("Loaded terrain: " + terrainTile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             //World.instance.getPlayer().attack();
             if(dungeon != null){
                 dungeon.clear();

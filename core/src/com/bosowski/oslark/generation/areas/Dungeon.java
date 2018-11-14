@@ -91,7 +91,6 @@ public class Dungeon {
 
         System.out.println("Finished removing walls.");
         created = true;
-        World.instance.getPlayer().setPosition(new Vector3(dungeonRooms.get(0).getBounds().x, dungeonRooms.get(0).getBounds().y, 0f));
+       // World.instance.getPlayer().setPosition(new Vector3(dungeonRooms.get(0).getBounds().x, dungeonRooms.get(0).getBounds().y, 0f));
     }
-
 }

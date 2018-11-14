@@ -29,6 +29,7 @@ import java.util.HashMap;
 public class World {
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
     private final HashMap<Integer, GameObject> gameObjectsById = new HashMap<>();
+    public static boolean showCollisionBoxes = false;
     Player player;
 
     public static final World instance = new World();
@@ -59,7 +60,9 @@ public class World {
     public void render(SpriteBatch batch) {
         for (GameObject gameObject : gameObjects) {
             gameObject.render(batch);
-            //showCollision(gameObject, batch);
+            if(showCollisionBoxes){
+                showCollision(gameObject, batch);
+            }
         }
     }
 

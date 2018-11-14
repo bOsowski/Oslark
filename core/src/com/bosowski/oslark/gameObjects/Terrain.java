@@ -28,13 +28,13 @@ public class Terrain extends GameObject {
 
     public Terrain(String name, Vector3 position, boolean collides){
         super(name, position, collides);
-        //this.origin = new Vector2(0,0 );
         setUp();
     }
 
     public Terrain(JSONObject jsonObject){
         super(jsonObject.getJSONObject("super"));
         this.terrain = TerrainType.valueOf(jsonObject.getString("terrainType"));
+//        setUp();
     }
 
     public Terrain(String name, TextureRegion texture, TerrainType terrain, Vector2 scale, boolean collides, Rectangle collisionBox, Vector3 position){

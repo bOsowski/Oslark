@@ -33,7 +33,11 @@ public abstract class GameObject{
 
 
     protected GameObject(JSONObject jsonObject){
-        this.id = jsonObject.getInt("id");
+        try{
+            this.id = jsonObject.getInt("id");
+        }catch (Exception e){
+
+        }
         this.name = jsonObject.getString("name");
         this.position = new Vector3(
                 jsonObject.getJSONObject("position").getFloat("x"),
@@ -54,12 +58,15 @@ public abstract class GameObject{
                 jsonObject.getJSONObject("origin").getFloat("x"),
                 jsonObject.getJSONObject("origin").getFloat("y")
         );
-        this.collisionBox = new Rectangle(
-                jsonObject.getJSONObject("collisionBox").getFloat("x"),
-                jsonObject.getJSONObject("collisionBox").getFloat("y"),
-                jsonObject.getJSONObject("collisionBox").getFloat("width"),
-                jsonObject.getJSONObject("collisionBox").getFloat("height")
-        );
+        if(!jsonObject.isNull("collisionBox")){
+            this.collisionBox = new Rectangle(
+                    jsonObject.getJSONObject("collisionBox").getFloat("x"),
+                    jsonObject.getJSONObject("collisionBox").getFloat("y"),
+                    jsonObject.getJSONObject("collisionBox").getFloat("width"),
+                    jsonObject.getJSONObject("collisionBox").getFloat("height")
+            );
+        }
+
         this.collides = jsonObject.getBoolean("collides");
 
         if(Assets.instance.animations.containsKey(name)){

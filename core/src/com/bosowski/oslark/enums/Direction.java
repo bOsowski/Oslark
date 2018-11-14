@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public enum Direction {
-    UP("up", new Vector2(0.0f,1.0f)), RIGHT("right", new Vector2(1.0f,0.0f)), DOWN("down", new Vector2(0.0f,-1.0f)), LEFT("left", new Vector2(-1.0f,0.0f)),TOPRIGHT("left", new Vector2(1.0f,1.0f)),BOTTOMRIGHT("left", new Vector2(1.0f,-1.0f)), BOTTOMLEFT("left", new Vector2(-1.0f,-1.0f)), TOPLEFT("left", new Vector2(-1.0f,1.0f)), INVALID("invalid", new Vector2(0.0f,0.0f));
+    UP("up", new Vector2(0.0f,1.0f)), RIGHT("right", new Vector2(1.0f,0.0f)), DOWN("down", new Vector2(0.0f,-1.0f)), LEFT("left", new Vector2(-1.0f,0.0f));
 
     public final String name;
     public final Vector2 value;
@@ -27,7 +27,7 @@ public enum Direction {
             case "left":
                 return LEFT;
             default:
-                return INVALID;
+                return null;
         }
     }
 
@@ -47,7 +47,6 @@ public enum Direction {
             case 3:
                 return DOWN;
             default:
-                System.err.println("Direction.getRandom - ERROR.");
                 return null;
         }
     }
