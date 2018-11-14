@@ -1,0 +1,96 @@
+<gameObjects>
+    <Terrain>
+        <id>0</id>
+        <name>testObject1</name>
+        <texture>undefined</texture>
+        <scale>
+            <x>1</x>
+            <y>1</y>
+        </scale>
+        <type>normal</type>
+        <collides>false</collides>
+        <collisionBox>
+            <height>1</height>
+            <width>1</width>
+        </collisionBox>
+    </Terrain>
+
+    <Terrain>
+        <id>1</id>
+        <name>Grass</name>
+        <texture>simpleGrass</texture>
+        <scale>
+            <x>1</x>
+            <y>1</y>
+        </scale>
+        <type>normal</type>
+        <collides>false</collides>
+        <collisionBox>
+            <height>1</height>
+            <width>1</width>
+        </collisionBox>
+    </Terrain>
+
+    <Terrain>
+        <id>2</id>
+        <name>Fire</name>
+        <animation>fire</animation>
+        <scale>
+            <x>1</x>
+            <y>1</y>
+        </scale>
+        <type>fire</type>
+        <collides>false</collides>
+        <collisionBox>
+            <height>1</height>
+            <width>1</width>
+        </collisionBox>
+    </Terrain>
+
+    <Player>
+        <id>3</id>
+        <name>Swords Man</name>
+        <stateAnimation>swordsman</stateAnimation>
+        <scale>
+            <x>3</x>
+            <y>3</y>
+        </scale>
+        <collides>true</collides>
+        <collisionBox>
+            <height>0.25</height>
+            <width>1</width>
+        </collisionBox>
+    </Player>
+
+    <Monster>
+        <id>4</id>
+        <name>Bat</name>
+        <stateAnimation>bat</stateAnimation>
+        <scale>
+            <x>1</x>
+            <y>1</y>
+        </scale>
+        <collides>true</collides>
+        <collisionBox>
+            <height>1</height>
+            <width>1</width>
+        </collisionBox>
+    </Monster>
+
+    <Terrain>
+        <id>5</id>
+        <name>Muck</name>
+        <texture>simpleMuck</texture>
+        <scale>
+            <x>1</x>
+            <y>1</y>
+        </scale>
+        <type>muck</type>
+        <collides>false</collides>
+        <collisionBox>
+            <height>1</height>
+            <width>1</width>
+        </collisionBox>
+    </Terrain>
+
+</gameObjects>
