@@ -6,24 +6,24 @@ import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.enums.Direction;
 import com.bosowski.oslark.gameObjects.Terrain;
+import com.bosowski.oslark.utils.Util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Stack;
-import java.util.concurrent.ThreadLocalRandom;
-
-import static java.lang.Thread.sleep;
 
 public class Maze {
 
     private HashMap<Vector2, DungeonCell> cells = new HashMap<>();
     private Rectangle parentArea;
     private ArrayList<DungeonRoom> rooms;
+    private Random random;
 
-    public Maze(Rectangle parentArea, ArrayList<DungeonRoom> rooms) {
+    public Maze(Rectangle parentArea, ArrayList<DungeonRoom> rooms, Random random) {
         this.rooms = rooms;
         this.parentArea = parentArea;
+        this.random = random;
     }
 
     private boolean isMoveValid(Vector2 currentPosition, Direction chosenDirection) {
@@ -62,23 +62,23 @@ public class Maze {
 
                 if (isFree(currentPosition)) {
                     stack.add(currentPosition);
-                    cell = new DungeonCell("floor1", new Vector3(currentPosition.x, currentPosition.y, -1), false);
+                    cell = new DungeonCell(new Vector3(currentPosition.x, currentPosition.y, -1), false, random);
                     cells.put(currentPosition, cell);
 
                     while (!stack.isEmpty()) {
                         final ArrayList<Direction> directions = new ArrayList<>(Direction.getDirections());
                         while (!directions.isEmpty()) {
-                            final Direction chosenDir = directions.get(ThreadLocalRandom.current().nextInt(0, directions.size()));
+                            final Direction chosenDir = directions.get(Util.randomInt(random, 0, directions.size()-1));
                             currentPosition = new Vector2(new Vector2(currentPosition).add(chosenDir.value)).add(chosenDir.value);
                             if (!isMoveValid(currentPosition, chosenDir)) {
                                 directions.remove(chosenDir);
                                 currentPosition = new Vector2(stack.peek());
                             } else {
-                                cell = new DungeonCell("floor1", new Vector3(currentPosition.x, currentPosition.y, -1), false);
+                                cell = new DungeonCell(new Vector3(currentPosition.x, currentPosition.y, -1), false, random);
                                 cells.put(currentPosition, cell);
                                 stack.add(currentPosition);
                                 Vector2 secondTile = new Vector2(currentPosition).sub(chosenDir.value);
-                                cell = new DungeonCell("floor1", new Vector3(secondTile.x, secondTile.y, -1), false);
+                                cell = new DungeonCell(new Vector3(secondTile.x, secondTile.y, -1), false, random);
                                 cells.put(secondTile, cell);
                                 break;
                             }

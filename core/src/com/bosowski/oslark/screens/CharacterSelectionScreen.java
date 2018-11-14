@@ -66,21 +66,21 @@ public class CharacterSelectionScreen extends AbstractGameScreen {
                 public boolean touchDown(InputEvent event, float x, float y, int point, int button) {
                     System.out.println("Picked " + player.getName());
                     World.instance.setPlayer(characters.get(player.getName()));
-                    String worldJson = null;
-                    try {
-                        worldJson = Session.instance.loadWorld("characterName=" + World.instance.getPlayer().getName());
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(worldJson);
-                    JSONObject jsonObj = new JSONObject(worldJson);
-                    JSONArray terrain = jsonObj.getJSONArray("terrain");
-                    for (Object tile : terrain) {
-                        Terrain terrainTile = new Terrain((JSONObject) tile);
-                        World.instance.instantiate(terrainTile);
-                        System.out.println("Loaded terrain: " + terrainTile);
-                    }
+//                    String worldJson = null;
+//                    try {
+//                        worldJson = Session.instance.loadWorld("characterName=" + World.instance.getPlayer().getName());
+//
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    System.out.println(worldJson);
+//                    JSONObject jsonObj = new JSONObject(worldJson);
+//                    JSONArray terrain = jsonObj.getJSONArray("terrain");
+//                    for (Object tile : terrain) {
+//                        Terrain terrainTile = new Terrain((JSONObject) tile);
+//                        World.instance.instantiate(terrainTile);
+//                        System.out.println("Loaded terrain: " + terrainTile);
+//                    }
 
                     game.setScreen(new GameScreen(game));
                     return true;

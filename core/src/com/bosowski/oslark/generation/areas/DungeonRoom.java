@@ -5,10 +5,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.enums.Direction;
+import com.bosowski.oslark.utils.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public class DungeonRoom {
 
@@ -19,12 +20,14 @@ public class DungeonRoom {
     private int maxSize;
     private Rectangle parentArea;
     private ArrayList<DungeonRoom> otherRooms;
+    private final Random random;
 
-    public DungeonRoom(int minSize, int maxSize, Rectangle parentArea, ArrayList<DungeonRoom> otherRooms) {
+    public DungeonRoom(int minSize, int maxSize, Rectangle parentArea, ArrayList<DungeonRoom> otherRooms, Random random) {
         this.minSize = minSize;
         this.maxSize = maxSize;
         this.parentArea = parentArea;
         this.otherRooms = otherRooms;
+        this.random = random;
     }
 
     public boolean create() {
@@ -51,12 +54,12 @@ public class DungeonRoom {
     }
 
     private void add(float x, float y) {
-        DungeonCell cell = new DungeonCell("floor1", new Vector3((int) x, (int) y, -1), false);
+        DungeonCell cell = new DungeonCell(new Vector3((int) x, (int) y, -1), false, random);
         cells.put(new Vector2(x, y), cell);
     }
 
     private int rand(float min, float max) {
-        return ThreadLocalRandom.current().nextInt((int) min, (int) max + 1);
+        return Util.randomInt(random, (int) min, (int) max + 1);
     }
 
     public HashMap<Vector2, DungeonCell> getCells() {
@@ -96,7 +99,6 @@ public class DungeonRoom {
     public void clear() {
         for (DungeonCell cell : cells.values()) {
             cell.clear();
-            System.out.println("Room clearing..");
         }
         cells.clear();
     }

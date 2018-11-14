@@ -2,12 +2,11 @@ package com.bosowski.oslark.generation.areas;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.bosowski.oslark.World;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.Random;
 
 public class Dungeon {
     private HashMap<Vector2, DungeonCell> dungeonCells = new HashMap<>();
@@ -20,11 +19,26 @@ public class Dungeon {
     private int maxRoomSize;
     private int roomCreationAttempts;
 
-    public Dungeon(Rectangle bounds, int minRoomSize, int maxRoomSize, int roomCreationAttempts) {
+    public final Random random;
+
+    public Dungeon(Rectangle bounds, int minRoomSize, int maxRoomSize, int roomCreationAttempts, long seed) {
         this.bounds = bounds;
         this.minRoomSize = minRoomSize;
         this.maxRoomSize = maxRoomSize;
         this.roomCreationAttempts = roomCreationAttempts;
+        this.random = new Random(seed);
+    }
+
+    public void create() {
+        if (created) {
+            return;
+        }
+        createRooms();
+        createMazes();
+        shrinkMazes();
+        removeIsolatedRooms();
+        createWallsAndInstantiate();
+        created = true;
     }
 
     public void clear() {
@@ -33,64 +47,57 @@ public class Dungeon {
         }
     }
 
-    public void create() {
-        if (created) {
-            return;
-        }
-
+    private void createRooms() {
         for (int i = 0; i < roomCreationAttempts; i++) {
-            DungeonRoom room = new DungeonRoom(minRoomSize, maxRoomSize, bounds, dungeonRooms);
+            DungeonRoom room = new DungeonRoom(minRoomSize, maxRoomSize, bounds, dungeonRooms, random);
             if (room.create()) {
                 dungeonRooms.add(room);
                 dungeonCells.putAll(room.getCells());
             }
         }
+    }
 
-        maze = new Maze(bounds, dungeonRooms);
+    private void createMazes() {
+        maze = new Maze(bounds, dungeonRooms, random);
         maze.create();
         dungeonCells.putAll(maze.getCells());
+    }
 
-        int cellsRemoved;
-        do {
-            cellsRemoved = 0;
-            ArrayList<DungeonCell> cellsToRemove = new ArrayList<>();
-            for (DungeonCell cell : maze.getCells().values()) {
-                ArrayList<DungeonCell> neighbours = cell.getNeighbours(dungeonCells);
-                if (neighbours.size() == 1) {
-                    World.instance.destroy(cell);
-                    dungeonCells.remove(cell.getVector2());
-                    cellsToRemove.add(cell);
-                    cellsRemoved++;
+    private void shrinkMazes() {
+        Iterator<Map.Entry<Vector2, DungeonCell>> entryIterator;
+        boolean deletedAny = true;
+        while (deletedAny) {
+            entryIterator = dungeonCells.entrySet().iterator();
+            deletedAny = false;
+            while (entryIterator.hasNext()) {
+                Map.Entry<Vector2, DungeonCell> entry = entryIterator.next();
+                if (entry.getValue().getNeighbours(dungeonCells).size() <= 1) {
+                    entryIterator.remove();
+                    deletedAny = true;
                 }
             }
-            for (DungeonCell cellToRemove : cellsToRemove) {
-                maze.getCells().remove(cellToRemove.getVector2());
-            }
-        } while (cellsRemoved != 0);
-        System.out.println("Finished shrinking maze.");
+        }
+    }
 
+    private void removeIsolatedRooms() {
         Iterator<DungeonRoom> iter = dungeonRooms.iterator();
-        while(iter.hasNext()){
+        while (iter.hasNext()) {
             DungeonRoom room = iter.next();
-            if(room.isIsolated(dungeonCells)){
+            if (room.isIsolated(dungeonCells)) {
                 System.out.println("Clearing room");
-                for(Vector2 cell: room.getCells().keySet()){
+                for (Vector2 cell : room.getCells().keySet()) {
                     dungeonCells.remove(cell);
                 }
                 room.clear();
                 iter.remove();
             }
         }
+    }
 
-        maze.create();
-
+    private void createWallsAndInstantiate(){
         for (DungeonCell cell : dungeonCells.values()) {
             cell.setUpWalls(dungeonCells);
             cell.instantiate();
         }
-
-        System.out.println("Finished removing walls.");
-        created = true;
-       // World.instance.getPlayer().setPosition(new Vector3(dungeonRooms.get(0).getBounds().x, dungeonRooms.get(0).getBounds().y, 0f));
     }
 }

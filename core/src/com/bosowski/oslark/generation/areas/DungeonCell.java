@@ -5,18 +5,23 @@ import com.badlogic.gdx.math.Vector3;
 import com.bosowski.oslark.World;
 import com.bosowski.oslark.enums.Direction;
 import com.bosowski.oslark.gameObjects.Terrain;
+import com.bosowski.oslark.utils.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Random;
 
 public class DungeonCell extends Terrain {
 
     HashMap<Direction, Terrain> walls = new HashMap<>();
-    private static final float chanceOfDifferentTexture = 0.03f;
+    private static final float chanceOfDifferentWall = 0.05f;
+    private static final float chanceOfDifferentFloor = 0.25f;
+    private final Random random;
 
-    public DungeonCell(String name, Vector3 position, boolean collides) {
-        super(ThreadLocalRandom.current().nextFloat() <= chanceOfDifferentTexture ? "floor"+ThreadLocalRandom.current().nextInt(4,11) : "floor4", position, collides);
+    public DungeonCell(Vector3 position, boolean collides, Random random) {
+        super(random.nextFloat() <= chanceOfDifferentFloor ? "floor"+ Util.randomInt(random, 4,11) : "floor4", position, collides);
+        System.out.println("generated = "+name);
+        this.random = random;
     }
 
     public void instantiate() {
@@ -81,10 +86,10 @@ public class DungeonCell extends Terrain {
             wall.getCollisionBox().height = 0.1f;
             walls.put(Direction.DOWN, wall);
         } else {
-            float chance = ThreadLocalRandom.current().nextFloat();
+            float chance = random.nextFloat();
             int wallType = 4;
-            if(chance <= chanceOfDifferentTexture){
-                wallType = ThreadLocalRandom.current().nextInt(0, 11);
+            if(chance <= chanceOfDifferentWall){
+                wallType = Util.randomInt(random, 0, 11);
             }
             if (wallType < 4) {
                 name = "floor" + wallType;

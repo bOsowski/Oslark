@@ -16,6 +16,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import static java.lang.Thread.sleep;
+
 public class GameManager extends InputAdapter {
     public static final String TAG = GameManager.class.getName();
     public World world = World.instance;
@@ -83,11 +85,15 @@ public class GameManager extends InputAdapter {
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             //World.instance.getPlayer().attack();
-            if(dungeon != null){
-                dungeon.clear();
-            }
-            dungeon = new Dungeon( new Rectangle(0, 0, 100, 100), 2,5, 250);
+            world.getGameObjects().clear();
+            world.instantiate(world.getPlayer());
+            dungeon = new Dungeon( new Rectangle(-5, -5, 10, 10), 2,4, 4, 0);
             dungeon.create();
+            try {
+                sleep(250);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         } else if (!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S) && !Gdx.input.isKeyPressed(Input.Keys.D) && !Gdx.input.isKeyPressed(Input.Keys.A)) {
             World.instance.getPlayer().setState(State.IDLE);
         }

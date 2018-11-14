@@ -61,6 +61,7 @@ public class Session {
         connection.setDoInput(true);
         connection.getOutputStream().write(message.getBytes());
         Gdx.app.debug(TAG, "Post parameters : " + message);
+        connection.setReadTimeout(100000);
         connection.getHeaderFields();
         return getResponseAsString(connection);
     }

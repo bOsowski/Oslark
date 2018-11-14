@@ -32,6 +32,9 @@ public class World {
     public static boolean showCollisionBoxes = false;
     Player player;
 
+    private ShapeRenderer sr = new ShapeRenderer();
+    private static boolean projectionMatrixSet = false;
+
     public static final World instance = new World();
 
     private World() {
@@ -54,9 +57,6 @@ public class World {
         }
     }
 
-    private ShapeRenderer sr = new ShapeRenderer();
-    static private boolean projectionMatrixSet = false;
-
     public void render(SpriteBatch batch) {
         for (GameObject gameObject : gameObjects) {
             gameObject.render(batch);
@@ -71,6 +71,7 @@ public class World {
         if (gameObject.getCollisionBox() != null && !(gameObject instanceof DungeonCell)) {
             if (!projectionMatrixSet) {
                 sr.setProjectionMatrix(batch.getProjectionMatrix());
+                projectionMatrixSet = true;
             }
             sr.begin(ShapeRenderer.ShapeType.Filled);
             sr.setColor(Color.RED);

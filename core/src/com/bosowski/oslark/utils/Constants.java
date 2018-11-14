@@ -8,7 +8,7 @@ public final class Constants {
 
     //Viewport dimenstions
     public static final float VIEWPORT_HEIGHT = 13f;
-    public static final float VIEWPORT_WIDTH = 20f;
+    public static final float VIEWPORT_WIDTH = 23f;
 
     //Images atlas
     public static final String TEXTURE_ATLAS = "atlas/game.atlas";
