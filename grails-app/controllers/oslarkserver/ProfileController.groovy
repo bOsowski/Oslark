@@ -39,7 +39,7 @@ class ProfileController {
       throw new Exception("This user does not have this character!")
     }
     StringBuilder sb = new StringBuilder("{terrain:[")
-    DungeonGenerator dg = new DungeonGenerator(new Rectangle(0f, 0f, 10, 10), 2, 3, 3)
+    DungeonGenerator dg = new DungeonGenerator(new Rectangle(-5f, -5f, 10, 10), 2, 4, 4)
     dg.create()
     ArrayList<Terrain> terrain = dg.generation()
     println(terrain.toString())

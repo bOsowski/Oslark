@@ -44,23 +44,22 @@ class Vector2 {
     y -= v.y
     return this  }
 
-  @Override
-  boolean equals (Object obj) {
-    if (super.equals(obj)) return true
-    if (obj == null) return false
-    if (getClass() != obj.getClass()) return false
-    com.badlogic.gdx.math.Vector2 other = new com.badlogic.gdx.math.Vector2(x,y)
-    if (NumberUtils.floatToIntBits(x) != NumberUtils.floatToIntBits(other.x)) return false
-    if (NumberUtils.floatToIntBits(y) != NumberUtils.floatToIntBits(other.y)) return false
+  boolean equals(o) {
+    if (this.is(o)) return true
+    if (getClass() != o.class) return false
+
+    Vector2 vector2 = (Vector2) o
+
+    if (Float.compare(vector2.x, x) != 0) return false
+    if (Float.compare(vector2.y, y) != 0) return false
+
     return true
   }
 
-  @Override
-  int hashCode () {
-    final int prime = 31
-    int result = 1
-    result = prime * result + NumberUtils.floatToIntBits(x)
-    result = prime * result + NumberUtils.floatToIntBits(y)
+  int hashCode() {
+    int result
+    result = (x != +0.0f ? Float.floatToIntBits(x) : 0)
+    result = 31 * result + (y != +0.0f ? Float.floatToIntBits(y) : 0)
     return result
   }
 }
