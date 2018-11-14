@@ -2,7 +2,7 @@ package oslarkserver.gameObjects
 
 class Terrain extends GameObject{
 
-    TerrainType terrain
+    TerrainType terrain = TerrainType.NORMAL
 
     static constraints = {
     }
@@ -15,7 +15,6 @@ class Terrain extends GameObject{
         TerrainType(String name){
             this.name = name
         }
-
     }
 
     String toJson(){

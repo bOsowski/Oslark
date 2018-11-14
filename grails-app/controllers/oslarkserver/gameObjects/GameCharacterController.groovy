@@ -2,6 +2,7 @@ package oslarkserver.gameObjects
 
 import grails.plugin.springsecurity.annotation.Secured
 import oslarkserver.User
+import oslarkserver.gameObjects.components.Rectangle
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -42,7 +43,8 @@ class GameCharacterController {
             respond gameCharacter.errors, view:'create'
             return
         }
-
+        gameCharacter.collides = true
+        gameCharacter.collisionBox = new Rectangle(0,0,0.25,0.65)
         gameCharacter.save flush:true
 
         request.withFormat {
