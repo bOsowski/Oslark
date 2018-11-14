@@ -1,7 +1,9 @@
 package com.bosowski.oslark.generation.areas;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,6 +11,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class Dungeon {
+    public static final String TAG = Dungeon.class.getName();
+
     private HashMap<Vector2, DungeonCell> dungeonCells = new HashMap<>();
     private ArrayList<DungeonRoom> dungeonRooms = new ArrayList<>();
     private Maze maze;
@@ -48,6 +52,7 @@ public class Dungeon {
     }
 
     private void createRooms() {
+        Gdx.app.log(TAG, "Creating rooms..");
         for (int i = 0; i < roomCreationAttempts; i++) {
             DungeonRoom room = new DungeonRoom(minRoomSize, maxRoomSize, bounds, dungeonRooms, random);
             if (room.create()) {
@@ -55,15 +60,19 @@ public class Dungeon {
                 dungeonCells.putAll(room.getCells());
             }
         }
+        Gdx.app.log(TAG, "Finished creating rooms.");
     }
 
     private void createMazes() {
+        Gdx.app.log(TAG, "Creating mazes..");
         maze = new Maze(bounds, dungeonRooms, random);
         maze.create();
         dungeonCells.putAll(maze.getCells());
+        Gdx.app.log(TAG, "Finished creating mazes.");
     }
 
     private void shrinkMazes() {
+        Gdx.app.log(TAG, "Shrinking mazes..");
         Iterator<Map.Entry<Vector2, DungeonCell>> entryIterator;
         boolean deletedAny = true;
         while (deletedAny) {
@@ -77,14 +86,15 @@ public class Dungeon {
                 }
             }
         }
+        Gdx.app.log(TAG, "Finished shrinking mazes..");
     }
 
     private void removeIsolatedRooms() {
+        Gdx.app.log(TAG, "Removing isolated rooms..");
         Iterator<DungeonRoom> iter = dungeonRooms.iterator();
         while (iter.hasNext()) {
             DungeonRoom room = iter.next();
             if (room.isIsolated(dungeonCells)) {
-                System.out.println("Clearing room");
                 for (Vector2 cell : room.getCells().keySet()) {
                     dungeonCells.remove(cell);
                 }
@@ -92,12 +102,15 @@ public class Dungeon {
                 iter.remove();
             }
         }
+        Gdx.app.log(TAG, "Finished removing isolated rooms..");
     }
 
     private void createWallsAndInstantiate(){
+        Gdx.app.log(TAG, "Creating walls and instantiating..");
         for (DungeonCell cell : dungeonCells.values()) {
             cell.setUpWalls(dungeonCells);
             cell.instantiate();
         }
+        Gdx.app.log(TAG, "Finished creating walls and instantiating..");
     }
 }

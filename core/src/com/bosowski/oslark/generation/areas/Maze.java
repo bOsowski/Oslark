@@ -28,7 +28,7 @@ public class Maze {
 
     private boolean isMoveValid(Vector2 currentPosition, Direction chosenDirection) {
         Vector2 backStep = new Vector2(currentPosition).sub(chosenDirection.value);
-        if (cells.containsKey(currentPosition) || cells.containsKey(backStep) || currentPosition.x < parentArea.x || currentPosition.x > parentArea.x + parentArea.width || currentPosition.y < parentArea.y || currentPosition.y > parentArea.y + parentArea.width) {
+        if (cells.containsKey(currentPosition) || cells.containsKey(backStep) || currentPosition.x < parentArea.x || currentPosition.x > parentArea.x + parentArea.width || currentPosition.y < parentArea.y || currentPosition.y > parentArea.y + parentArea.height) {
             return false;
         }
         for (DungeonRoom room : rooms) {
@@ -55,7 +55,6 @@ public class Maze {
     public void create() {
         for (int x = (int) parentArea.x; x < parentArea.x + parentArea.width; x+=2) {
             for (int y = (int) parentArea.y; y < parentArea.y + parentArea.height; y+=2) {
-                System.out.println("Trying to create maze at ("+x+", "+y+")");
                 DungeonCell cell;
                 Stack<Vector2> stack = new Stack<>();
                 Vector2 currentPosition = new Vector2(x, y);

@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static java.lang.Thread.sleep;
 
@@ -87,7 +88,7 @@ public class GameManager extends InputAdapter {
             //World.instance.getPlayer().attack();
             world.getGameObjects().clear();
             world.instantiate(world.getPlayer());
-            dungeon = new Dungeon( new Rectangle(-5, -5, 10, 10), 2,4, 4, 0);
+            dungeon = new Dungeon( new Rectangle(-5, -5, 900, 10), 2,7, 700, ThreadLocalRandom.current().nextInt());
             dungeon.create();
             try {
                 sleep(250);

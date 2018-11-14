@@ -20,7 +20,6 @@ public class DungeonCell extends Terrain {
 
     public DungeonCell(Vector3 position, boolean collides, Random random) {
         super(random.nextFloat() <= chanceOfDifferentFloor ? "floor"+ Util.randomInt(random, 4,11) : "floor4", position, collides);
-        System.out.println("generated = "+name);
         this.random = random;
     }
 
@@ -89,7 +88,7 @@ public class DungeonCell extends Terrain {
             float chance = random.nextFloat();
             int wallType = 4;
             if(chance <= chanceOfDifferentWall){
-                wallType = Util.randomInt(random, 0, 11);
+                wallType = Util.randomInt(random, 0, 10);
             }
             if (wallType < 4) {
                 name = "floor" + wallType;
