@@ -24,8 +24,8 @@ class Player : Creature {
   constructor(jsonObject: JSONObject) : super(jsonObject.getJSONObject("super")) {
     this.gender = Gender.valueOf(jsonObject.getString("gender"))
     this.characterClass = CharacterClass.valueOf(jsonObject.getString("characterClass"))
-    Gdx.app.error(GameObject.TAG, "Trying to load animator " + "'" + name + gender.name + "'" + "for '" + name + "' (" + id + ")")
-    this.animator = Animator(Assets.instance.stateAnimations[characterClass.name + gender.name.toLowerCase()]!!)
+    Gdx.app.error(GameObject.TAG, "Trying to load animator " + "'" + name + gender.word + "'" + "for '" + name + "' (" + id + ")")
+    this.animator = Animator(Assets.instance.stateAnimations[characterClass.word + gender.word]!!)
     this.state = state
   }
 
@@ -41,11 +41,11 @@ class Player : Creature {
     GameRenderer.camera.update()
   }
 
-  enum class Gender(s: String) {
-    MALE("male"), FEMALE("male")
+  enum class Gender(val word: String) {
+    MALE("male"), FEMALE("female")
   }
 
-  enum class CharacterClass(s: String) {
-    KNIGHT("knight"), WIZARD("knight"), ELF("knight")
+  enum class CharacterClass(val word: String) {
+    KNIGHT("knight"), WIZARD("wizard"), ELF("elf")
   }
 }
