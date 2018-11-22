@@ -56,7 +56,7 @@ class Maze(private val parentArea: Rectangle, private val rooms: ArrayList<Dunge
           cells[currentPosition] = cell
 
           while (!stack.isEmpty()) {
-            val directions = ArrayList(Direction.getDirections())
+            val directions = ArrayList(Direction.directions)
             while (!directions.isEmpty()) {
               val chosenDir = directions[Util.randomInt(random, 0, directions.size - 1)]
               currentPosition = Vector2(Vector2(currentPosition).add(chosenDir.value)).add(chosenDir.value)

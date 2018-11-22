@@ -26,7 +26,7 @@ class DungeonCell(position: Vector3, collides: Boolean, private val random: Rand
   }
 
   fun setUpWalls(otherCells: HashMap<Vector2, DungeonCell>) {
-    for (direction in Direction.getDirections()) {
+    for (direction in Direction.directions) {
       if (!otherCells.containsKey(vector2.add(direction.value))) {
         addWall(direction)
       }
@@ -43,7 +43,7 @@ class DungeonCell(position: Vector3, collides: Boolean, private val random: Rand
 
   fun getNeighbours(otherCells: HashMap<Vector2, DungeonCell>): ArrayList<DungeonCell> {
     val neighbours = ArrayList<DungeonCell>()
-    for (direction in Direction.getDirections()) {
+    for (direction in Direction.directions) {
       val neighbourPosition = vector2.add(direction.value)
       if (otherCells.containsKey(neighbourPosition)) {
         neighbours.add(otherCells[neighbourPosition]!!)

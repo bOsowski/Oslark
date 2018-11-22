@@ -53,7 +53,7 @@ class DungeonRoom(private val minSize: Int, private val maxSize: Int, private va
   }
 
   fun isIsolated(otherCells: HashMap<Vector2, DungeonCell>): Boolean {
-    for (direction in Direction.getDirections()) {
+    for (direction in Direction.directions) {
       var x = bounds!!.x.toInt()
       while (x < bounds!!.x + bounds!!.width) {
         if ((otherCells.containsKey(Vector2(x.toFloat(), bounds!!.y).add(direction.value)) || otherCells.containsKey(Vector2(x.toFloat(), bounds!!.y + bounds!!.height).add(direction.value)))
