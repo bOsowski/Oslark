@@ -1,5 +1,6 @@
 package com.bosowski.oslark
 
+import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
@@ -83,19 +84,15 @@ class World private constructor()//private empty constructor. -> allows to only 
   }
 
   private fun sortWorld() {
-//    gameObjects.sort { a, b ->
-//      if (a.position.z > b.position.z) {
-//        return@gameObjects.sort 1
-//      } else if (a.position.z < b.position.z) {
-//        return@gameObjects.sort - 1
-//      } else if (a.position.y < b.position.y) {
-//        return@gameObjects.sort 1
-//      } else if (a.position.y > b.position.y) {
-//        return@gameObjects.sort - 1
-//      } else {
-//        return@gameObjects.sort 0
-//      }
-//    }
+    gameObjects.sortWith(Comparator { a, b ->
+     when {
+        a.position.z > b.position.z -> 1
+        a.position.z < b.position.z -> -1
+        a.position.y < b.position.y -> 1
+        a.position.y > b.position.y -> -1
+        else -> 0
+      }
+    })
   }
 
   fun willCollide(subject: GameObject, futurePos: Vector3): Boolean {
