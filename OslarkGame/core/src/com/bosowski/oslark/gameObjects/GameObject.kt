@@ -68,13 +68,13 @@ abstract class GameObject {
 
     this.collides = jsonObject.getBoolean("collides")
 
-    if (Assets.instance.animations.containsKey(name)) {
-      this.animation = Assets.instance.animations[name]
-    } else if (Assets.instance.textures.containsKey(name)) {
-      this.texture = Assets.instance.textures[name]!!
-    } else {
-      this.texture = Assets.instance.textures["undefined"]!!
-      Gdx.app.error(TAG, "Unable to load any textures for object '$name' ($id)")
+    when {
+      Assets.instance.animations.containsKey(name) -> this.animation = Assets.instance.animations[name]
+      Assets.instance.textures.containsKey(name) -> this.texture = Assets.instance.textures[name]!!
+      else -> {
+        this.texture = Assets.instance.textures["undefined"]!!
+        Gdx.app.error(TAG, "Unable to load any textures for object '$name' ($id)")
+      }
     }
   }
 

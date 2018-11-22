@@ -25,7 +25,7 @@ class Player : Creature {
     this.gender = Gender.valueOf(jsonObject.getString("gender"))
     this.characterClass = CharacterClass.valueOf(jsonObject.getString("characterClass"))
     Gdx.app.error(GameObject.TAG, "Trying to load animator " + "'" + name + gender.name + "'" + "for '" + name + "' (" + id + ")")
-    this.animator = Animator(Assets.instance.stateAnimations!![characterClass.name + gender.name]!!)
+    this.animator = Animator(Assets.instance.stateAnimations[characterClass.name + gender.name.toLowerCase()]!!)
     this.state = state
   }
 

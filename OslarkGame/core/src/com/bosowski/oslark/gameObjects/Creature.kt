@@ -36,15 +36,18 @@ abstract class Creature : GameObject {
 
   protected var hasAttacked = false
   var damage = 0f
-  var animator: Animator
+  var animator: Animator? = null
   var state = State.MOVE
-    set(state: State) {
+    set(state) {
       if (field != state && field != State.DIE && state != State.ATTACK) {
         stateTime = 0f
         field = state
       }
-      animation = animator.animations[state]
+      if(animator != null && animator?.animations!!.containsKey(state)){
+        animation = animator!!.animations[state]
+      }
     }
+
   protected var direction = Direction.DOWN
     set(direction: Direction) {
       if ((direction == Direction.LEFT || direction == Direction.RIGHT) && direction != this.direction) {
@@ -65,8 +68,10 @@ abstract class Creature : GameObject {
     this.hitPoints = jsonObject.getFloat("hitpoints")
     this.damage = jsonObject.getFloat("damage")
     this.speed = jsonObject.getFloat("speed")
+    if(Assets.instance.stateAnimations.containsKey(name)){
+      this.animator = Animator(Assets.instance.stateAnimations[name]!!)
+    }
     this.state = State.getState(jsonObject.getString("state"))
-    this.animator = Animator(Assets.instance.stateAnimations[name]!!)
   }
 
 
