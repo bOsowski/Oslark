@@ -25,7 +25,7 @@ public class Player extends Creature{
         super(jsonObject.getJSONObject("super"));
         this.gender = Gender.valueOf(jsonObject.getString("gender"));
         this.characterClass = CharacterClass.valueOf(jsonObject.getString("characterClass"));
-        Gdx.app.error(TAG, "Trying to load animator "+ "'"+ name+gender.name +"'" +"for '"+name+"' ("+id+")");
+        Gdx.app.log(TAG, "Trying to load animator "+ "'"+ name+gender.name +"'" +"for '"+name+"' ("+id+")");
         this.animator = new Animator(Assets.instance.stateAnimations.get(characterClass.name+gender.name));
         setState(state);
     }
