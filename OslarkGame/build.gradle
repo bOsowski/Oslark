@@ -80,7 +80,6 @@ project(":android") {
         implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         implementation "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         implementation "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
-        //implementation project(":OslarkDomains")
     }
 }
 
@@ -133,6 +132,7 @@ project(":core") {
         compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
         compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
         compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlinVersion"
+        testImplementation 'junit:junit:4.12'
     }
 }
 
