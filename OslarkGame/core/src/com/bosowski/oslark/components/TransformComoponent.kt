@@ -15,7 +15,9 @@ class TransformComoponent(
 ) : Component() {
 
   var body: Body
-  val position: Vector2 get() = body.position
+  var position: Vector2
+    get() = body.position
+    set(value){body.position.set(value)}
 
   init{
     val bdef = BodyDef()

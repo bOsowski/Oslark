@@ -18,18 +18,18 @@ class ColliderComponent(
   val body get() = owner.transform.body
 
   override fun awake() {
+    World.physicsWorld.destroyBody(body)
     val bdef = BodyDef()
     bdef.position.set(owner.transform.position)
     bdef.type = type
-    World.physicsWorld.destroyBody(body)
     owner.transform.body = World.physicsWorld.createBody(bdef)
 
     val shape = PolygonShape()
     shape.setAsBox(width/2, height/2, centre, angle)
 
     val fdef = FixtureDef()
-    fdef.shape = PolygonShape()
-    fdef.filter.categoryBits = owner.transform.layer
+    fdef.shape = shape
+//    fdef.filter.categoryBits = owner.transform.layer
     body.createFixture(fdef)
   }
 
