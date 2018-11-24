@@ -2,8 +2,6 @@ package com.bosowski.oslark.playerDomains
 
 import com.google.gson.Gson
 
-import java.lang.reflect.Field
-
 class User(user: String) {
 
   var username: String
@@ -19,7 +17,6 @@ class User(user: String) {
     firstName = thisUser.firstName
     lastName = thisUser.lastName
     emailAddress = thisUser.emailAddress
-    println(thisUser.toString())
   }
 
   override fun toString(): String {
@@ -30,7 +27,6 @@ class User(user: String) {
       } catch (e: IllegalAccessException) {
         e.printStackTrace()
       }
-
     }
     return toString.toString()
   }

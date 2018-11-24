@@ -17,8 +17,9 @@ import java.util.HashMap
 /**
  * Singleton class responsible for asset management.
  */
-class Assets private constructor()//empty private constructor. -> prevents instantiating the class from outside.
+object Assets
   : Disposable, AssetErrorListener {
+  private val TAG = Assets::javaClass.name
   private var assetManager: AssetManager? = null
   val textures = HashMap<String, TextureRegion>()
   val animations = HashMap<String, Animation<TextureRegion>>()
@@ -77,24 +78,15 @@ class Assets private constructor()//empty private constructor. -> prevents insta
 
           stateAnimations[split[0]]!![State.getState(split[1])] = animations[animationName]!!
         }
-
       }
     }
   }
 
   override fun error(asset: AssetDescriptor<*>, throwable: Throwable) {
-    Gdx.app.error(TAG, "Couldn't load asset '$asset'", throwable)
+    Gdx.app.error(Assets::javaClass.name, "Couldn't load asset '$asset'", throwable)
   }
 
   override fun dispose() {
     assetManager!!.dispose()
   }
-
-  companion object {
-
-    val instance = Assets()
-    val TAG = Assets::class.java.name
-  }
-
-
 }

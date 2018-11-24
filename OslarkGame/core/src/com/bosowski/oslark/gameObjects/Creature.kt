@@ -1,11 +1,11 @@
 //package com.bosowski.oslark.gameObjects
 //
-//import com.badlogic.gdx.graphics.g2d.Animation
+//import com.badlogic.gdx.graphics.g2d.AnimationComponent
 //import com.badlogic.gdx.math.Rectangle
 //import com.badlogic.gdx.math.Vector2
 //import com.badlogic.gdx.math.Vector3
 //import com.bosowski.oslark.World
-//import com.bosowski.oslark.components.Animator
+//import com.bosowski.oslark.components.AnimatorComponent
 //import com.bosowski.oslark.enums.Direction
 //import com.bosowski.oslark.enums.State
 //import com.bosowski.oslark.enums.TerrainType
@@ -13,7 +13,6 @@
 //import com.bosowski.oslark.utils.Constants
 //
 //import org.json.JSONObject
-//
 //import java.util.ArrayList
 //
 //abstract class Creature : GameObject {
@@ -36,7 +35,7 @@
 //
 //  protected var hasAttacked = false
 //  var damage = 0f
-//  var animator: Animator? = null
+//  var animator: AnimatorComponent? = null
 //  var state = State.MOVE
 //    set(state) {
 //      if (field != state && field != State.DIE && state != State.ATTACK) {
@@ -69,13 +68,13 @@
 //    this.damage = jsonObject.getFloat("damage")
 //    this.speed = jsonObject.getFloat("speed")
 //    if(Assets.instance.stateAnimations.containsKey(name)){
-//      this.animator = Animator(Assets.instance.stateAnimations[name]!!)
+//      this.animator = AnimatorComponent(Assets.instance.stateAnimations[name]!!)
 //    }
 //    this.state = State.getState(jsonObject.getString("state"))
 //  }
 //
 //
-//  constructor(name: String, animator: Animator, scale: Vector2, collides: Boolean, collisionBox: Rectangle, totalHitPoints: Float, hitPoints: Float, damage: Float, state: State, direction: Direction, speed: Float, level: Int, position: Vector3) : super(name, scale, collides, collisionBox, position) {
+//  constructor(name: String, animator: AnimatorComponent, scale: Vector2, collides: Boolean, collisionBox: Rectangle, totalHitPoints: Float, hitPoints: Float, damage: Float, state: State, direction: Direction, speed: Float, level: Int, position: Vector3) : super(name, scale, collides, collisionBox, position) {
 //    this.totalHitPoints = totalHitPoints
 //    this.hitPoints = hitPoints
 //    this.animator = animator

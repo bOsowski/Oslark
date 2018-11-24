@@ -2,9 +2,7 @@ package com.bosowski.oslark.components
 
 import com.bosowski.oslark.gameObjects.GameObject
 
-abstract class Component: Behaviour() {
-
-  lateinit var owner: GameObject
+abstract class Component(var owner: GameObject): Behaviour{
 
   /**
    * For example, take a class Physics, which inherits
@@ -18,4 +16,6 @@ abstract class Component: Behaviour() {
     assert(!this.javaClass.simpleName.contains("$"))  //this failing indicates that the component class has been created as an inner class.
     this.javaClass.simpleName
   }
+
+  var active = true
 }

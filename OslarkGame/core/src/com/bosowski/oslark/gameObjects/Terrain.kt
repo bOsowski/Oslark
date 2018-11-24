@@ -1,7 +1,7 @@
 //package com.bosowski.oslark.gameObjects
 //
 //import com.badlogic.gdx.Gdx
-//import com.badlogic.gdx.graphics.g2d.Animation
+//import com.badlogic.gdx.graphics.g2d.AnimationComponent
 //import com.badlogic.gdx.graphics.g2d.TextureRegion
 //import com.badlogic.gdx.math.Rectangle
 //import com.badlogic.gdx.math.Vector2
@@ -36,7 +36,7 @@
 //    this.terrain = terrain
 //  }
 //
-//  constructor(name: String, animation: Animation<*>, terrain: TerrainType, scale: Vector2, collides: Boolean, collisionBox: Rectangle, position: Vector3) : super(name, animation, scale, collides, collisionBox, position) {
+//  constructor(name: String, animation: AnimationComponent<*>, terrain: TerrainType, scale: Vector2, collides: Boolean, collisionBox: Rectangle, position: Vector3) : super(name, animation, scale, collides, collisionBox, position) {
 //    this.terrain = terrain
 //  }
 //
