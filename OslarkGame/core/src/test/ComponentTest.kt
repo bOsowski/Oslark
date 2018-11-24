@@ -7,7 +7,7 @@ import org.junit.Test
 
 class ComponentTest {
 
-    class TestComponent(owner: GameObject) : Component(owner) {
+    class TestComponent : Component() {
         override fun destroy() {}
         override fun render(batch: SpriteBatch) {}
         override fun awake() {}
@@ -18,7 +18,7 @@ class ComponentTest {
     @Test
     fun getNameTest(){
         val testObject = GameObject()
-        testObject.addComponent(TestComponent(testObject))
+        testObject.addComponent(TestComponent())
         assert(testObject.getComponent("TestComponent") != null)
     }
 }
