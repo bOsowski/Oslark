@@ -3,13 +3,19 @@ package com.bosowski.oslark.components
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.math.Vector3
 import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.enums.State
-
+import com.bosowski.oslark.generation.Dungeon
+import com.bosowski.oslark.main.GameRenderer
+import java.util.concurrent.ThreadLocalRandom
 
 
 class InputComponent(private val speed: Float, var animator: AnimatorComponent? = null): Component(){
+
+  private var dungeon: Dungeon? = null
 
   override fun awake() {
   }
@@ -31,8 +37,13 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
     }
 
     //other inputs --- >
+    if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+      dungeon?.clear()
+      dungeon = Dungeon(Rectangle(-5f, -5f, 900f, 10f), 2, 7, 700, ThreadLocalRandom.current().nextLong())
+      dungeon!!.create()
+    }
     if(Gdx.input.isKeyPressed(Input.Keys.O)){
-
+      GameRenderer.debugView = !GameRenderer.debugView
     }
   }
 
@@ -49,6 +60,9 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
       }
     }
     owner.transform.direction = direction
+
+    GameRenderer.camera.position.set(Vector3(owner.transform.position.x, owner.transform.position.y, 0f))
+    GameRenderer.camera.update()
   }
 
   override fun render(batch: SpriteBatch) {}

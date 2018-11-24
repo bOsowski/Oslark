@@ -5,7 +5,7 @@ import com.bosowski.oslark.World
 import com.bosowski.oslark.components.Component
 import com.bosowski.oslark.components.TransformComoponent
 
-class GameObject(position: Vector2 = Vector2(), var layer: Short = 0){
+open class GameObject(position: Vector2 = Vector2(), var layer: Short = 0){
   val TAG: String by lazy { this.javaClass.name }
 
   var name = ""
@@ -19,13 +19,13 @@ class GameObject(position: Vector2 = Vector2(), var layer: Short = 0){
 
   fun instantiate(){
     components.values.forEach { it.awake() }
-    World.gameObjects.add(this)
+    World.instantiate(this)
     components.values.forEach { it.start() }
   }
 
   fun destroy(){
     components.values.forEach { it.destroy() }
-    World.gameObjects.remove(this)
+    World.destroy(this)
   }
 
   fun getComponent(name: String): Component?{

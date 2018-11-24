@@ -7,18 +7,18 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.bosowski.oslark.World
 
 class GameManager : InputAdapter() {
-    val TAG = GameManager::class.java.name
+  val TAG = GameManager::class.java.name
 
-    init {
-        Gdx.input.inputProcessor = this
-    }
+  init {
+    Gdx.input.inputProcessor = this
+  }
 
   fun update(deltaTime: Float) {
     World.update(deltaTime)
   }
 
-    fun render(batch: SpriteBatch) {
-      World.render(batch)
+  fun render(batch: SpriteBatch) {
+    World.render(batch)
   }
 
   override fun keyUp(keycode: Int): Boolean {

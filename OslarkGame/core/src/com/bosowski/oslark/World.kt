@@ -2,23 +2,41 @@ package com.bosowski.oslark
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.physics.box2d.World
 import com.bosowski.oslark.gameObjects.GameObject
 import java.util.ArrayList
 import kotlin.Comparator
 
 object World
 {
-  var gameObjects = ArrayList<GameObject>()
+  private val gameObjects = ArrayList<GameObject>()
+  private val objectsToInstantiate = ArrayList<GameObject>()
+  private val objectsToDestroy = ArrayList<GameObject>()
+
   val physicsWorld = com.badlogic.gdx.physics.box2d.World(Vector2(), true)
+
+
+  fun instantiate(gameObject: GameObject){
+    objectsToInstantiate.add(gameObject)
+  }
+
+  fun destroy(gameObject: GameObject){
+    objectsToDestroy.add(gameObject)
+  }
 
   fun update(deltaTime: Float) {
     sortWorld()
+
     gameObjects.forEach { gameObject ->
       gameObject.getComponents().forEach {
         if(it.active) it.update(deltaTime)
       }
     }
+    
+    gameObjects.addAll(objectsToInstantiate)
+    objectsToInstantiate.clear()
+    gameObjects.removeAll(objectsToDestroy)
+    objectsToDestroy.clear()
+
     physicsWorld.step(deltaTime, 6, 2)
   }
 
