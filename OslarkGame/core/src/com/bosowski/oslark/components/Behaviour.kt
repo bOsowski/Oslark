@@ -1,8 +1,12 @@
 package com.bosowski.oslark.components
 
-abstract class Behaviour{
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
-  abstract fun awake()
-  abstract fun start()
-  abstract fun update(deltaTime: Float)
+interface Behaviour{
+
+  fun awake()
+  fun start()
+  fun update(deltaTime: Float)
+  fun render(batch: SpriteBatch)
+  fun destroy()
 }

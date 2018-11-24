@@ -1,61 +1,49 @@
-//package com.bosowski.oslark
-//
-//import com.badlogic.gdx.Game
-//import com.badlogic.gdx.graphics.Color
-//import com.badlogic.gdx.graphics.g2d.SpriteBatch
-//import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-//import com.badlogic.gdx.math.Rectangle
-//import com.badlogic.gdx.math.Vector3
-//import com.bosowski.oslark.enums.State
-//import com.bosowski.oslark.gameObjects.Creature
-//import com.bosowski.oslark.gameObjects.GameObject
-//import com.bosowski.oslark.gameObjects.Player
-//import com.bosowski.oslark.generation.DungeonCell
-//
-//import java.util.ArrayList
-//import java.util.HashMap
-//
-///**
-// * Created by bOsowski on 27/01/2018.
-// *
-// *
-// * World is a singleton.
-// * It is responsible for game objects.
-// */
-//
-//class World private constructor()//private empty constructor. -> allows to only instantiate the class from within itself.
-//{
-//  var gameObjects = ArrayList<GameObject>()
-//  val gameObjectsById = HashMap<Int, GameObject>()
-//  internal lateinit var player: Player
-//
-//  private val sr = ShapeRenderer()
-//
-//  fun update(deltaTime: Float) {
-//    sortWorld()
-//    for (gameObject in gameObjects) {
-//      if (gameObject is Creature && gameObject.state == State.DIE) {
-//        continue
-//      }
-//      if (gameObject is Creature) {
-//        gameObject.collisionBox.setPosition(gameObject.position.x - gameObject.origin.x / 2, gameObject.position.y - gameObject.origin.y)
-//        if (gameObject.collides()) {
-//          gameObject.reactOnEnvironment(deltaTime)
-//        }
-//      }
-//      gameObject.update(deltaTime)
-//    }
-//  }
-//
-//  fun render(batch: SpriteBatch) {
-//    for (gameObject in gameObjects) {
-//      gameObject.render(batch)
-//      if (showCollisionBoxes) {
-//        showCollision(gameObject, batch)
-//      }
-//    }
-//  }
-//
+package com.bosowski.oslark
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.World
+import com.bosowski.oslark.gameObjects.GameObject
+import java.util.ArrayList
+import kotlin.Comparator
+
+object World
+{
+  var gameObjects = ArrayList<GameObject>()
+  val physicsWorld = com.badlogic.gdx.physics.box2d.World(Vector2(), true)
+
+  fun update(deltaTime: Float) {
+    sortWorld()
+    physicsWorld.step(deltaTime, 6, 2)
+    gameObjects.forEach { gameObject ->
+      gameObject.getComponents().forEach {
+        if(it.active) it.update(deltaTime)
+      }
+    }
+  }
+
+  fun render(batch: SpriteBatch) {
+    gameObjects.forEach { gameObject ->
+      gameObject.getComponents().forEach {
+        if(it.active) it.render(batch)
+      }
+    }
+  }
+
+  private fun sortWorld() {
+    gameObjects.sortWith(Comparator { a, b ->
+      when {
+        a.transform.layer > b.transform.layer -> 1
+        a.transform.layer < b.transform.layer -> -1
+        a.transform.position.y < b.transform.position.y -> 1
+        a.transform.position.y > b.transform.position.y -> -1
+        else -> 0
+      }
+    })
+  }
+
+//      private val sr = ShapeRenderer()
+
 //  private fun showCollision(gameObject: GameObject, batch: SpriteBatch) {
 //    batch.end()
 //    if (gameObject.collisionBox != null && gameObject !is DungeonCell) {
@@ -70,7 +58,7 @@
 //    }
 //    batch.begin()
 //  }
-//
+
 //  fun instantiate(gameObject: GameObject) {
 //    gameObjects.add(gameObject)
 //
@@ -82,19 +70,9 @@
 //  fun destroy(gameObject: GameObject) {
 //    gameObjects.remove(gameObject)
 //  }
-//
-//  private fun sortWorld() {
-//    gameObjects.sortWith(Comparator { a, b ->
-//     when {
-//        a.position.z > b.position.z -> 1
-//        a.position.z < b.position.z -> -1
-//        a.position.y < b.position.y -> 1
-//        a.position.y > b.position.y -> -1
-//        else -> 0
-//      }
-//    })
-//  }
-//
+
+
+
 //  fun willCollide(subject: GameObject, futurePos: Vector3): Boolean {
 //    for (other in gameObjects) {
 //      if (subject !== other && subject.collides() && other.collides()) {
@@ -106,7 +84,7 @@
 //    }
 //    return false
 //  }
-//
+
 //  /**
 //   * @param bounds
 //   * @return
@@ -122,20 +100,13 @@
 //    }
 //    return false
 //  }
-//
+
 //  fun getPlayer(): Player {
 //    return player
 //  }
-//
+
 //  fun setPlayer(player: Player) {
 //    this.player = player
 //    gameObjects.add(player)
 //  }
-//
-//  companion object {
-//    var showCollisionBoxes = false
-//    private var projectionMatrixSet = false
-//
-//    val instance = World()
-//  }
-//}
+}

@@ -6,16 +6,10 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.badlogic.gdx.utils.viewport.FitViewport
 import com.bosowski.oslark.main.Assets
 
 abstract class AbstractGameScreen(protected var game: Game) : Screen {
-  protected var stage: Stage
-  protected var fieldSkins = Skin(Gdx.files.internal("uiskin.json"))
-
-  init {
-    stage = Stage()
-  }
+  protected var stage: Stage = Stage()
 
   abstract override fun render(deltaTime: Float)
 
@@ -34,11 +28,14 @@ abstract class AbstractGameScreen(protected var game: Game) : Screen {
   protected abstract fun setUpUI()
 
   override fun resume() {
-    Assets.instance.init(AssetManager())
+    Assets.init(AssetManager())
   }
 
   override fun dispose() {
-    Assets.instance.dispose()
+    Assets.dispose()
   }
 
+  companion object {
+    val fieldSkins = Skin(Gdx.files.internal("uiskin.json"))
+  }
 }
