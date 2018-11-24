@@ -4,12 +4,13 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.bosowski.oslark.enums.State
 import com.bosowski.oslark.gameObjects.GameObject
+import com.bosowski.oslark.main.Assets
 import java.util.HashMap
 
 
-class AnimatorComponent(owner: GameObject, private val animations: HashMap<State, Animation<TextureRegion>>) : com.bosowski.oslark.components.AnimationComponent(owner, EmptyAnimation){
+class AnimatorComponent(private val animations: HashMap<State, Animation<TextureRegion>>) : AnimationComponent(){
 
-  private var state = State.IDLE
+  var state = State.IDLE
   set(value) {
     if(field != value){
       stateTime = 0f
@@ -23,6 +24,4 @@ class AnimatorComponent(owner: GameObject, private val animations: HashMap<State
   override fun start() {}
 
   override fun update(deltaTime: Float) {}
-
-  object EmptyAnimation: Animation<TextureRegion>(0f,com.badlogic.gdx.utils.Array<TextureRegion>())
 }

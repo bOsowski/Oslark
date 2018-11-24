@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.gameObjects.GameObject
 
-open class TextureComponent(owner: GameObject, protected var texture: TextureRegion): Component(owner){
+open class TextureComponent(protected var texture: TextureRegion): Component(){
 
   var scale = Vector2(1f, 1f)
   var dimension = Vector2(1f, 1f)

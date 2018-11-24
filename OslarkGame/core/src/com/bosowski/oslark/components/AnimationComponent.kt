@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.Gdx
-import com.bosowski.oslark.gameObjects.GameObject
+import com.bosowski.oslark.main.Assets
 
-open class AnimationComponent(owner: GameObject, var animation: Animation<TextureRegion>): TextureComponent(owner, animation.getKeyFrame(0f)){
+open class AnimationComponent(var animation: Animation<TextureRegion> = Assets.animations["undefined"]!!): TextureComponent(animation.getKeyFrame(0f)){
 
   var stateTime = 0f
 

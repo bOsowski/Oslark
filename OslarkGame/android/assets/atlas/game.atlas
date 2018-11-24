@@ -591,14 +591,14 @@ iceZombie_move
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
+  index: 3
 iceZombie_move
   rotate: false
   xy: 938, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
+  index: 1
 iceZombie_idle
   rotate: false
   xy: 956, 59
@@ -1306,6 +1306,20 @@ undefined
   orig: 32, 32
   offset: 0, 0
   index: -1
+undefined
+  rotate: false
+  xy: 239, 27
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
+undefined
+  rotate: false
+  xy: 239, 27
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 1
 wallDown
   rotate: false
   xy: 103, 1
@@ -1795,14 +1809,14 @@ zombie_move
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
+  index: 3
 zombie_move
   rotate: false
   xy: 657, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
+  index: 1
 zombie_idle
   rotate: false
   xy: 675, 23

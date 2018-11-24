@@ -2,8 +2,9 @@ package com.bosowski.oslark.components
 
 import com.bosowski.oslark.gameObjects.GameObject
 
-abstract class Component(var owner: GameObject): Behaviour{
+abstract class Component: Behaviour{
 
+  lateinit var owner: GameObject
   /**
    * For example, take a class Physics, which inherits
    * from this class. This property will return the

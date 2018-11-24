@@ -9,11 +9,10 @@ import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.gameObjects.GameObject
 
 class TransformComoponent(
-    owner: GameObject,
     position: Vector2 = Vector2(),
     var layer: Short = 0,
     var direction: Direction = Direction.DOWN
-) : Component(owner) {
+) : Component() {
 
   var body: Body
   val position: Vector2 get() = body.position

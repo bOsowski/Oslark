@@ -9,16 +9,15 @@ import com.bosowski.oslark.World
 import com.bosowski.oslark.gameObjects.GameObject
 
 class ColliderComponent(
-    owner: GameObject,
-    type: BodyDef.BodyType = BodyDef.BodyType.DynamicBody,
-    width: Float = 1f, height: Float = 1f,
-    centre: Vector2 = Vector2(),
-    angle: Float = 0f
-): Component(owner) {
+    private var type: BodyDef.BodyType = BodyDef.BodyType.DynamicBody,
+    private var width: Float = 1f, private var height: Float = 1f,
+    private var centre: Vector2 = Vector2(),
+    private var angle: Float = 0f
+): Component() {
 
   val body get() = owner.transform.body
 
-  init{
+  override fun awake() {
     val bdef = BodyDef()
     bdef.position.set(owner.transform.position)
     bdef.type = type
@@ -33,8 +32,6 @@ class ColliderComponent(
     fdef.filter.categoryBits = owner.transform.layer
     body.createFixture(fdef)
   }
-
-  override fun awake() {}
 
   override fun start() {}
 

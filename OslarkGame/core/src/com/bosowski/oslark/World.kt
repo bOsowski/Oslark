@@ -14,12 +14,12 @@ object World
 
   fun update(deltaTime: Float) {
     sortWorld()
-    physicsWorld.step(deltaTime, 6, 2)
     gameObjects.forEach { gameObject ->
       gameObject.getComponents().forEach {
         if(it.active) it.update(deltaTime)
       }
     }
+    physicsWorld.step(deltaTime, 6, 2)
   }
 
   fun render(batch: SpriteBatch) {

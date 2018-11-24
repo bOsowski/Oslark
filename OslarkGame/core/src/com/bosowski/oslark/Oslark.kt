@@ -4,7 +4,9 @@ import com.badlogic.gdx.Application
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
+import com.bosowski.oslark.components.AnimatorComponent
 import com.bosowski.oslark.components.ColliderComponent
+import com.bosowski.oslark.components.InputComponent
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.main.Assets
 import com.bosowski.oslark.screens.GameScreen
@@ -21,11 +23,14 @@ class Oslark : Game() {
 
     setScreen(GameScreen(this))
 
+
     val testObject = GameObject()
     testObject.instantiate()
-    val body = testObject.transform.body
-    val collider = ColliderComponent(testObject)
+    val collider = ColliderComponent()
     testObject.addComponent(collider)
-    assert(body == collider.body)
+    val animator = AnimatorComponent(Assets.stateAnimations["knightfemale"]!!)
+    testObject.addComponent(animator)
+    val inputComponent = InputComponent(animator = animator, speed = 5f)
+    testObject.addComponent(inputComponent)
   }
 }

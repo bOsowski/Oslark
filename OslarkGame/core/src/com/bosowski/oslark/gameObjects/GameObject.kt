@@ -9,12 +9,12 @@ class GameObject(position: Vector2 = Vector2(), var layer: Short = 0){
   val TAG: String by lazy { this.javaClass.name }
 
   var name = ""
-  val transform: TransformComoponent = TransformComoponent(this, position)
+  val transform: TransformComoponent = TransformComoponent(position)
   private val components: MutableMap<String, Component> = mutableMapOf(transform.name to transform)
 
   init{
-    transform.layer = layer
     transform.owner = this
+    transform.layer = layer
   }
 
   fun instantiate(){
@@ -39,6 +39,7 @@ class GameObject(position: Vector2 = Vector2(), var layer: Short = 0){
   fun addComponent(component: Component){
     component.owner = this
     components[component.name] = component
+    component.awake()
   }
 
   fun removeComponent(name: String){
