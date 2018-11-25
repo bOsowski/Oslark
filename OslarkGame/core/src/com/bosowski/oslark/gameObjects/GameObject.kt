@@ -8,7 +8,7 @@ import com.bosowski.oslark.components.TransformComoponent
 open class GameObject(position: Vector2 = Vector2(), var layer: Short = 0){
   val TAG: String by lazy { this.javaClass.name }
 
-  var name = ""
+  var name:String = ""
   val transform: TransformComoponent = TransformComoponent(position)
   private val components: MutableMap<String, AbstractComponent> = mutableMapOf(transform.name to transform)
 

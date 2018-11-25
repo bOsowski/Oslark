@@ -10,7 +10,7 @@ import com.bosowski.oslark.World
 
 class ColliderComponent(
     private var type: BodyDef.BodyType = BodyDef.BodyType.DynamicBody,
-    private val shape: Shape
+    val shape: Shape
 ): AbstractComponent() {
 
   val body get() = owner.transform.body

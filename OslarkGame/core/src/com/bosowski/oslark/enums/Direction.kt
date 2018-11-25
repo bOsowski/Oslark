@@ -12,24 +12,24 @@ enum class Direction(val word: String, val value: Vector2) {
   companion object {
 
     fun getDirection(name: String): Direction? {
-      when (name) {
-        "up" -> return UP
-        "right" -> return RIGHT
-        "down" -> return DOWN
-        "left" -> return LEFT
-        else -> return null
+      return when (name) {
+        "up" -> UP
+        "right" -> RIGHT
+        "down" -> DOWN
+        "left" -> LEFT
+        else -> null
       }
     }
 
     val random: Direction?
       get() {
         val rand = Random()
-        when (rand.nextInt(4)) {
-          0 -> return UP
-          1 -> return RIGHT
-          2 -> return LEFT
-          3 -> return DOWN
-          else -> return null
+        return when (rand.nextInt(4)) {
+          0 -> UP
+          1 -> RIGHT
+          2 -> LEFT
+          3 -> DOWN
+          else -> null
         }
       }
 

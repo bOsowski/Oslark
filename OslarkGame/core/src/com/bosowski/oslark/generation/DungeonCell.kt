@@ -16,6 +16,7 @@ class DungeonCell(position: Vector2, private val random: Random){
   private val walls = HashMap<Direction, GameObject>()
 
   init{
+    cell.name = "floor"
     val floorType: Int = if(random.nextFloat() <= chanceOfDifferentFloor){
       Util.randomInt(random,4,11)
     }

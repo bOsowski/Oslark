@@ -1,11 +1,19 @@
 package com.bosowski.oslark
 
+import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.EdgeShape
+import com.badlogic.gdx.physics.box2d.Fixture
+import com.badlogic.gdx.physics.box2d.RayCastCallback
+import com.badlogic.gdx.physics.box2d.Transform
+import com.bosowski.oslark.components.ColliderComponent
+import com.bosowski.oslark.components.TextureComponent
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.managers.GameRenderer
 import java.util.ArrayList
+import javax.swing.Renderer
 import kotlin.Comparator
 
 object World
@@ -44,9 +52,36 @@ object World
   fun render(batch: SpriteBatch) {
     gameObjects.forEach { gameObject ->
       //only render objects that are on screen.
-      if(Vector2.dst(gameObject.transform.position.x, gameObject.transform.position.y, GameRenderer.camera.position.x, GameRenderer.camera.position.y) <= 3 ){
-        gameObject.getComponents().forEach {
-          if(it.active) it.render(batch)
+      if(Vector2.dst(gameObject.transform.position.x, gameObject.transform.position.y, GameRenderer.camera.position.x, GameRenderer.camera.position.y) <= 100f){
+        val gameObjectPosition = Vector2(gameObject.transform.position)
+
+        var texture: TextureComponent? = null
+        if(gameObject.getComponent("TextureComponent") != null){
+          texture = gameObject.getComponent("TextureComponent") as TextureComponent
+        }
+        if(texture != null){
+          gameObjectPosition.add(texture.dimension)
+        }
+
+        var closestFraction = 1f
+        var collisionPoint: Vector2? = null
+        val callback = RayCastCallback { fixture, point, normal, fraction ->
+          if (fraction < closestFraction) {
+            closestFraction = fraction
+              collisionPoint = point
+          }
+          1f
+        }
+
+        val position = Vector2(GameRenderer.camera.position.x, GameRenderer.camera.position.y)
+        if(position != gameObjectPosition){
+          physicsWorld.rayCast(callback, position, gameObjectPosition)
+        }
+
+        if(collisionPoint == null || Vector2.dst(gameObjectPosition.x, gameObjectPosition.y, collisionPoint!!.x, collisionPoint!!.y) < 0.5f){
+          gameObject.getComponents().forEach {
+            if(it.active) it.render(batch)
+          }
         }
       }
     }

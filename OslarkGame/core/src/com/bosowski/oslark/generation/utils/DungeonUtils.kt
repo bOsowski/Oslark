@@ -22,7 +22,6 @@ import java.util.*
         textureComponent.origin = Vector2(0.5f, 0.5f)
         textureComponent.dimension = Vector2(0.2f, 2f)
         wall.addComponent(textureComponent)
-        //type = BodyDef.BodyType.StaticBody, centre = Vector2(- textureComponent.origin.x + 0.1f, 0f), width = 0.2f, height = 1f
         val shape = EdgeShape()
         shape.set(Vector2(-textureComponent.origin.x+textureComponent.dimension.x, -textureComponent.origin.y), Vector2(-textureComponent.origin.x+textureComponent.dimension.x, textureComponent.origin.y))
         val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape)
@@ -34,7 +33,6 @@ import java.util.*
         textureComponent.origin = Vector2(-0.5f, 0.5f)
         textureComponent.dimension = Vector2(0.2f, 2f)
         wall.addComponent(textureComponent)
-        //type = BodyDef.BodyType.StaticBody, centre = Vector2( - textureComponent.origin.x, 0f), width = 0.2f, height = 1f
         val shape = EdgeShape()
         shape.set(Vector2(-textureComponent.origin.x, -textureComponent.origin.y), Vector2(-textureComponent.origin.x, textureComponent.origin.y))
         val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape)
@@ -45,7 +43,6 @@ import java.util.*
         val textureComponent = TextureComponent(Assets.textures["wallDown"]!!)
         textureComponent.origin = Vector2(0.5f, 0.5f)
         wall.addComponent(textureComponent)
-        //type = BodyDef.BodyType.StaticBody, centre = Vector2(0f,  - textureComponent.origin.y), width = 1f, height = 0.01f
         val shape = EdgeShape()
         shape.set(Vector2(-textureComponent.origin.x, -textureComponent.origin.y), Vector2(textureComponent.origin.x, -textureComponent.origin.y))
         val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape)
@@ -79,7 +76,6 @@ import java.util.*
         } else if (wallType == 2) {
           wallImage.dimension = Vector2(1f, 1.495f)
         }
-        //type = BodyDef.BodyType.StaticBody, centre = Vector2(0f, -wallImage.origin.y), width = 1f, height = 0.01f
         val shape = EdgeShape()
         shape.set(Vector2(-wallImage.origin.x, -wallImage.origin.y), Vector2(wallImage.origin.x, -wallImage.origin.y))
         val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape)
