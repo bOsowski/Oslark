@@ -2,7 +2,7 @@ package com.bosowski.oslark.components
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
-interface Behaviour{
+interface BehaviourInterface{
 
   /**
    * This method is called during addition of components

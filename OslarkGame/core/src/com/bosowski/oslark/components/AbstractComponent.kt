@@ -2,7 +2,7 @@ package com.bosowski.oslark.components
 
 import com.bosowski.oslark.gameObjects.GameObject
 
-abstract class Component: Behaviour{
+abstract class AbstractComponent: BehaviourInterface{
 
   lateinit var owner: GameObject
   /**

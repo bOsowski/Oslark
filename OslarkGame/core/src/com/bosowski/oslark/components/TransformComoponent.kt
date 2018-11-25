@@ -6,13 +6,12 @@ import com.badlogic.gdx.physics.box2d.Body
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.bosowski.oslark.World
 import com.bosowski.oslark.enums.Direction
-import com.bosowski.oslark.gameObjects.GameObject
 
 class TransformComoponent(
     position: Vector2 = Vector2(),
     var layer: Short = 0,
     var direction: Direction = Direction.DOWN
-) : Component() {
+) : AbstractComponent() {
 
   var body: Body
   var position: Vector2

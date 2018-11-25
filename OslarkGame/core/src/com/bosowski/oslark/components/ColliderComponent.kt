@@ -12,7 +12,7 @@ class ColliderComponent(
     private var width: Float = 1f, private var height: Float = 1f,
     private var centre: Vector2 = Vector2(),
     private var angle: Float = 0f
-): Component() {
+): AbstractComponent() {
 
   val body get() = owner.transform.body
 
