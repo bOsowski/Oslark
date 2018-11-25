@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.components.TextureComponent
-import com.bosowski.oslark.utils.Util
-
 import java.util.ArrayList
 import java.util.Random
 

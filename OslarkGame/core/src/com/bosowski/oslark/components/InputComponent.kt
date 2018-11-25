@@ -14,7 +14,7 @@ import java.lang.Thread.sleep
 import java.util.concurrent.ThreadLocalRandom
 
 
-class InputComponent(private val speed: Float, var animator: AnimatorComponent? = null): Component(){
+class InputComponent(private val speed: Float, var animator: AnimatorComponent? = null): AbstractComponent(){
 
   private var dungeon: Dungeon? = null
 

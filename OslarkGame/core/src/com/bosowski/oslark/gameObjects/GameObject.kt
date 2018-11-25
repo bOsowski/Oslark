@@ -2,7 +2,7 @@ package com.bosowski.oslark.gameObjects
 
 import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.World
-import com.bosowski.oslark.components.Component
+import com.bosowski.oslark.components.AbstractComponent
 import com.bosowski.oslark.components.TransformComoponent
 
 open class GameObject(position: Vector2 = Vector2(), var layer: Short = 0){
@@ -10,7 +10,7 @@ open class GameObject(position: Vector2 = Vector2(), var layer: Short = 0){
 
   var name = ""
   val transform: TransformComoponent = TransformComoponent(position)
-  private val components: MutableMap<String, Component> = mutableMapOf(transform.name to transform)
+  private val components: MutableMap<String, AbstractComponent> = mutableMapOf(transform.name to transform)
 
   init{
     transform.owner = this
@@ -28,15 +28,15 @@ open class GameObject(position: Vector2 = Vector2(), var layer: Short = 0){
     World.destroy(this)
   }
 
-  fun getComponent(name: String): Component?{
+  fun getComponent(name: String): AbstractComponent?{
     return components[name]
   }
 
-  fun getComponents(): List<Component>{
+  fun getComponents(): List<AbstractComponent>{
     return components.values.toList()
   }
 
-  fun addComponent(component: Component){
+  fun addComponent(component: AbstractComponent){
     component.owner = this
     components[component.name] = component
     component.awake()
