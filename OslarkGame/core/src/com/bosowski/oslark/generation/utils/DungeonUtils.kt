@@ -2,6 +2,7 @@ package com.bosowski.oslark.generation.utils
 
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.physics.box2d.EdgeShape
 import com.bosowski.oslark.components.AnimationComponent
 import com.bosowski.oslark.components.ColliderComponent
 import com.bosowski.oslark.components.TextureComponent
@@ -21,7 +22,10 @@ import java.util.*
         textureComponent.origin = Vector2(0.5f, 0.5f)
         textureComponent.dimension = Vector2(0.2f, 2f)
         wall.addComponent(textureComponent)
-        val colliderComponent = ColliderComponent(type = BodyDef.BodyType.StaticBody, centre = Vector2(- textureComponent.origin.x + 0.1f, 0f), width = 0.2f, height = 1f)
+        //type = BodyDef.BodyType.StaticBody, centre = Vector2(- textureComponent.origin.x + 0.1f, 0f), width = 0.2f, height = 1f
+        val shape = EdgeShape()
+        shape.set(Vector2(-textureComponent.origin.x+textureComponent.dimension.x, -textureComponent.origin.y), Vector2(-textureComponent.origin.x+textureComponent.dimension.x, textureComponent.origin.y))
+        val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape)
         wall.addComponent(colliderComponent)
         return wall
       }
@@ -30,7 +34,10 @@ import java.util.*
         textureComponent.origin = Vector2(-0.5f, 0.5f)
         textureComponent.dimension = Vector2(0.2f, 2f)
         wall.addComponent(textureComponent)
-        val colliderComponent = ColliderComponent(type = BodyDef.BodyType.StaticBody, centre = Vector2( - textureComponent.origin.x, 0f), width = 0.2f, height = 1f)
+        //type = BodyDef.BodyType.StaticBody, centre = Vector2( - textureComponent.origin.x, 0f), width = 0.2f, height = 1f
+        val shape = EdgeShape()
+        shape.set(Vector2(-textureComponent.origin.x, -textureComponent.origin.y), Vector2(-textureComponent.origin.x, textureComponent.origin.y))
+        val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape)
         wall.addComponent(colliderComponent)
         return wall
       }
@@ -38,7 +45,10 @@ import java.util.*
         val textureComponent = TextureComponent(Assets.textures["wallDown"]!!)
         textureComponent.origin = Vector2(0.5f, 0.5f)
         wall.addComponent(textureComponent)
-        val colliderComponent = ColliderComponent(type = BodyDef.BodyType.StaticBody, centre = Vector2(0f,  - textureComponent.origin.y), width = 1f, height = 0.01f)
+        //type = BodyDef.BodyType.StaticBody, centre = Vector2(0f,  - textureComponent.origin.y), width = 1f, height = 0.01f
+        val shape = EdgeShape()
+        shape.set(Vector2(-textureComponent.origin.x, -textureComponent.origin.y), Vector2(textureComponent.origin.x, -textureComponent.origin.y))
+        val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape)
         wall.addComponent(colliderComponent)
         return wall
       }
@@ -69,7 +79,10 @@ import java.util.*
         } else if (wallType == 2) {
           wallImage.dimension = Vector2(1f, 1.495f)
         }
-        val colliderComponent = ColliderComponent(type = BodyDef.BodyType.StaticBody, centre = Vector2(0f, -wallImage.origin.y), width = 1f, height = 0.01f)
+        //type = BodyDef.BodyType.StaticBody, centre = Vector2(0f, -wallImage.origin.y), width = 1f, height = 0.01f
+        val shape = EdgeShape()
+        shape.set(Vector2(-wallImage.origin.x, -wallImage.origin.y), Vector2(wallImage.origin.x, -wallImage.origin.y))
+        val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape)
         wall.addComponent(colliderComponent)
         return wall
       }
