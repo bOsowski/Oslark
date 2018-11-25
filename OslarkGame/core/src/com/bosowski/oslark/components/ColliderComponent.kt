@@ -6,7 +6,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
 import com.bosowski.oslark.World
-import com.bosowski.oslark.gameObjects.GameObject
 
 class ColliderComponent(
     private var type: BodyDef.BodyType = BodyDef.BodyType.DynamicBody,
@@ -29,6 +28,7 @@ class ColliderComponent(
 
     val fdef = FixtureDef()
     fdef.shape = shape
+    fdef.friction = 0f
 //    fdef.filter.categoryBits = owner.transform.layer
     body.createFixture(fdef)
   }
