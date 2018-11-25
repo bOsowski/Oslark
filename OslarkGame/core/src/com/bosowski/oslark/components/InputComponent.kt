@@ -24,18 +24,29 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
   override fun start() {}
 
   override fun update(deltaTime: Float) {
-    when {
-      //move owner UP
-      Gdx.input.isKeyPressed(Input.Keys.W) -> move(Direction.UP)
-      //move owner DOWN
-      Gdx.input.isKeyPressed(Input.Keys.S) -> move(Direction.DOWN)
-      //move owner RIGHT
-      Gdx.input.isKeyPressed(Input.Keys.D) -> move(Direction.RIGHT)
-      //move owner LEFT
-      Gdx.input.isKeyPressed(Input.Keys.A) -> move(Direction.LEFT)
-      //if no key pressed, stop entity
-      else -> owner.transform.body.linearVelocity = Vector2().also{ animator?.state = State.IDLE}
+    owner.transform.body.linearVelocity = Vector2()
+    //move owner UP
+    if(Gdx.input.isKeyPressed(Input.Keys.W)) move(Direction.UP, deltaTime)
+    //move owner DOWN
+    if(Gdx.input.isKeyPressed(Input.Keys.S)) move(Direction.DOWN, deltaTime)
+    //move owner RIGHT
+    if(Gdx.input.isKeyPressed(Input.Keys.D)) move(Direction.RIGHT, deltaTime)
+    //move owner LEFT
+    if(Gdx.input.isKeyPressed(Input.Keys.A)) move(Direction.LEFT, deltaTime)
+
+    //If the player is going diagonal, adjust the velocity.
+    if(owner.transform.body.linearVelocity.x != 0f && owner.transform.body.linearVelocity.y != 0f){
+      println("Adjusting velocity. Before = ${owner.transform.body.linearVelocity}")
+      owner.transform.body.linearVelocity = Vector2(owner.transform.body.linearVelocity.x/1.5f, owner.transform.body.linearVelocity.y/1.5f)
+      println("Adjusting velocity. After = ${owner.transform.body.linearVelocity}")
     }
+
+      if(owner.transform.body.linearVelocity == Vector2()){
+        animator?.state = State.IDLE
+      }
+    else{
+        animator?.state = State.MOVE
+      }
 
     //other inputs --- >
     if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
@@ -50,11 +61,11 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
     }
   }
 
-  fun move(direction: Direction){
+  fun move(direction: Direction, deltaTime: Float){
     val velocity = Vector2(direction.value)
-    velocity.x *= speed
-    velocity.y *= speed
-    owner.transform.body.linearVelocity = velocity
+    velocity.x *= speed*deltaTime
+    velocity.y *= speed*deltaTime
+    owner.transform.body.linearVelocity = owner.transform.body.linearVelocity.add(velocity)
 
     if(animator != null){
       animator!!.state = State.MOVE
