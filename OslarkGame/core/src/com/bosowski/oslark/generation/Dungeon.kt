@@ -1,11 +1,13 @@
 package com.bosowski.oslark.generation
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
+import com.bosowski.oslark.components.TextureComponent
+import com.bosowski.oslark.utils.Util
 
 import java.util.ArrayList
-import java.util.HashMap
 import java.util.Random
 
 class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int, seed: Long) {
@@ -24,6 +26,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     createMazes()
     shrinkMazes()
     removeIsolatedRooms()
+    joinIsolatedAreas()
     createWallsAndInstantiate()
     created = true
   }
@@ -95,6 +98,56 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       cell.instantiate()
     }
     Gdx.app.log(TAG, "Finished creating walls and instantiating..")
+  }
+
+  private fun joinIsolatedAreas(){
+    Gdx.app.log(TAG, "Joining isolated areas..")
+    var allCells: HashMap<Vector2, DungeonCell> = HashMap()
+    allCells.putAll(dungeonCells)
+    val clusters: ArrayList<ArrayList<DungeonCell>> = ArrayList()
+
+    val visitedCells: ArrayList<DungeonCell> = ArrayList()
+
+    fun getCluster(neighbors: ArrayList<DungeonCell>): ArrayList<DungeonCell>{
+        for(i in 0 until neighbors.size) {
+          if(!visitedCells.contains(neighbors[i])){
+            visitedCells.add(neighbors[i])
+            allCells.remove(neighbors[i].cell.transform.position)
+            neighbors.addAll(getCluster(neighbors[i].getNeighbours(allCells)))
+          }
+        }
+      return neighbors
+    }
+
+    while(!allCells.isEmpty()){
+      val firstCell = allCells.values.first()
+      val neighbours = firstCell.getNeighbours(allCells)
+      neighbours.add(firstCell)
+      clusters.add(getCluster(neighbours))
+      visitedCells.clear()
+      Gdx.app.debug(TAG, "Creating cluster.")
+    }
+
+    val colors = listOf(Color.RED, Color.BLUE, Color.GOLD, Color.GRAY, Color.PURPLE)
+    var index = 0
+    clusters.forEach {
+      val color = colors[index]
+      if(index < colors.size){
+        index++
+      }
+      else{
+        index = 0
+      }
+      it.forEach {
+        it.cell.getComponents().forEach {
+          if(it is TextureComponent){
+            it.color = color
+          }
+        }
+      }
+    }
+
+    Gdx.app.log(TAG, "Finished joining isolated areas.. amount of clusters = ${clusters.size}")
   }
 
   companion object {
