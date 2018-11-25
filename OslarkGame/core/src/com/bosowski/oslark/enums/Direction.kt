@@ -21,10 +21,6 @@ enum class Direction(val word: String, val value: Vector2) {
       }
     }
 
-    fun getDirection(direction: Direction): Vector2 {
-      return direction.value
-    }
-
     val random: Direction?
       get() {
         val rand = Random()

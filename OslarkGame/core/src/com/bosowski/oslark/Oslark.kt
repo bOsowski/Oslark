@@ -34,7 +34,7 @@ class Oslark : Game() {
     shape.setAsBox(0.3f, 0.125f, Vector2(0f, -animator.dimension.y/2f), 0f)
     val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape)
     testObject.addComponent(collider)
-    val inputComponent = InputComponent(animator = animator, speed = 5f)
+    val inputComponent = InputComponent(animator = animator, speed = 250f)
     testObject.addComponent(inputComponent)
   }
 }
