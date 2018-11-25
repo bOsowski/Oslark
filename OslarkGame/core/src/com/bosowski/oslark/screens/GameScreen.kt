@@ -4,8 +4,8 @@ import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.graphics.GL20
-import com.bosowski.oslark.main.GameManager
-import com.bosowski.oslark.main.GameRenderer
+import com.bosowski.oslark.managers.GameManager
+import com.bosowski.oslark.managers.GameRenderer
 
 class GameScreen(game: Game) : AbstractGameScreen(game) {
 

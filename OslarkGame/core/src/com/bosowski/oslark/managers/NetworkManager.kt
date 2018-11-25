@@ -1,20 +1,16 @@
-package com.bosowski.oslark.main
+package com.bosowski.oslark.managers
 
 import com.badlogic.gdx.Gdx
 
 import java.io.BufferedReader
-import java.io.DataOutputStream
 import java.io.IOException
 import java.io.InputStreamReader
 import java.net.CookieHandler
 import java.net.CookieManager
 import java.net.HttpURLConnection
-import java.net.MalformedURLException
 import java.net.URL
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 
-class Session private constructor() {
+class NetworkManager private constructor() {
 
   private var connection: HttpURLConnection? = null
   private val cookieManager = CookieManager()
@@ -83,8 +79,8 @@ class Session private constructor() {
 
   companion object {
 
-    val TAG = Session::class.java.name
-    var instance = Session()
+    val TAG = NetworkManager::class.java.name
+    var instance = NetworkManager()
   }
 
 

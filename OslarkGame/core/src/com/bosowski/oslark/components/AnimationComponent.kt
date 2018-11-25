@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.Gdx
-import com.bosowski.oslark.main.Assets
+import com.bosowski.oslark.Assets
 
 open class AnimationComponent(var animation: Animation<TextureRegion> = Assets.animations["undefined"]!!): TextureComponent(animation.getKeyFrame(0f)){
 

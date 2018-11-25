@@ -1,8 +1,10 @@
 package com.bosowski.oslark
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.gameObjects.GameObject
+import com.bosowski.oslark.managers.GameRenderer
 import java.util.ArrayList
 import kotlin.Comparator
 
@@ -13,7 +15,6 @@ object World
   private val objectsToDestroy = ArrayList<GameObject>()
 
   val physicsWorld = com.badlogic.gdx.physics.box2d.World(Vector2(), true)
-
 
   fun instantiate(gameObject: GameObject){
     objectsToInstantiate.add(gameObject)
@@ -37,13 +38,16 @@ object World
     gameObjects.removeAll(objectsToDestroy)
     objectsToDestroy.clear()
 
-    physicsWorld.step(deltaTime, 6, 2)
+    physicsWorld.step(deltaTime, 3, 1)
   }
 
   fun render(batch: SpriteBatch) {
     gameObjects.forEach { gameObject ->
-      gameObject.getComponents().forEach {
-        if(it.active) it.render(batch)
+      //only render objects that are on screen.
+      if(Vector2.dst(gameObject.transform.position.x, gameObject.transform.position.y, GameRenderer.camera.position.x, GameRenderer.camera.position.y) <= Gdx.graphics.width ){
+        gameObject.getComponents().forEach {
+          if(it.active) it.render(batch)
+        }
       }
     }
   }
@@ -59,72 +63,4 @@ object World
       }
     })
   }
-
-//      private val sr = ShapeRenderer()
-
-//  private fun showCollision(gameObject: GameObject, batch: SpriteBatch) {
-//    batch.end()
-//    if (gameObject.collisionBox != null && gameObject !is DungeonCell) {
-//      if (!projectionMatrixSet) {
-//        sr.projectionMatrix = batch.projectionMatrix
-//        projectionMatrixSet = true
-//      }
-//      sr.begin(ShapeRenderer.ShapeType.Filled)
-//      sr.color = Color.RED
-//      sr.rect(gameObject.collisionBox.x, gameObject.collisionBox.y, gameObject.collisionBox.width, gameObject.collisionBox.height)
-//      sr.end()
-//    }
-//    batch.begin()
-//  }
-
-//  fun instantiate(gameObject: GameObject) {
-//    gameObjects.add(gameObject)
-//
-//    if (gameObject.javaClass == Player::class.java) {
-//      player = gameObject as Player
-//    }
-//  }
-//
-//  fun destroy(gameObject: GameObject) {
-//    gameObjects.remove(gameObject)
-//  }
-
-
-
-//  fun willCollide(subject: GameObject, futurePos: Vector3): Boolean {
-//    for (other in gameObjects) {
-//      if (subject !== other && subject.collides() && other.collides()) {
-//        val subjectFutureRect = Rectangle(futurePos.x - subject.origin.x / 2, futurePos.y - subject.origin.y, subject.collisionBox.width, subject.collisionBox.height)
-//        if (subjectFutureRect.overlaps(other.collisionBox)) {
-//          return true
-//        }
-//      }
-//    }
-//    return false
-//  }
-
-//  /**
-//   * @param bounds
-//   * @return
-//   */
-//  @Deprecated("")
-//  fun isOnTerrain(bounds: Rectangle): Boolean {
-//    for (terrain in gameObjects) {
-//      if (terrain is DungeonCell) {
-//        if (terrain.collisionBox.contains(bounds)) {
-//          return true
-//        }
-//      }
-//    }
-//    return false
-//  }
-
-//  fun getPlayer(): Player {
-//    return player
-//  }
-
-//  fun setPlayer(player: Player) {
-//    this.player = player
-//    gameObjects.add(player)
-//  }
 }
