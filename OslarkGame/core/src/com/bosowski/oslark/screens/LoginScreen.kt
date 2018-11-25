@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
-import com.bosowski.oslark.main.Session
+import com.bosowski.oslark.managers.NetworkManager
 import java.io.IOException
 
 
@@ -54,7 +54,7 @@ class LoginScreen(game: Game) : AbstractGameScreen(game) {
     login.addListener(object : ClickListener() {
       override fun touchDown(event: InputEvent?, x: Float, y: Float, point: Int, button: Int): Boolean {
         try {
-          Session.instance.login(username.text, password.text)
+          NetworkManager.instance.login(username.text, password.text)
           game.screen = CharacterSelectionScreen(game)
         } catch (e: IOException) {
           //todo: Display some message to user indicating why login was not successful.

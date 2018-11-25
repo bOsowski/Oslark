@@ -1,4 +1,4 @@
-package com.bosowski.oslark.main
+package com.bosowski.oslark.managers
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input

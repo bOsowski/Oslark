@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Vector3
 import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.enums.State
 import com.bosowski.oslark.generation.Dungeon
-import com.bosowski.oslark.main.GameRenderer
+import com.bosowski.oslark.managers.GameRenderer
 import java.util.concurrent.ThreadLocalRandom
 
 

@@ -25,6 +25,4 @@ object Constants {
 
   val NPC_REACTION_DISTANCE = 5f
   val NPC_DISTANCE_FROM_INITIAL_POSITION = 3f
-
-
 }

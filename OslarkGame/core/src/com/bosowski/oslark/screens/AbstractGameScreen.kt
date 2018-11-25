@@ -6,7 +6,7 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
-import com.bosowski.oslark.main.Assets
+import com.bosowski.oslark.Assets
 
 abstract class AbstractGameScreen(protected var game: Game) : Screen {
   protected var stage: Stage = Stage()

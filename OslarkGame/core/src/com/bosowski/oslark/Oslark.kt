@@ -9,9 +9,7 @@ import com.bosowski.oslark.components.AnimatorComponent
 import com.bosowski.oslark.components.ColliderComponent
 import com.bosowski.oslark.components.InputComponent
 import com.bosowski.oslark.gameObjects.GameObject
-import com.bosowski.oslark.main.Assets
 import com.bosowski.oslark.screens.GameScreen
-import com.bosowski.oslark.screens.LoginScreen
 
 class Oslark : Game() {
 

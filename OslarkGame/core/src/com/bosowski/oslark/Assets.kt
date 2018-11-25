@@ -1,4 +1,4 @@
-package com.bosowski.oslark.main
+package com.bosowski.oslark
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor
@@ -7,7 +7,6 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.utils.Array
 import com.badlogic.gdx.utils.Disposable
 import com.bosowski.oslark.enums.State
 import com.bosowski.oslark.utils.Constants
@@ -26,7 +25,7 @@ object Assets
   val stateAnimations = HashMap<String, HashMap<State, Animation<TextureRegion>>>()
 
   fun init(assetManager: AssetManager) {
-    this.assetManager = assetManager
+    Assets.assetManager = assetManager
     assetManager.setErrorListener(this)
 
     //load texture from game sprites

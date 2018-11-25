@@ -3,7 +3,7 @@ package com.bosowski.oslark.screens
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
-import com.bosowski.oslark.main.Session
+import com.bosowski.oslark.managers.NetworkManager
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -16,7 +16,7 @@ class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
   init {
     var userJson: String? = null
     try {
-      userJson = Session.instance.loadUser()
+      userJson = NetworkManager.instance.loadUser()
     } catch (e: IOException) {
       e.printStackTrace()
     }

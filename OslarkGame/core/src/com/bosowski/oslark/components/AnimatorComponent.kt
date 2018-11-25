@@ -3,8 +3,6 @@ package com.bosowski.oslark.components
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.bosowski.oslark.enums.State
-import com.bosowski.oslark.gameObjects.GameObject
-import com.bosowski.oslark.main.Assets
 import java.util.HashMap
 
 
