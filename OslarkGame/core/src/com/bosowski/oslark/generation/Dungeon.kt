@@ -16,17 +16,20 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
   private var created = false
   private val random: Random = Random(seed)
 
-  fun create() {
+  fun create() : Boolean{
     if (created) {
-      return
+      return true
     }
     createRooms()
     createMazes()
     shrinkMazes()
     removeIsolatedRooms()
-    joinIsolatedAreas()
+    if(findIsolatedAreas() > 1){
+      return false
+    }
     createWallsAndInstantiate()
     created = true
+    return true
   }
 
   fun clear() {
@@ -98,7 +101,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     Gdx.app.log(TAG, "Finished creating walls and instantiating..")
   }
 
-  private fun joinIsolatedAreas(){
+  private fun findIsolatedAreas(): Int{
     Gdx.app.log(TAG, "Joining isolated areas..")
     var allCells: HashMap<Vector2, DungeonCell> = HashMap()
     allCells.putAll(dungeonCells)
@@ -126,26 +129,27 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       Gdx.app.debug(TAG, "Creating cluster.")
     }
 
-    val colors = listOf(Color.RED, Color.BLUE, Color.GOLD, Color.GRAY, Color.PURPLE)
-    var index = 0
-    clusters.forEach {
-      val color = colors[index]
-      if(index < colors.size){
-        index++
-      }
-      else{
-        index = 0
-      }
-      it.forEach {
-        it.cell.getComponents().forEach {
-          if(it is TextureComponent){
-            it.color = color
-          }
-        }
-      }
-    }
+//    val colors = listOf(Color.RED, Color.BLUE, Color.GOLD, Color.GRAY, Color.PURPLE)
+//    var index = 0
+//    clusters.forEach {
+//      val color = colors[index]
+//      if(index < colors.size){
+//        index++
+//      }
+//      else{
+//        index = 0
+//      }
+//      it.forEach {
+//        it.cell.getComponents().forEach {
+//          if(it is TextureComponent){
+//            it.color = color
+//          }
+//        }
+//      }
+//    }
 
     Gdx.app.log(TAG, "Finished joining isolated areas.. amount of clusters = ${clusters.size}")
+    return clusters.size
   }
 
   companion object {

@@ -10,6 +10,7 @@ import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.enums.State
 import com.bosowski.oslark.generation.Dungeon
 import com.bosowski.oslark.managers.GameRenderer
+import com.sun.org.apache.xpath.internal.operations.Bool
 import java.lang.Thread.sleep
 import java.util.concurrent.ThreadLocalRandom
 
@@ -50,10 +51,13 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
 
     //other inputs --- >
     if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
-      dungeon?.clear()
-//      dungeon = Dungeon(Rectangle(-5f, -5f, 900f, 10f), 2, 7, 700, ThreadLocalRandom.current().nextLong())
-      dungeon = Dungeon(Rectangle(-10f, -10f, 20f, 20f), 2, 7, 15, ThreadLocalRandom.current().nextLong())
-      dungeon!!.create()
+      var successfullyCreated: Boolean
+      do{
+        dungeon?.clear()
+        //      dungeon = Dungeon(Rectangle(-5f, -5f, 900f, 10f), 2, 7, 700, ThreadLocalRandom.current().nextLong())
+        dungeon = Dungeon(Rectangle(-10f, -10f, 20f, 20f), 2, 7, 15, ThreadLocalRandom.current().nextLong())
+        successfullyCreated = dungeon!!.create()
+      }while(!successfullyCreated)
       sleep(250)
     }
     if(Gdx.input.isKeyPressed(Input.Keys.O)){

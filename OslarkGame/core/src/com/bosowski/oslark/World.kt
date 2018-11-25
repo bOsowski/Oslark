@@ -44,7 +44,7 @@ object World
   fun render(batch: SpriteBatch) {
     gameObjects.forEach { gameObject ->
       //only render objects that are on screen.
-      if(Vector2.dst(gameObject.transform.position.x, gameObject.transform.position.y, GameRenderer.camera.position.x, GameRenderer.camera.position.y) <= 3 ){
+      if(Vector2.dst(gameObject.transform.position.x, gameObject.transform.position.y, GameRenderer.camera.position.x, GameRenderer.camera.position.y) <= 20 ){
         gameObject.getComponents().forEach {
           if(it.active) it.render(batch)
         }
