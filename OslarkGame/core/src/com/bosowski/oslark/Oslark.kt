@@ -5,6 +5,10 @@ import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.BodyDef
+import com.badlogic.gdx.physics.box2d.EdgeShape
+import com.badlogic.gdx.physics.box2d.PolygonShape
+import com.badlogic.gdx.physics.box2d.Shape
 import com.bosowski.oslark.components.AnimatorComponent
 import com.bosowski.oslark.components.ColliderComponent
 import com.bosowski.oslark.components.InputComponent
@@ -24,10 +28,12 @@ class Oslark : Game() {
 
     val testObject = GameObject()
     testObject.instantiate()
-    val collider = ColliderComponent(width = 0.6f, height = 0.2f, centre = Vector2(testObject.transform.position.x, testObject.transform.position.y-0.5f))
-    testObject.addComponent(collider)
+    val shape = PolygonShape()
     val animator = AnimatorComponent(Assets.stateAnimations["knightfemale"]!!)
     testObject.addComponent(animator)
+    shape.setAsBox(0.3f, 0.125f, Vector2(0f, -animator.dimension.y/2f), 0f)
+    val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape)
+    testObject.addComponent(collider)
     val inputComponent = InputComponent(animator = animator, speed = 5f)
     testObject.addComponent(inputComponent)
   }
