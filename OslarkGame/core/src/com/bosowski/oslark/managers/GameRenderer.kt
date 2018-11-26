@@ -1,5 +1,6 @@
 package com.bosowski.oslark.managers
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -24,6 +25,8 @@ class GameRenderer
   fun render() {
     batch.projectionMatrix = camera.combined
     batch.begin()
+    Gdx.graphics.setTitle("FPS: ${Gdx.graphics.framesPerSecond}")
+    World.rayHandler.setCombinedMatrix(camera)
     if(!debugView){
       gameManager.render(batch)
     }

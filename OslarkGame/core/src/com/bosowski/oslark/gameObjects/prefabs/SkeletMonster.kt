@@ -1,5 +1,6 @@
 package com.bosowski.oslark.gameObjects.prefabs
 
+import com.badlogic.gdx.ai.steer.Steerable
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
@@ -21,7 +22,7 @@ class SkeletMonster(position: Vector2): GameObject(position, name = "skelet"){
         val shape = PolygonShape()
         shape.setAsBox(0.3f, 0.125f, Vector2(0f, -animatorComponent.dimension.y/2f), 0f)
 
-        val collider = ColliderComponent(BodyDef.BodyType.KinematicBody, shape)
+        val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape)
 
         addComponent(collider)
 

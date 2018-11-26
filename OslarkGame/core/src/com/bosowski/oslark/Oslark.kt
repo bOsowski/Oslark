@@ -1,9 +1,11 @@
 package com.bosowski.oslark
 
+import box2dLight.PointLight
 import com.badlogic.gdx.Application
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.EdgeShape
@@ -40,5 +42,12 @@ class Oslark : Game() {
     World.player.addComponent(collider)
     val inputComponent = InputComponent(animator = animator, speed = 250f)
     World.player.addComponent(inputComponent)
+
+    //light
+    World.rayHandler.setAmbientLight(0f)
+    val playerLight = PointLight(World.rayHandler, 5000, Color(0f,0f,0f,1f), 15f, 0f, 0f)
+    playerLight.attachToBody(World.player.transform.body, 0f, -animator.dimension.y/2f)
+    playerLight.setSoftnessLength(5f)
+    playerLight.ignoreAttachedBody = true
   }
 }

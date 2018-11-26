@@ -1,6 +1,6 @@
 package com.bosowski.oslark
 
-import com.badlogic.gdx.Gdx
+import box2dLight.RayHandler
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.gameObjects.GameObject
@@ -19,7 +19,8 @@ object World
   var dungeon: Dungeon? = null
   lateinit var player: GameObject
 
-  val physicsWorld = com.badlogic.gdx.physics.box2d.World(Vector2(), true)
+  val physicsWorld:com.badlogic.gdx.physics.box2d.World = com.badlogic.gdx.physics.box2d.World(Vector2(), false)
+  val rayHandler = RayHandler(physicsWorld)
 
   fun instantiate(gameObject: GameObject){
     objectsToInstantiate.add(gameObject)
@@ -44,6 +45,7 @@ object World
     objectsToDestroy.clear()
 
     physicsWorld.step(deltaTime, 3, 1)
+    rayHandler.updateAndRender()
   }
 
   fun render(batch: SpriteBatch) {
