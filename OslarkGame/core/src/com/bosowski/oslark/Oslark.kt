@@ -13,6 +13,7 @@ import com.bosowski.oslark.components.AnimatorComponent
 import com.bosowski.oslark.components.ColliderComponent
 import com.bosowski.oslark.components.InputComponent
 import com.bosowski.oslark.gameObjects.GameObject
+import com.bosowski.oslark.gameObjects.prefabs.SkeletMonster
 import com.bosowski.oslark.screens.GameScreen
 
 class Oslark : Game() {
@@ -26,15 +27,18 @@ class Oslark : Game() {
 
     setScreen(GameScreen(this))
 
-    val testObject = GameObject()
-    testObject.instantiate()
+    val skeletMonster = SkeletMonster(position = Vector2(1f,1f))
+    skeletMonster.instantiate()
+
+    World.player = GameObject(name = "player")
+    World.player.instantiate()
     val shape = PolygonShape()
     val animator = AnimatorComponent(Assets.stateAnimations["knightfemale"]!!)
-    testObject.addComponent(animator)
+    World.player.addComponent(animator)
     shape.setAsBox(0.3f, 0.125f, Vector2(0f, -animator.dimension.y/2f), 0f)
     val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape)
-    testObject.addComponent(collider)
+    World.player.addComponent(collider)
     val inputComponent = InputComponent(animator = animator, speed = 250f)
-    testObject.addComponent(inputComponent)
+    World.player.addComponent(inputComponent)
   }
 }

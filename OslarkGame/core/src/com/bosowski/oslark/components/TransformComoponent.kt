@@ -10,13 +10,21 @@ import com.bosowski.oslark.enums.Direction
 class TransformComoponent(
     position: Vector2 = Vector2(),
     var layer: Short = 0,
-    var direction: Direction = Direction.DOWN
+    direction: Direction = Direction.DOWN
 ) : AbstractComponent() {
-
   var body: Body
   var position: Vector2
     get() = body.position
     set(value){body.position.set(value)}
+
+  var direction: Direction = direction
+  set(value){
+    previousDirection = field
+    field = value
+  }
+
+  var previousDirection = Direction.DOWN
+
 
   init{
     val bdef = BodyDef()

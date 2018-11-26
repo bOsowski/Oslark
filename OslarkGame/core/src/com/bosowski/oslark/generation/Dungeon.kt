@@ -4,17 +4,18 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
+import com.bosowski.oslark.World
 import com.bosowski.oslark.components.TextureComponent
 import java.util.ArrayList
 import java.util.Random
 
-class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int, seed: Long) {
+class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int) {
 
   private val dungeonCells = HashMap<Vector2, DungeonCell>()
   private val dungeonRooms = ArrayList<DungeonRoom>()
   private var maze: Maze? = null
   private var created = false
-  private val random: Random = Random(seed)
+  private val random: Random = World.random
 
   fun create() : Boolean{
     if (created) {

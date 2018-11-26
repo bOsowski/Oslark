@@ -21,17 +21,14 @@ enum class Direction(val word: String, val value: Vector2) {
       }
     }
 
-    val random: Direction?
-      get() {
-        val rand = Random()
-        when (rand.nextInt(4)) {
-          0 -> return UP
-          1 -> return RIGHT
-          2 -> return LEFT
-          3 -> return DOWN
-          else -> return null
-        }
+    fun getRandom(rand: Random): Direction{
+      return when (rand.nextInt(4)) {
+        0 -> UP
+        1 -> RIGHT
+        2 -> LEFT
+        else -> DOWN
       }
+    }
 
     val directions: ArrayList<Direction>
       get() {
