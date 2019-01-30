@@ -9,7 +9,7 @@ import com.bosowski.oslark.Assets
 import com.bosowski.oslark.utils.Util
 import java.util.*
 
-class DungeonCell(position: Vector2, private val random: Random){
+class DungeonCell(position: Vector2, private val random: Random, val index: Int){
 
   val cell = GameObject(position,-1)
 

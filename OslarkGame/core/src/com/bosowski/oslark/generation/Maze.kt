@@ -11,7 +11,7 @@ import java.util.HashMap
 import java.util.Random
 import java.util.Stack
 
-class Maze(private val parentArea: Rectangle, private val rooms: ArrayList<DungeonRoom>, private val random: Random) {
+class Maze(private val parentArea: Rectangle, private val rooms: ArrayList<DungeonRoom>, private val random: Random, val dungeon: Dungeon) {
 
   val cells = HashMap<Vector2, DungeonCell>()
 
@@ -52,7 +52,7 @@ class Maze(private val parentArea: Rectangle, private val rooms: ArrayList<Dunge
 
         if (isFree(currentPosition)) {
           stack.add(currentPosition)
-          cell = DungeonCell(Vector2(currentPosition.x, currentPosition.y), random)
+          cell = DungeonCell(Vector2(currentPosition.x, currentPosition.y), random, dungeon.nodeIndex)
           cells[currentPosition] = cell
 
           while (!stack.isEmpty()) {
@@ -64,11 +64,11 @@ class Maze(private val parentArea: Rectangle, private val rooms: ArrayList<Dunge
                 directions.remove(chosenDir)
                 currentPosition = Vector2(stack.peek())
               } else {
-                cell = DungeonCell(Vector2(currentPosition.x, currentPosition.y), random)
+                cell = DungeonCell(Vector2(currentPosition.x, currentPosition.y), random, dungeon.nodeIndex)
                 cells[currentPosition] = cell
                 stack.add(currentPosition)
                 val secondTile = Vector2(currentPosition).sub(chosenDir.value)
-                cell = DungeonCell(Vector2(secondTile.x, secondTile.y), random)
+                cell = DungeonCell(Vector2(secondTile.x, secondTile.y), random, dungeon.nodeIndex)
                 cells[secondTile] = cell
                 break
               }

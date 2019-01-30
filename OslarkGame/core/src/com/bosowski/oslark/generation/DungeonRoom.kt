@@ -2,7 +2,6 @@ package com.bosowski.oslark.generation
 
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.math.Vector3
 import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.utils.Util
 
@@ -10,7 +9,7 @@ import java.util.ArrayList
 import java.util.HashMap
 import java.util.Random
 
-class DungeonRoom(private val minSize: Int, private val maxSize: Int, private val parentArea: Rectangle, private val otherRooms: ArrayList<DungeonRoom>, private val random: Random) {
+class DungeonRoom(private val minSize: Int, private val maxSize: Int, private val parentArea: Rectangle, private val otherRooms: ArrayList<DungeonRoom>, private val random: Random, val dungeon: Dungeon) {
 
   val cells = HashMap<Vector2, DungeonCell>()
   var bounds: Rectangle? = null
@@ -44,7 +43,7 @@ class DungeonRoom(private val minSize: Int, private val maxSize: Int, private va
   }
 
   private fun add(x: Float, y: Float) {
-    val cell = DungeonCell(Vector2(x.toInt().toFloat(), y.toInt().toFloat()), random)
+    val cell = DungeonCell(Vector2(x.toInt().toFloat(), y.toInt().toFloat()), random, dungeon.nodeIndex)
     cells[cell.cell.transform.position] = cell
   }
 

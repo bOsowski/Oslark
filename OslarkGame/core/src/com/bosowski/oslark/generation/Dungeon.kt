@@ -1,21 +1,47 @@
 package com.bosowski.oslark.generation
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.ai.pfa.Connection
+import com.badlogic.gdx.ai.pfa.DefaultConnection
+import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Array
 import com.bosowski.oslark.World
-import com.bosowski.oslark.components.TextureComponent
 import java.util.ArrayList
 import java.util.Random
 
-class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int) {
+class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int): IndexedGraph<DungeonCell> {
 
-  private val dungeonCells = HashMap<Vector2, DungeonCell>()
+
+  override fun getConnections(fromNode: DungeonCell): Array<Connection<DungeonCell>> {
+    val connections: Array<Connection<DungeonCell>> = Array()
+    val startNode = dungeonCells[fromNode.cell.transform.position]!!
+    startNode.getNeighbours(dungeonCells).forEach{
+      val connection = DefaultConnection<DungeonCell>(startNode, it)
+      connections.add(connection)
+    }
+    return connections
+  }
+
+  override fun getIndex(node: DungeonCell): Int {
+    return dungeonCells[node.cell.transform.position]!!.index
+  }
+
+  override fun getNodeCount(): Int {
+    return dungeonCells.count()
+  }
+
+  val dungeonCells = HashMap<Vector2, DungeonCell>()
   private val dungeonRooms = ArrayList<DungeonRoom>()
   private var maze: Maze? = null
   private var created = false
   private val random: Random = World.random
+  var nodeIndex: Int = 0
+  get() {
+    field++
+    return field
+  }
 
   fun create() : Boolean{
     if (created) {
@@ -42,7 +68,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
   private fun createRooms() {
     Gdx.app.log(TAG, "Creating rooms..")
     for (i in 0 until roomCreationAttempts) {
-      val room = DungeonRoom(minRoomSize, maxRoomSize, bounds, dungeonRooms, random)
+      val room = DungeonRoom(minRoomSize, maxRoomSize, bounds, dungeonRooms, random, this)
       if (room.create()) {
         dungeonRooms.add(room)
         dungeonCells.putAll(room.cells)
@@ -53,7 +79,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
 
   private fun createMazes() {
     Gdx.app.log(TAG, "Creating mazes..")
-    maze = Maze(bounds, dungeonRooms, random)
+    maze = Maze(bounds, dungeonRooms, random, this)
     maze!!.create()
     dungeonCells.putAll(maze!!.cells)
     Gdx.app.log(TAG, "Finished creating mazes.")
