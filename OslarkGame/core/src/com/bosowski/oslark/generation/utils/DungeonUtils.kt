@@ -19,31 +19,31 @@ import java.util.*
     when (direction) {
       Direction.LEFT -> {
         val textureComponent = TextureComponent(Assets.textures["wallLeft"]!!)
-        textureComponent.origin = Vector2(0.5f, 0.5f)
+        textureComponent.origin = Vector2(0.5f, 0.0f)
         textureComponent.dimension = Vector2(0.2f, 2f)
         wall.addComponent(textureComponent)
         //type = BodyDef.BodyType.StaticBody, centre = Vector2(- textureComponent.origin.x + 0.1f, 0f), width = 0.2f, height = 1f
         val shape = EdgeShape()
-        shape.set(Vector2(-textureComponent.origin.x+textureComponent.dimension.x, -textureComponent.origin.y), Vector2(-textureComponent.origin.x+textureComponent.dimension.x, textureComponent.origin.y))
+        shape.set(Vector2(-textureComponent.origin.x+textureComponent.dimension.x, -0.0f), Vector2(-textureComponent.origin.x+textureComponent.dimension.x, 1f))
         val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape)
         wall.addComponent(colliderComponent)
         return wall
       }
       Direction.RIGHT -> {
         val textureComponent = TextureComponent(Assets.textures["wallRight"]!!)
-        textureComponent.origin = Vector2(-0.5f, 0.5f)
+        textureComponent.origin = Vector2(-0.5f, 0.0f)
         textureComponent.dimension = Vector2(0.2f, 2f)
         wall.addComponent(textureComponent)
         //type = BodyDef.BodyType.StaticBody, centre = Vector2( - textureComponent.origin.x, 0f), width = 0.2f, height = 1f
         val shape = EdgeShape()
-        shape.set(Vector2(-textureComponent.origin.x, -textureComponent.origin.y), Vector2(-textureComponent.origin.x, textureComponent.origin.y))
+        shape.set(Vector2(-textureComponent.origin.x, -0.0f), Vector2(-textureComponent.origin.x, 1f))
         val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape)
         wall.addComponent(colliderComponent)
         return wall
       }
       Direction.DOWN -> {
         val textureComponent = TextureComponent(Assets.textures["wallDown"]!!)
-        textureComponent.origin = Vector2(0.5f, 0.5f)
+        textureComponent.origin = Vector2(0.5f, 0.0f)
         wall.addComponent(textureComponent)
         //type = BodyDef.BodyType.StaticBody, centre = Vector2(0f,  - textureComponent.origin.y), width = 1f, height = 0.01f
         val shape = EdgeShape()

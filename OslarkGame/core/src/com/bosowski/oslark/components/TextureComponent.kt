@@ -10,7 +10,7 @@ open class TextureComponent(protected var texture: TextureRegion): AbstractCompo
   var scale = Vector2(1f, 1f)
   var dimension = Vector2(1f, 1f)
   var rotation = 0f
-  var origin = Vector2(dimension.x / 2, dimension.y / 2)
+  var origin = Vector2(dimension.x / 2, 0f)
   var color = Color.WHITE
 
   override fun awake() {}

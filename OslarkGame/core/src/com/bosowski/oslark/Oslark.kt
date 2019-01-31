@@ -13,7 +13,9 @@ import com.bosowski.oslark.components.AnimatorComponent
 import com.bosowski.oslark.components.ColliderComponent
 import com.bosowski.oslark.components.InputComponent
 import com.bosowski.oslark.gameObjects.GameObject
-import com.bosowski.oslark.gameObjects.prefabs.SkeletMonster
+import com.bosowski.oslark.gameObjects.prefabs.Demon
+import com.bosowski.oslark.gameObjects.prefabs.Monster
+import com.bosowski.oslark.gameObjects.prefabs.Skeleton
 import com.bosowski.oslark.screens.GameScreen
 
 class Oslark : Game() {
@@ -27,15 +29,12 @@ class Oslark : Game() {
 
     setScreen(GameScreen(this))
 
-    val skeletMonster = SkeletMonster(position = Vector2(1f,1f))
-    skeletMonster.instantiate()
-
     World.player = GameObject(name = "player")
     World.player.instantiate()
     val shape = PolygonShape()
     val animator = AnimatorComponent(Assets.stateAnimations["knightfemale"]!!)
     World.player.addComponent(animator)
-    shape.setAsBox(0.3f, 0.125f, Vector2(0f, -animator.dimension.y/2f), 0f)
+    shape.setAsBox(0.3f, 0.125f, Vector2(0f, 0f), 0f)
     val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape)
     World.player.addComponent(collider)
     val inputComponent = InputComponent(animator = animator, speed = 250f)
@@ -47,5 +46,11 @@ class Oslark : Game() {
     playerLight.attachToBody(World.player.transform.body, 0f, -animator.dimension.y/2f)
     playerLight.setSoftnessLength(5f)
     playerLight.ignoreAttachedBody = true
+
+//    val skeletMonster = Skeleton(position = Vector2(1f,1f))
+//    skeletMonster.instantiate()
+
+    val demon = Demon(position = Vector2(1f,1f))
+    demon.instantiate()
   }
 }

@@ -2,7 +2,7 @@ package com.bosowski.oslark.components
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
-class AIComponent(var action: UpdateActionInterface): AbstractComponent() {
+class AIComponent(var action: UpdateActionInterface?): AbstractComponent() {
 
     override fun awake() {}
 
@@ -13,6 +13,6 @@ class AIComponent(var action: UpdateActionInterface): AbstractComponent() {
     override fun destroy() {}
 
     override fun update(deltaTime: Float){
-        action.perform(deltaTime)
+        action?.perform(deltaTime)
     }
 }
