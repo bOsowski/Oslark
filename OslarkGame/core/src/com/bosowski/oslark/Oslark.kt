@@ -46,6 +46,7 @@ class Oslark : Game() {
     playerLight.attachToBody(World.player.transform.body, 0f, -animator.dimension.y/2f)
     playerLight.setSoftnessLength(5f)
     playerLight.ignoreAttachedBody = true
+    playerLight.setContactFilter(0,0,0)
 
 //    val skeletMonster = Skeleton(position = Vector2(1f,1f))
 //    skeletMonster.instantiate()

@@ -19,6 +19,9 @@ object World
   var dungeon: Dungeon? = null
   lateinit var player: GameObject
 
+  var raycastPt1Test: Vector2? = null
+  var raycastPt2Test: Vector2? = null
+
   val physicsWorld:com.badlogic.gdx.physics.box2d.World = com.badlogic.gdx.physics.box2d.World(Vector2(), false)
   val rayHandler = RayHandler(physicsWorld)
 

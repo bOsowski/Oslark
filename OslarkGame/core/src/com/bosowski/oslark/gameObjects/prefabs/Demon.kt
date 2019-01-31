@@ -9,7 +9,9 @@ class Demon(position: Vector2): Monster(position, "bigDemon", Vector2(3f, 3f)) {
     init {
         speed = 50f
         aiComponent.action = UpdateActionInterface {deltaTime ->
-           moveRandomly(deltaTime)
+            moveRandomly(deltaTime)
+            steeringComponent.raycast(World.player.transform.position)
+
         }
     }
 

@@ -34,17 +34,20 @@ class SteeringComponent(val body: Body, var speed: Float, var target: Vector2?):
     }
 
     fun raycast(target: Vector2){
-        var closestFraction = 1f
+        var closestFraction = Float.MAX_VALUE
         var collisionPoint: Vector2? = null
         val callback = RayCastCallback { fixture, point, normal, fraction ->
-            if (fraction < closestFraction) {
+            //if (fraction < closestFraction) {
                 closestFraction = fraction
                 collisionPoint = point
-            }
-            1f
+          //  }
+            -1f
         }
 
         World.physicsWorld.rayCast(callback, body.position, target)
+        println("Collision point = $collisionPoint")
+        World.raycastPt1Test = body.position
+        World.raycastPt2Test = collisionPoint
 
 
     }
