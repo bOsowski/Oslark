@@ -26,9 +26,21 @@ class AnimatorComponent(private val animations: HashMap<State, Animation<Texture
   override fun update(deltaTime: Float) {}
 
   override fun render(batch: SpriteBatch) {
+
+    state = if(owner.transform.body.linearVelocity != Vector2.Zero){
+      State.MOVE
+    } else{
+      State.IDLE
+    }
+
     //flip the sprite depending on the direction.
-    if(owner.transform.direction.value.x != 0f){
-      scale = (Vector2(Math.abs(scale.x) * owner.transform.direction.value.x, scale.y))
+    if(owner.transform.body.linearVelocity.x != 0f){
+      var direction = owner.transform.body.linearVelocity.x
+
+      direction = if(direction < 0) -1f
+      else 1f
+
+      scale = (Vector2(Math.abs(scale.x) * direction, scale.y))
     }
     super.render(batch)
   }

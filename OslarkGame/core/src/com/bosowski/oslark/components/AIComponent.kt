@@ -15,4 +15,5 @@ class AIComponent(var action: UpdateActionInterface?): AbstractComponent() {
     override fun update(deltaTime: Float){
         action?.perform(deltaTime)
     }
+
 }

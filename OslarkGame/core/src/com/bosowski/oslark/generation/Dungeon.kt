@@ -4,43 +4,50 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ai.pfa.Connection
 import com.badlogic.gdx.ai.pfa.DefaultConnection
 import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Array
 import com.bosowski.oslark.World
+import com.bosowski.oslark.components.TextureComponent
+import com.bosowski.oslark.gameObjects.prefabs.Demon
+import com.bosowski.oslark.gameObjects.prefabs.Monster
+import com.bosowski.oslark.gameObjects.prefabs.Skeleton
+import com.bosowski.oslark.utils.Util
 import java.util.ArrayList
 import java.util.Random
 
-class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int): IndexedGraph<DungeonCell> {
-
-
-  override fun getConnections(fromNode: DungeonCell): Array<Connection<DungeonCell>> {
-    val connections: Array<Connection<DungeonCell>> = Array()
-    val startNode = dungeonCells[fromNode.cell.transform.position]!!
-    startNode.getNeighbours(dungeonCells).forEach{
-      val connection = DefaultConnection<DungeonCell>(startNode, it)
-      connections.add(connection)
-    }
-    return connections
-  }
-
-  override fun getIndex(node: DungeonCell): Int {
-    return dungeonCells[node.cell.transform.position]!!.index
-  }
-
-  override fun getNodeCount(): Int {
-    return dungeonCells.count()
-  }
+class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int) {
 
   val dungeonCells = HashMap<Vector2, DungeonCell>()
   private val dungeonRooms = ArrayList<DungeonRoom>()
   private var maze: Maze? = null
   private var created = false
   private val random: Random = World.random
+
+  private val spawnedMonsters = ArrayList<Monster>()
+
+//  private val monsterTypes = [Demon::class, Skeleton::class]
+
   var nodeIndex: Int = 0
   get() {
     field++
     return field
+  }
+
+  fun spawnMonsters(){
+    val chanceToSpawnInMaze = 0.05
+    val chanceToSpawnInRoom = 0.3
+
+    //spawn monsters in maze. Make sure the monster is 1x1.
+    maze!!.cells.values.forEach { it ->
+      val rand = random.nextFloat()
+      if(rand <= chanceToSpawnInMaze){
+        val monster = Skeleton(it.cell.transform.position.sub(-0f, -0.25f))
+        monster.instantiate()
+        spawnedMonsters.add(monster)
+      }
+    }
   }
 
   fun create() : Boolean{
@@ -49,12 +56,16 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     }
     createRooms()
     createMazes()
+    print("Maze size = " + maze!!.cells.size)
     shrinkMazes()
+    print("Maze size = " + maze!!.cells.size)
     removeIsolatedRooms()
     if(findIsolatedAreas() > 1){
       return false
     }
     createWallsAndInstantiate()
+    spawnMonsters()
+    colourMazeCells()
     created = true
     return true
   }
@@ -62,6 +73,15 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
   fun clear() {
     for (cell in dungeonCells.values) {
       cell.clear()
+    }
+    spawnedMonsters.forEach{
+      it.destroy()
+    }
+  }
+
+  private fun colourMazeCells(){
+    maze!!.cells.forEach{
+      (it.value.cell.getComponent(TextureComponent::class.java.simpleName) as TextureComponent?)?.color = Color.PURPLE
     }
   }
 
@@ -90,11 +110,12 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     var entryIterator: MutableIterator<Any>
     var deletedAny = true
     while (deletedAny) {
-      entryIterator = dungeonCells.entries.iterator()
+      entryIterator = maze!!.cells.entries.iterator()
       deletedAny = false
       while (entryIterator.hasNext()) {
         val entry = entryIterator.next()
         if (entry.value.getNeighbours(dungeonCells).size <= 1) {
+          dungeonCells.remove(entry.key)
           entryIterator.remove()
           deletedAny = true
         }

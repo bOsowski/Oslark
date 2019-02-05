@@ -71,7 +71,6 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
     if(animator != null){
       animator!!.state = State.MOVE
     }
-    owner.transform.direction = direction
   }
 
   override fun render(batch: SpriteBatch) {

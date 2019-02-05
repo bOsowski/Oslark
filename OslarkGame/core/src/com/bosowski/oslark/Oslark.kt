@@ -41,17 +41,18 @@ class Oslark : Game() {
     World.player.addComponent(inputComponent)
 
     //light
-    World.rayHandler.setAmbientLight(0f)
-    val playerLight = PointLight(World.rayHandler, 5000, Color(0f,0f,0f,1f), 15f, 0f, 0f)
-    playerLight.attachToBody(World.player.transform.body, 0f, -animator.dimension.y/2f)
-    playerLight.setSoftnessLength(5f)
-    playerLight.ignoreAttachedBody = true
-    playerLight.setContactFilter(0,0,0)
+    //todo(fix lighting filter. Currently raycasts can see the light..)
+    World.rayHandler.setAmbientLight(1f)
+//    val playerLight = PointLight(World.rayHandler, 5000, Color(0f,0f,0f,1f), 15f, 0f, 0f)
+//    playerLight.attachToBody(World.player.transform.body, 0f, -animator.dimension.y/2f)
+//    playerLight.setSoftnessLength(5f)
+//    playerLight.ignoreAttachedBody = true
+//    playerLight.setContactFilter(0,0,0)
 
 //    val skeletMonster = Skeleton(position = Vector2(1f,1f))
 //    skeletMonster.instantiate()
 
-    val demon = Demon(position = Vector2(1f,1f))
-    demon.instantiate()
+//    val demon = Demon(position = Vector2(1f,1f))
+//    demon.instantiate()
   }
 }

@@ -35,13 +35,14 @@ class GameRenderer
     }
     else{
       debugRenderer.render(World.physicsWorld, batch.projectionMatrix)
-      if(World.raycastPt1Test != null && World.raycastPt2Test != null){
-        shapeRanderer.projectionMatrix = batch.projectionMatrix
-        shapeRanderer.begin(ShapeRenderer.ShapeType.Line)
-        shapeRanderer.line(World.raycastPt1Test, World.raycastPt2Test)
-        shapeRanderer.end()
+      shapeRanderer.begin(ShapeRenderer.ShapeType.Line)
+      shapeRanderer.projectionMatrix = batch.projectionMatrix
+      World.rays.values.forEach { u ->
+        if(u.first != null && u.second != null){
+          shapeRanderer.line(u.first, u.second)
+        }
       }
-
+      shapeRanderer.end()
     }
     batch.end()
   }

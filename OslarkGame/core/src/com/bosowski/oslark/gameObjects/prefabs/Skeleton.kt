@@ -7,8 +7,15 @@ import com.bosowski.oslark.components.UpdateActionInterface
 class Skeleton(position: Vector2): Monster(position, "skelet", Vector2(1f,1f)) {
 
     init {
-        aiComponent.action = UpdateActionInterface {deltaTime ->
-           steeringComponent.goTo(World.player.transform.position)
+        speed = 25f
+
+        aiComponent.action = UpdateActionInterface { deltaTime ->
+            if(steeringComponent.raycast(World.player.transform.position) && Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, transform.position.x, transform.position.y) < 5f){
+               steeringComponent.goTo(World.player.transform.position)
+            }
+            else{
+                moveRandomly(deltaTime)
+            }
         }
     }
 

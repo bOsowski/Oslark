@@ -20,6 +20,7 @@ abstract class Monster(position: Vector2, name: String, scale: Vector2): GameObj
     var collider: ColliderComponent
     var steeringComponent: SteeringComponent
     var aiComponent: AIComponent
+    var direction: Direction = Direction.DOWN
 
     init {
         animatorComponent = AnimatorComponent(Assets.stateAnimations[name]!!)
@@ -37,12 +38,6 @@ abstract class Monster(position: Vector2, name: String, scale: Vector2): GameObj
         steeringComponent = SteeringComponent(collider.body, speed, World.player.transform.position)
         addComponent(steeringComponent)
 
-        transform.direction = Direction.getRandom(World.random)
-
-//        val action = UpdateActionInterface {deltaTime ->
-//
-//        }
-
         aiComponent = AIComponent(action)
         addComponent(aiComponent)
     }
@@ -50,10 +45,10 @@ abstract class Monster(position: Vector2, name: String, scale: Vector2): GameObj
     fun moveRandomly(deltaTime: Float){
         //todo: fix the below. notice how everything stops working when the below is uncommented..
         if(timer >= 2f){
-            transform.direction = Direction.getRandom(World.random)
+            direction = Direction.getRandom(World.random)
             timer = 0f
         }
-        val velocity = Vector2(transform.direction.value)
+        val velocity = Vector2(direction.value)
         velocity.x *= speed * deltaTime
         velocity.y *= speed * deltaTime
         transform.body.linearVelocity = velocity
