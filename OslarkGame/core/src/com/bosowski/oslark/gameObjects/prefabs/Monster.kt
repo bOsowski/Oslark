@@ -10,9 +10,13 @@ import com.bosowski.oslark.components.*
 import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.gameObjects.GameObject
 
-abstract class Monster(position: Vector2, name: String, scale: Vector2): GameObject(position, name = name){
+abstract class Monster(position: Vector2, name: String, speed: Float, scale: Vector2): GameObject(position, name = name){
 
-    var speed = 3f
+    var speed: Float = -1f
+    set(value) {
+        field = value
+        steeringComponent.speed = value
+    }
     var timer = 0f
     var action: UpdateActionInterface? = null
 
@@ -40,6 +44,7 @@ abstract class Monster(position: Vector2, name: String, scale: Vector2): GameObj
 
         aiComponent = AIComponent(action)
         addComponent(aiComponent)
+        this.speed = speed
     }
 
     fun moveRandomly(deltaTime: Float){
@@ -49,8 +54,8 @@ abstract class Monster(position: Vector2, name: String, scale: Vector2): GameObj
             timer = 0f
         }
         val velocity = Vector2(direction.value)
-        velocity.x *= speed * deltaTime
-        velocity.y *= speed * deltaTime
+        velocity.x *= speed
+        velocity.y *= speed
         transform.body.linearVelocity = velocity
         timer += deltaTime
     }

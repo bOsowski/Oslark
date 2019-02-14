@@ -52,8 +52,8 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     var lowestX = Float.MAX_VALUE
     var highestX = Float.MIN_VALUE
     dungeonCells.keys.forEach{
-      if (lowestX >= it.x) lowestX = it.x
-      if (highestX <= it.x) highestX = it.x
+      if (lowestX > it.x) lowestX = it.x
+      if (highestX < it.x) highestX = it.x
     }
 
     //spawn monsters in maze. Make sure the monster is 1x1.
@@ -62,7 +62,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       val cellDifficulty = Util.map(it.cell.transform.position.x, lowestX, highestX, 0f, highestMonsterLevel.toFloat()) //(it.cell.transform.position.y - lowestY) / (highestMonsterLevel-1)) + 1
 
       Settings.spawnTableMaze.forEach lit@{ k, v ->
-        if(rand <= k && v != null && v.second <= cellDifficulty ){
+        if(rand <= k && v != null && v.second <= cellDifficulty+1){
           val position = it.cell.transform.position.sub(-0f, -0.25f)
           val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.${v.first}").kotlin
           val monster = kClass.constructors.first().call(position) as Monster
@@ -88,8 +88,8 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     lowestX = Float.MAX_VALUE
     highestX = Float.MIN_VALUE
     dungeonRooms.forEach{
-      if (lowestX >= it.cells.keys.first().x) lowestX = it.cells.keys.first().x
-      if (highestX <= it.cells.keys.first().x) highestX = it.cells.keys.first().x
+      if (lowestX > it.cells.keys.first().x) lowestX = it.cells.keys.first().x
+      if (highestX < it.cells.keys.first().x) highestX = it.cells.keys.first().x
     }
 
     dungeonRooms.forEach { room ->
@@ -97,9 +97,9 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
 
       room.cells.forEach{ cell_k, cell_v ->
         val rand = Util.randomInt(random, 0, totalSpawnRate)
-        Settings.spawnTableMaze.forEach lit@{ k, v ->
+        Settings.spawnTableRooms.forEach lit@{ k, v ->
 
-          if(rand <= k && v != null && v.second <= roomDifficulty) {
+          if(rand <= k && v != null && v.second <= roomDifficulty + 1) {
             val position = cell_k.sub(-0f, -0.25f)
             val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.${v.first}").kotlin
             val monster = kClass.constructors.first().call(position) as Monster
@@ -127,6 +127,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     createWallsAndInstantiate()
     spawnMonsters()
     colourMazeCells()
+    colourRooms()
     created = true
     World.player.transform.position.set(dungeonCells.keys.first())
     return true
@@ -143,7 +144,28 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
 
   private fun colourMazeCells(){
     maze!!.cells.forEach{
-      (it.value.cell.getComponent(TextureComponent::class.java.simpleName) as TextureComponent?)?.color = Color.PURPLE
+      (it.value.cell.getComponent(TextureComponent::class.java.simpleName) as TextureComponent?)?.color = Color.FIREBRICK
+    }
+  }
+
+  private fun colourRooms(){
+    val colors = listOf(Color.RED, Color.BLUE, Color.GOLD, Color.GRAY, Color.PURPLE)
+    var index = 0
+    dungeonRooms.forEach {room ->
+      val color = colors[index]
+      if(index < colors.size -1){
+        index++
+      }
+      else{
+        index = 0
+      }
+      room.cells.forEach { cell_k, cell_v ->
+        cell_v.cell.getComponents().forEach {
+          if(it is TextureComponent){
+            it.color = color
+          }
+        }
+      }
     }
   }
 
