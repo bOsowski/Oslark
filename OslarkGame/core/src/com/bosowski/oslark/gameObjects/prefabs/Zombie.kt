@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.World
 import com.bosowski.oslark.components.UpdateActionInterface
 
-class Zombie(position: Vector2): Monster(position, "zombie", 0.25f,  Vector2(1f,1f)) {
+class Zombie(position: Vector2): Monster(position, "zombie", 0.5f, 80f,  Vector2(1f,1f)) {
 
     init {
         aiComponent.action = UpdateActionInterface { deltaTime ->

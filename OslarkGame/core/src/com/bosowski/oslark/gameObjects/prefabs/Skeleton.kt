@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.World
 import com.bosowski.oslark.components.UpdateActionInterface
 
-class Skeleton(position: Vector2): Monster(position, "skelet", 0.5f, Vector2(1f,1f)) {
+class Skeleton(position: Vector2): Monster(position, "skelet", 0.75f, 45f, Vector2(1f,1f)) {
 
     init {
         aiComponent.action = UpdateActionInterface { deltaTime ->
@@ -16,5 +16,4 @@ class Skeleton(position: Vector2): Monster(position, "skelet", 0.5f, Vector2(1f,
             }
         }
     }
-
 }

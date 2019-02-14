@@ -10,7 +10,7 @@ import com.bosowski.oslark.components.*
 import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.gameObjects.GameObject
 
-abstract class Monster(position: Vector2, name: String, speed: Float, scale: Vector2): GameObject(position, name = name){
+abstract class Monster(position: Vector2, name: String, speed: Float, density: Float, scale: Vector2): GameObject(position, name = name){
 
     var speed: Float = -1f
     set(value) {
@@ -35,11 +35,10 @@ abstract class Monster(position: Vector2, name: String, speed: Float, scale: Vec
         //println("Sprite dimension: "+animatorComponent.dimension.toString())
         shape.setAsBox(scale.x / 4, scale.y/ 9, Vector2(0f, 0f), 0f)
 
-        collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape)
-
+        collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape, density)
         addComponent(collider)
 
-        steeringComponent = SteeringComponent(collider.body, speed, World.player.transform.position)
+        steeringComponent = SteeringComponent(collider.body, speed, World.player.transform.position, collider)
         addComponent(steeringComponent)
 
         aiComponent = AIComponent(action)
@@ -52,11 +51,9 @@ abstract class Monster(position: Vector2, name: String, speed: Float, scale: Vec
         if(timer >= 2f){
             direction = Direction.getRandom(World.random)
             timer = 0f
+            collider.move(direction.value, speed)
         }
-        val velocity = Vector2(direction.value)
-        velocity.x *= speed
-        velocity.y *= speed
-        transform.body.linearVelocity = velocity
+        //val velocity = Vector2(direction.value)
         timer += deltaTime
     }
 }

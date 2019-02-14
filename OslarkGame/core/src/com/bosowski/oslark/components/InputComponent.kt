@@ -16,7 +16,7 @@ import java.lang.Thread.sleep
 import java.util.concurrent.ThreadLocalRandom
 
 
-class InputComponent(private val speed: Float, var animator: AnimatorComponent? = null): AbstractComponent(){
+class InputComponent(private val speed: Float, var animator: AnimatorComponent? = null, var collider: ColliderComponent): AbstractComponent(){
 
   override fun awake() {
   }
@@ -26,25 +26,30 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
   override fun update(deltaTime: Float) {
     owner.transform.body.linearVelocity = Vector2()
     //move owner UP
-    if(Gdx.input.isKeyPressed(Input.Keys.W)) move(Direction.UP, deltaTime)
+    if(Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Direction.UP.value, speed)
     //move owner DOWN
-    if(Gdx.input.isKeyPressed(Input.Keys.S)) move(Direction.DOWN, deltaTime)
+    if(Gdx.input.isKeyPressed(Input.Keys.S)) collider.move(Direction.DOWN.value, speed)
     //move owner RIGHT
-    if(Gdx.input.isKeyPressed(Input.Keys.D)) move(Direction.RIGHT, deltaTime)
+    if(Gdx.input.isKeyPressed(Input.Keys.D)) collider.move(Direction.RIGHT.value, speed)
     //move owner LEFT
-    if(Gdx.input.isKeyPressed(Input.Keys.A)) move(Direction.LEFT, deltaTime)
+    if(Gdx.input.isKeyPressed(Input.Keys.A)) collider.move(Direction.LEFT.value, speed)
+
+    if(Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Vector2(Direction.LEFT.value).add(Direction.UP.value), speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.S)) collider.move(Vector2(Direction.LEFT.value).add(Direction.DOWN.value), speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Vector2(Direction.RIGHT.value).add(Direction.UP.value), speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.S)) collider.move(Vector2(Direction.RIGHT.value).add(Direction.DOWN.value), speed)
 
     //If the player is going diagonal, adjust the velocity.
     if(owner.transform.body.linearVelocity.x != 0f && owner.transform.body.linearVelocity.y != 0f){
       owner.transform.body.linearVelocity = Vector2(owner.transform.body.linearVelocity.x/1.5f, owner.transform.body.linearVelocity.y/1.5f)
     }
 
-      if(owner.transform.body.linearVelocity == Vector2()){
-        animator?.state = State.IDLE
-      }
-    else{
-        animator?.state = State.MOVE
-      }
+//      if(owner.transform.body.linearVelocity == Vector2()){
+//        animator?.state = State.IDLE
+//      }
+//    else{
+//        animator?.state = State.MOVE
+//      }
 
     //other inputs --- >
     if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
@@ -59,17 +64,6 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
     }
     if(Gdx.input.isKeyPressed(Input.Keys.O)){
       GameRenderer.debugView = !GameRenderer.debugView
-    }
-  }
-
-  fun move(direction: Direction, deltaTime: Float){
-    val velocity = Vector2(direction.value)
-    velocity.x *= speed*deltaTime
-    velocity.y *= speed*deltaTime
-    owner.transform.body.linearVelocity = owner.transform.body.linearVelocity.add(velocity)
-
-    if(animator != null){
-      animator!!.state = State.MOVE
     }
   }
 

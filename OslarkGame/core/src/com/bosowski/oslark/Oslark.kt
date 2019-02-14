@@ -35,9 +35,9 @@ class Oslark : Game() {
     val animator = AnimatorComponent(Assets.stateAnimations["knightfemale"]!!)
     World.player.addComponent(animator)
     shape.setAsBox(0.3f, 0.125f, Vector2(0f, 0f), 0f)
-    val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape)
+    val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape, 100f)
     World.player.addComponent(collider)
-    val inputComponent = InputComponent(animator = animator, speed = 250f)
+    val inputComponent = InputComponent(animator = animator, speed = 5f, collider = collider)
     World.player.addComponent(inputComponent)
 
     //light

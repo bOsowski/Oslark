@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.World
 import com.bosowski.oslark.components.UpdateActionInterface
 
-class Imp(position: Vector2): Monster(position, "imp", 5f,  Vector2(1f,1f)) {
+class Imp(position: Vector2): Monster(position, "imp", 5f, 35f,  Vector2(1f,1f)) {
 
     init {
         aiComponent.action = UpdateActionInterface { deltaTime ->
