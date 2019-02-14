@@ -13,9 +13,12 @@ import com.bosowski.oslark.components.TextureComponent
 import com.bosowski.oslark.gameObjects.prefabs.Demon
 import com.bosowski.oslark.gameObjects.prefabs.Monster
 import com.bosowski.oslark.gameObjects.prefabs.Skeleton
+import com.bosowski.oslark.playerDomains.Settings
 import com.bosowski.oslark.utils.Util
 import java.util.ArrayList
 import java.util.Random
+import kotlin.reflect.full.createInstance
+import kotlin.reflect.jvm.javaConstructor
 
 class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int) {
 
@@ -30,22 +33,80 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
 //  private val monsterTypes = [Demon::class, Skeleton::class]
 
   var nodeIndex: Int = 0
-  get() {
-    field++
-    return field
-  }
+    get() {
+      field++
+      return field
+    }
 
   fun spawnMonsters(){
-    val chanceToSpawnInMaze = 0.05
-    val chanceToSpawnInRoom = 0.3
+
+    var totalSpawnRate = 0
+    var highestMonsterLevel = 0
+    Settings.spawnTableMaze.forEach {
+      totalSpawnRate += it.key
+      if(it.value != null && highestMonsterLevel < it.value!!.second){
+        highestMonsterLevel = it.value!!.second
+      }
+    }
+
+    var lowestX = Float.MAX_VALUE
+    var highestX = Float.MIN_VALUE
+    dungeonCells.keys.forEach{
+      if (lowestX >= it.x) lowestX = it.x
+      if (highestX <= it.x) highestX = it.x
+    }
 
     //spawn monsters in maze. Make sure the monster is 1x1.
     maze!!.cells.values.forEach { it ->
-      val rand = random.nextFloat()
-      if(rand <= chanceToSpawnInMaze){
-        val monster = Skeleton(it.cell.transform.position.sub(-0f, -0.25f))
-        monster.instantiate()
-        spawnedMonsters.add(monster)
+      val rand = Util.randomInt(random, 0, totalSpawnRate)
+      val cellDifficulty = Util.map(it.cell.transform.position.x, lowestX, highestX, 0f, highestMonsterLevel.toFloat()) //(it.cell.transform.position.y - lowestY) / (highestMonsterLevel-1)) + 1
+
+      Settings.spawnTableMaze.forEach lit@{ k, v ->
+        if(rand <= k && v != null && v.second <= cellDifficulty ){
+          val position = it.cell.transform.position.sub(-0f, -0.25f)
+          val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.${v.first}").kotlin
+          val monster = kClass.constructors.first().call(position) as Monster
+          monster.instantiate()
+          spawnedMonsters.add(monster)
+          return@lit
+        }
+      }
+    }
+
+    println("Instantiated ${spawnedMonsters.size} monsters.")
+
+    totalSpawnRate = 0
+    highestMonsterLevel = 0
+
+    Settings.spawnTableRooms.forEach {
+      totalSpawnRate += it.key
+      if(it.value != null && highestMonsterLevel < it.value!!.second){
+        highestMonsterLevel = it.value!!.second
+      }
+    }
+
+    lowestX = Float.MAX_VALUE
+    highestX = Float.MIN_VALUE
+    dungeonRooms.forEach{
+      if (lowestX >= it.cells.keys.first().x) lowestX = it.cells.keys.first().x
+      if (highestX <= it.cells.keys.first().x) highestX = it.cells.keys.first().x
+    }
+
+    dungeonRooms.forEach { room ->
+      val roomDifficulty = Util.map(room.cells.keys.first().x, lowestX, highestX, 0f, highestMonsterLevel.toFloat()) //(it.cell.transform.position.y - lowestY) / (highestMonsterLevel-1)) + 1
+
+      room.cells.forEach{ cell_k, cell_v ->
+        val rand = Util.randomInt(random, 0, totalSpawnRate)
+        Settings.spawnTableMaze.forEach lit@{ k, v ->
+
+          if(rand <= k && v != null && v.second <= roomDifficulty) {
+            val position = cell_k.sub(-0f, -0.25f)
+            val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.${v.first}").kotlin
+            val monster = kClass.constructors.first().call(position) as Monster
+            monster.instantiate()
+            spawnedMonsters.add(monster)
+          }
+        }
       }
     }
   }
@@ -67,6 +128,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     spawnMonsters()
     colourMazeCells()
     created = true
+    World.player.transform.position.set(dungeonCells.keys.first())
     return true
   }
 
@@ -158,13 +220,13 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     val visitedCells: ArrayList<DungeonCell> = ArrayList()
 
     fun getCluster(neighbors: ArrayList<DungeonCell>): ArrayList<DungeonCell>{
-        for(i in 0 until neighbors.size) {
-          if(!visitedCells.contains(neighbors[i])){
-            visitedCells.add(neighbors[i])
-            allCells.remove(neighbors[i].cell.transform.position)
-            neighbors.addAll(getCluster(neighbors[i].getNeighbours(allCells)))
-          }
+      for(i in 0 until neighbors.size) {
+        if(!visitedCells.contains(neighbors[i])){
+          visitedCells.add(neighbors[i])
+          allCells.remove(neighbors[i].cell.transform.position)
+          neighbors.addAll(getCluster(neighbors[i].getNeighbours(allCells)))
         }
+      }
       return neighbors
     }
 

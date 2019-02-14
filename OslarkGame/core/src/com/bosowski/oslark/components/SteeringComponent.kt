@@ -44,17 +44,16 @@ class SteeringComponent(val body: Body, var speed: Float, var target: Vector2?):
                 closestFraction = fraction
                 collisionPoint = point
                 collidedFixture = fixture
-                println("Fixture = ${fixture}")
             }
             0f
         }
 
         World.physicsWorld.rayCast(callback, body.position, target)
-        println("Collision point = $collisionPoint")
-        World.rays[owner] = Pair<Vector2?, Vector2?>(body.position, Vector2(collisionPoint))
+        if(World.rays[owner] != null){
+            World.rays[owner] = Pair<Vector2?, Vector2?>(body.position, Vector2(collisionPoint))
+        }
 
         if(World.player.transform.body == collidedFixture?.body){
-            println("Can see player.")
             return true
         }
         return false
