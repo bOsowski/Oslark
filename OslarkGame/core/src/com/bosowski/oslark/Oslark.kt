@@ -6,12 +6,11 @@ import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
-import com.bosowski.oslark.components.AnimatorComponent
-import com.bosowski.oslark.components.ColliderComponent
-import com.bosowski.oslark.components.InputComponent
+import com.bosowski.oslark.components.*
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.gameObjects.prefabs.Demon
 import com.bosowski.oslark.gameObjects.prefabs.Monster
@@ -39,6 +38,14 @@ class Oslark : Game() {
     World.player.addComponent(collider)
     val inputComponent = InputComponent(animator = animator, speed = 5f, collider = collider)
     World.player.addComponent(inputComponent)
+
+    val creatureComponent = CreatureComponent(maxHealth = 10f, level = 1, damage = Pair(1f,3f), attack = ActionInterface {
+
+    })
+
+    World.player.addComponent(creatureComponent)
+    val hudComponent = HUDComponent(creatureComponent)
+    World.player.addComponent(hudComponent)
 
     //light
     //todo(fix lighting filter. Currently raycasts can see the light..)

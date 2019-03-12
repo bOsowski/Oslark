@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.math.Vector2
 
-open class TextureComponent(protected var texture: TextureRegion): AbstractComponent(){
+open class TextureComponent(var texture: TextureRegion): AbstractComponent(){
 
   var scale = Vector2(1f, 1f)
   var dimension = Vector2(1f, 1f)

@@ -14,6 +14,7 @@ class ColliderComponent(
 ): AbstractComponent() {
 
   val body get() = owner.transform.body
+  var direction: Vector2? = null
 
   override fun awake() {
     World.physicsWorld.destroyBody(body)
@@ -33,6 +34,7 @@ class ColliderComponent(
   }
 
   fun move(direction: Vector2, speed: Float){
+    this.direction = Vector2(direction)
     val velocity = Vector2(direction)
     velocity.x *= speed
     velocity.y *= speed

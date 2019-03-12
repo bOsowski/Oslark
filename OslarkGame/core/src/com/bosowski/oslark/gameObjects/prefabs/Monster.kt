@@ -1,6 +1,5 @@
 package com.bosowski.oslark.gameObjects.prefabs
 
-import com.badlogic.gdx.ai.steer.Steerable
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
@@ -18,7 +17,7 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
         steeringComponent.speed = value
     }
     var timer = 0f
-    var action: UpdateActionInterface? = null
+    var action: ActionInterface? = null
 
     var animatorComponent: AnimatorComponent
     var collider: ColliderComponent

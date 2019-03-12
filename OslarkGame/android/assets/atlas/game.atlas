@@ -244,7 +244,7 @@ coin
   index: 0
 coin
   rotate: false
-  xy: 701, 31
+  xy: 755, 31
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -258,7 +258,7 @@ coin
   index: 2
 coin
   rotate: false
-  xy: 711, 31
+  xy: 765, 31
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -1299,6 +1299,27 @@ tinyZombie_move
   orig: 16, 16
   offset: 0, 0
   index: 3
+uiHeart0
+  rotate: false
+  xy: 639, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+uiHeart1
+  rotate: false
+  xy: 657, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+uiHeart2
+  rotate: false
+  xy: 675, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 undefined
   rotate: false
   xy: 239, 27
@@ -1312,14 +1333,14 @@ undefined
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 0
+  index: 1
 undefined
   rotate: false
   xy: 239, 27
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 1
+  index: 0
 wallDown
   rotate: false
   xy: 103, 1
@@ -1525,7 +1546,7 @@ weaponKatana
   index: -1
 weaponKnife
   rotate: false
-  xy: 693, 26
+  xy: 747, 26
   size: 6, 13
   orig: 6, 13
   offset: 0, 0
@@ -1777,56 +1798,56 @@ wogol_move
   index: 3
 zombie_idle
   rotate: false
-  xy: 639, 23
+  xy: 693, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 zombie_move
   rotate: false
-  xy: 639, 23
+  xy: 693, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 zombie_idle
   rotate: false
-  xy: 657, 23
+  xy: 711, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 zombie_idle
   rotate: false
-  xy: 657, 23
+  xy: 711, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 zombie_move
   rotate: false
-  xy: 657, 23
+  xy: 711, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 zombie_move
   rotate: false
-  xy: 657, 23
+  xy: 711, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 zombie_idle
   rotate: false
-  xy: 675, 23
+  xy: 729, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 zombie_move
   rotate: false
-  xy: 675, 23
+  xy: 729, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -2263,21 +2284,21 @@ objects/AAforlater/skull
   orig: 16, 16
   offset: 0, 0
   index: -1
-objects/AAforlater/uiHeartEmpty
+objects/AAforlater/uiHeart0
   rotate: false
   xy: 91, 4
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-objects/AAforlater/uiHeartFull
+objects/AAforlater/uiHeart1
   rotate: false
   xy: 107, 86
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-objects/AAforlater/uiHeartHalf
+objects/AAforlater/uiHeart2
   rotate: false
   xy: 107, 68
   size: 16, 16

@@ -2,7 +2,7 @@ package com.bosowski.oslark.components
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
-class AIComponent(var action: UpdateActionInterface?): AbstractComponent() {
+class AIComponent(var action: ActionInterface?): AbstractComponent() {
 
     override fun awake() {}
 
