@@ -33,7 +33,7 @@ object Assets
     assetManager.finishLoading()
 
     for (name in assetManager.assetNames) {
-      Gdx.app.debug(TAG, "asset '$name' loaded.")
+      //Gdx.app.debug(TAG, "asset '$name' loaded.")
     }
 
     //create atlas for game sprites
@@ -43,17 +43,17 @@ object Assets
       //insert the loaded texture into the map.
       if (region.index == -1) {
         textures[region.name] = region
-        Gdx.app.debug(TAG, "texture: '" + region.name + "' loaded.")
+        //Gdx.app.debug(TAG, "texture: '" + region.name + "' loaded.")
       } else if (!animations.containsKey(region.name)) {
         val animation = atlas.findRegions(region.name)
         animations[region.name] = Animation<TextureRegion>(Constants.FRAME_DURATION, animation, Animation.PlayMode.LOOP)
-        Gdx.app.debug(TAG, "animation: '" + region.name + ", amount of animations: " + animation.size + "' loaded.")
+        //Gdx.app.debug(TAG, "animation: '" + region.name + ", amount of animations: " + animation.size + "' loaded.")
       }
 
     }
 
     for (animationName in animations.keys) {
-      println(animationName)
+      //println(animationName)
       if (animationName.contains("_")) {
         if (animationName.contains("male") || animationName.contains("female")) {
           val split = animationName.split("_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
@@ -64,7 +64,7 @@ object Assets
             stateAnimations[split[0] + split[1]]!![State.getState(split[2])] = animations[animationName]!!
           }
           stateAnimations[split[0] + split[1]]!![State.getState(split[2])] = animations[animationName]!!
-          println(split[0] + split[1])
+          //println(split[0] + split[1])
 
         } else {
           val split = animationName.split("_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()

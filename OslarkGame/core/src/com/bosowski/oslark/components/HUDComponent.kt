@@ -30,7 +30,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
       it.transform.body.setTransform(Vector2(- Constants.VIEWPORT_WIDTH + index + 1 + owner.transform.position.x, Constants.VIEWPORT_HEIGHT -1.5f + owner.transform.position.y), 0f)
     }
 
-    (0..creatureComponent.maxHealth.toInt()-1).forEach{
+    (0 until creatureComponent.maxHealth.toInt()).forEach{
       if(it <= creatureComponent.currentHealth-1.0){
         healthBar[it].texture = Assets.textures["uiHeart2"]!!
       }

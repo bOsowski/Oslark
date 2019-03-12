@@ -14,7 +14,7 @@ class ColliderComponent(
 ): AbstractComponent() {
 
   val body get() = owner.transform.body
-  var direction: Vector2? = null
+  var direction: Vector2? = Vector2.Zero
 
   override fun awake() {
     World.physicsWorld.destroyBody(body)

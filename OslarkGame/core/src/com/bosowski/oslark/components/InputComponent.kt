@@ -24,6 +24,10 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
   override fun start() {}
 
   override fun update(deltaTime: Float) {
+    if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+      (owner.getComponent("CreatureComponent") as CreatureComponent).attack.perform(deltaTime)
+    }
+
     owner.transform.body.linearVelocity = Vector2()
     //move owner UP
     if(Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Direction.UP.value, speed)
@@ -52,7 +56,7 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
 //      }
 
     //other inputs --- >
-    if(Gdx.input.isKeyPressed(Input.Keys.SPACE)){
+    if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
       var successfullyCreated: Boolean
       do{
         World.dungeon?.clear()

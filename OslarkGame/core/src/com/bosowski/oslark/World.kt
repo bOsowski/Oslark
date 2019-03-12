@@ -14,7 +14,7 @@ import kotlin.collections.HashMap
 
 object World
 {
-  private val gameObjects = ArrayList<GameObject>()
+  val gameObjects = ArrayList<GameObject>()
   private val objectsToInstantiate = ArrayList<GameObject>()
   private val objectsToDestroy = ArrayList<GameObject>()
   val random = Random( /*ThreadLocalRandom.current().nextLong()*/ 1 ) //todo: change this later to get seed fro server.
