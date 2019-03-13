@@ -48,7 +48,5 @@ class ColliderComponent(
 
   override fun render(batch: SpriteBatch) {}
 
-  override fun destroy() {
-    World.physicsWorld.destroyBody(body)
-  }
+  override fun destroy() {}
 }

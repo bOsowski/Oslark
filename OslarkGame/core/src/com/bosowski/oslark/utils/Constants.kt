@@ -7,8 +7,14 @@ object Constants {
   val WORLD_WIDTH = 10f
 
   //Viewport dimenstions
-  val VIEWPORT_HEIGHT = 13f
-  val VIEWPORT_WIDTH = 23f
+  val VIEWPORT_HEIGHT = 26f
+  val VIEWPORT_WIDTH = 46f
+
+  val VIEWPORT_HEIGHT_TEXT = 1600f
+  val VIEWPORT_WIDTH_TEXT = 1600f
+
+  val GAME_TO_UI_SCALE_X = VIEWPORT_WIDTH_TEXT/4/VIEWPORT_WIDTH
+  val GAME_TO_UI_SCALE_Y = VIEWPORT_HEIGHT_TEXT/4/VIEWPORT_HEIGHT
 
   //Images atlas
   val TEXTURE_ATLAS = "atlas/game.atlas"

@@ -1,4 +1,4 @@
-package com.bosowski.oslark.gameObjects.prefabs
+package com.bosowski.oslark.gameObjects.prefabs.monsters
 
 import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.World

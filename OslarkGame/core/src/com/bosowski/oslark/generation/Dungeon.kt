@@ -1,24 +1,16 @@
 package com.bosowski.oslark.generation
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.ai.pfa.Connection
-import com.badlogic.gdx.ai.pfa.DefaultConnection
-import com.badlogic.gdx.ai.pfa.indexed.IndexedGraph
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.utils.Array
 import com.bosowski.oslark.World
 import com.bosowski.oslark.components.TextureComponent
-import com.bosowski.oslark.gameObjects.prefabs.Demon
-import com.bosowski.oslark.gameObjects.prefabs.Monster
-import com.bosowski.oslark.gameObjects.prefabs.Skeleton
+import com.bosowski.oslark.gameObjects.prefabs.monsters.Monster
 import com.bosowski.oslark.playerDomains.Settings
 import com.bosowski.oslark.utils.Util
 import java.util.ArrayList
 import java.util.Random
-import kotlin.reflect.full.createInstance
-import kotlin.reflect.jvm.javaConstructor
 
 class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int) {
 

@@ -1,5 +1,6 @@
-package com.bosowski.oslark.gameObjects.prefabs
+package com.bosowski.oslark.gameObjects.prefabs.monsters
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
@@ -9,6 +10,8 @@ import com.bosowski.oslark.World
 import com.bosowski.oslark.components.*
 import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.gameObjects.GameObject
+import com.bosowski.oslark.gameObjects.prefabs.utility.ActionableText
+import com.bosowski.oslark.utils.Util
 
 abstract class Monster(position: Vector2, name: String, speed: Float, density: Float, scale: Vector2): GameObject(position, name = name){
 
@@ -42,14 +45,16 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
         steeringComponent = SteeringComponent(collider.body, speed, World.player.transform.position, collider)
         addComponent(steeringComponent)
 
-        creatureComponent = CreatureComponent(maxHealth = 1f, attack = ActionInterface {
-            val attackArea = Rectangle(transform.body.position.x + collider.direction!!.x, transform.body.position.y + collider.direction!!.y, 1f, 1f)
-            if (attackArea.contains(World.player.transform.body.position)) {
-
+        creatureComponent = CreatureComponent(maxHealth = 1f)
+        creatureComponent.attack = ActionInterface {
+            if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, transform.position.x, transform.position.y) < 2.0f){
+                val damage = creatureComponent.getDamage()
+                ActionableText(World.player.transform.position, "%.2f".format(damage), Color.RED).instantiate()
                 println("Attacked player.")
+                (World.player.getComponent("CreatureComponent") as CreatureComponent).currentHealth -= damage
             }
+        }
 
-        })
         addComponent(creatureComponent)
 
         aiComponent = AIComponent(action)

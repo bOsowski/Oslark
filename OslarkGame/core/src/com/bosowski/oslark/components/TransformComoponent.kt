@@ -18,6 +18,7 @@ class TransformComoponent(
 
   init{
     val bdef = BodyDef()
+    bdef.type = BodyDef.BodyType.KinematicBody
     bdef.position.set(position)
     body = World.physicsWorld.createBody(bdef)
   }
@@ -30,5 +31,7 @@ class TransformComoponent(
 
   override fun update(deltaTime: Float) {}
 
-  override fun destroy() {}
+  override fun destroy() {
+    World.physicsWorld.destroyBody(body)
+  }
 }

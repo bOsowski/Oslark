@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer
 import com.badlogic.gdx.utils.Disposable
 import com.bosowski.oslark.World
 import com.bosowski.oslark.utils.Constants
+import sun.java2d.pipe.TextRenderer
 
 
 class GameRenderer
@@ -18,9 +19,12 @@ class GameRenderer
   private val debugRenderer: Box2DDebugRenderer
   private val shapeRanderer: ShapeRenderer
 
+
   init {
     camera.position.set(Vector3.Zero)
     camera.update()
+    uiCamera.position.set(Vector3.Zero)
+    uiCamera.update()
     debugRenderer = Box2DDebugRenderer()
     shapeRanderer = ShapeRenderer()
   }
@@ -52,7 +56,8 @@ class GameRenderer
   }
 
   companion object {
-    var camera: OrthographicCamera  = OrthographicCamera(Constants.VIEWPORT_WIDTH * 2, Constants.VIEWPORT_HEIGHT * 2)
+    var camera: OrthographicCamera  = OrthographicCamera(Constants.VIEWPORT_WIDTH, Constants.VIEWPORT_HEIGHT)
+    var uiCamera: OrthographicCamera = OrthographicCamera(Constants.VIEWPORT_WIDTH_TEXT, Constants.VIEWPORT_HEIGHT_TEXT)
     var currentScreen: Screen? = null
     var debugView = false
   }

@@ -25,7 +25,7 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
 
   override fun update(deltaTime: Float) {
     if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-      (owner.getComponent("CreatureComponent") as CreatureComponent).attack.perform(deltaTime)
+      (owner.getComponent("CreatureComponent") as CreatureComponent).attack?.perform(deltaTime)
     }
 
     owner.transform.body.linearVelocity = Vector2()
@@ -74,6 +74,8 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
   override fun render(batch: SpriteBatch) {
     GameRenderer.camera.position.set(Vector3(owner.transform.position.x, owner.transform.position.y, 0f))
     GameRenderer.camera.update()
+    GameRenderer.uiCamera.position.set(Vector3(owner.transform.position.x*35, owner.transform.position.y*60, 0f))
+    GameRenderer.uiCamera.update()
   }
 
   override fun destroy() {}

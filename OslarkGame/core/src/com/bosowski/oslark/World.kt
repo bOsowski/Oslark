@@ -4,11 +4,9 @@ import box2dLight.RayHandler
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.gameObjects.GameObject
-import com.bosowski.oslark.gameObjects.prefabs.Monster
 import com.bosowski.oslark.generation.Dungeon
 import com.bosowski.oslark.managers.GameRenderer
 import java.util.*
-import java.util.concurrent.ThreadLocalRandom
 import kotlin.Comparator
 import kotlin.collections.HashMap
 
