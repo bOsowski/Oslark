@@ -12,6 +12,6 @@ class Demon(position: Vector2): Monster(position, "bigDemon", 5f, 350f, Vector2(
             steeringComponent.raycast(World.player.transform.position)
             steeringComponent.goTo(World.player.transform.position)
         }
-        creatureComponent.maxHealth = 10f
+        creatureComponent.maxHealth = 20f
     }
 }

@@ -36,10 +36,10 @@ class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
 //    label.setPosition((Gdx.graphics.width / 3).toFloat(), (Gdx.graphics.height - 100).toFloat())
 //    stage.addActor(label)
 //
-//    val characters = LinkedHashMap<String, Player>()
+//    val characters = LinkedHashMap<String, Knight>()
 //
 //    for ((i, character) in characterArray.withIndex()) {
-//      val player = Player(character as JSONObject)
+//      val player = Knight(character as JSONObject)
 //      val characterButton = TextButton(player.name + "(level " + player.level + " " + player.characterClass, fieldSkins)
 //      characters[player.name] = player
 //      characterButton.setPosition(label.x, label.y - 50 * (i + 1))

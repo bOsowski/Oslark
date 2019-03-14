@@ -14,7 +14,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
 
   override fun awake() {
     (1..creatureComponent.maxHealth.toInt()).forEach{ it ->
-      parentObjects.add(GameObject())
+      parentObjects.add(GameObject(layer = 10))
       parentObjects.last().instantiate()
       healthBar.add(TextureComponent(Assets.textures["uiHeart2"]!!))
       parentObjects.last().addComponent(healthBar.last())

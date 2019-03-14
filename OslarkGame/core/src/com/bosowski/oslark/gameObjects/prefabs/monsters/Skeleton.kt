@@ -14,5 +14,6 @@ class Skeleton(position: Vector2): Monster(position, "skelet", 0.75f, 45f, Vecto
             moveRandomly(deltaTime)
           }
         }
+      creatureComponent.maxHealth = 2f
     }
 }

@@ -66,7 +66,7 @@ class CreatureComponent : AbstractComponent {
   }
 
   fun die(){
-    val death = GameObject(position = owner.transform.body.position, layer = owner.layer, name = "death")
+    val death = GameObject(position = owner.transform.body.position, layer = 1, name = "death")
     val animationComponent = AnimationComponent(Assets.animations["death"]!!)
     death.addComponent(animationComponent)
     death.transform.body.setLinearVelocity(0f,2f)
