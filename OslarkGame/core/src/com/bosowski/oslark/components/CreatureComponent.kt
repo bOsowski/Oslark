@@ -17,14 +17,17 @@ class CreatureComponent : AbstractComponent {
   var level: Int
   var damage: Pair<Float, Float>
   var attack: ActionInterface?
+  var canAttack = true
+  var attackSpeed: Float
 
   // min/max damage
-  constructor(maxHealth: Float, level: Int = 1, damage: Pair<Float, Float> = Pair(1f, 1f), attack: ActionInterface? = null) : super() {
+  constructor(maxHealth: Float, level: Int = 1, damage: Pair<Float, Float> = Pair(1f, 1f), attack: ActionInterface? = null, attackSpeed:Float = 1f) : super() {
     this.maxHealth = maxHealth
     this.level = level
     this.damage = damage
     this.attack = attack
     this.currentHealth = maxHealth
+    this.attackSpeed = attackSpeed
   }
 
   var currentHealth: Float
@@ -49,12 +52,14 @@ class CreatureComponent : AbstractComponent {
 
   override fun update(deltaTime: Float) {
     //perform an attack each second if the owner is a monster.
-    if(owner is Monster){
-      timer += deltaTime
-      if(timer >= 1){
-        attack?.perform(deltaTime)
-        timer = 0f
-      }
+    timer += deltaTime
+    if(timer >= attackSpeed){
+      canAttack = true
+      timer = 0f
+    }
+
+    if(owner is Monster && canAttack){
+      attack?.perform(deltaTime)
     }
   }
 
