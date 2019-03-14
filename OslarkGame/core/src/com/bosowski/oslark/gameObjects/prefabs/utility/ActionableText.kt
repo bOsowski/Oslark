@@ -8,11 +8,12 @@ import com.bosowski.oslark.gameObjects.GameObject
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.bosowski.oslark.Assets
 import com.bosowski.oslark.managers.GameRenderer
 
 
-class ActionableText(position: Vector2, text: String, color: Color): GameObject(position = position, layer = 10) {
+class ActionableText(position: Vector2, text: String, color: Color): GameObject(position = position, layer = 10, bodyType = BodyDef.BodyType.KinematicBody) {
 
   init {
     val textComponent = TextComponent(text, color)

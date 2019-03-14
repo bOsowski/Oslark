@@ -1,14 +1,15 @@
 package com.bosowski.oslark.gameObjects
 
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.bosowski.oslark.World
 import com.bosowski.oslark.components.AbstractComponent
 import com.bosowski.oslark.components.TransformComoponent
 
-open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var name: String = ""){
+open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var name: String = "", bodyType: BodyDef.BodyType){
   val TAG: String by lazy { this.javaClass.name }
 
-  val transform: TransformComoponent = TransformComoponent(position)
+  val transform: TransformComoponent = TransformComoponent(position, bodyType)
   private val components: MutableMap<String, AbstractComponent> = mutableMapOf(transform.name to transform)
 
   init{

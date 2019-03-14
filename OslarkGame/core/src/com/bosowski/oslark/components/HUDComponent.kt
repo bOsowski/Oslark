@@ -2,6 +2,7 @@ package com.bosowski.oslark.components
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.bosowski.oslark.Assets
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.utils.Constants
@@ -14,7 +15,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
 
   override fun awake() {
     (1..creatureComponent.maxHealth.toInt()).forEach{ it ->
-      parentObjects.add(GameObject(layer = 10))
+      parentObjects.add(GameObject(layer = 10, bodyType = BodyDef.BodyType.StaticBody))
       parentObjects.last().instantiate()
       healthBar.add(TextureComponent(Assets.textures["uiHeart2"]!!))
       parentObjects.last().addComponent(healthBar.last())

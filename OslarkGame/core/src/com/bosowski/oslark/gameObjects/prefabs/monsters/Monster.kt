@@ -11,7 +11,7 @@ import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.gameObjects.prefabs.utility.ActionableText
 
-abstract class Monster(position: Vector2, name: String, speed: Float, density: Float, scale: Vector2): GameObject(position, name = name){
+abstract class Monster(position: Vector2, name: String, speed: Float, density: Float, scale: Vector2): GameObject(position, name = name, bodyType = BodyDef.BodyType.DynamicBody){
 
     var speed: Float = -1f
         set(value) {

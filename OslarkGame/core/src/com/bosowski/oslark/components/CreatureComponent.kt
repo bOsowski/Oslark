@@ -1,6 +1,7 @@
 package com.bosowski.oslark.components
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.bosowski.oslark.Assets
 import com.bosowski.oslark.World
 import com.bosowski.oslark.gameObjects.GameObject
@@ -71,8 +72,8 @@ class CreatureComponent : AbstractComponent {
   }
 
   fun die(){
-    val death = GameObject(position = owner.transform.body.position, layer = 1, name = "death")
-    val animationComponent = AnimationComponent(Assets.animations["death"]!!)
+    val death = GameObject(position = owner.transform.body.position, layer = 1, name = "death", bodyType = BodyDef.BodyType.KinematicBody)
+    val animationComponent = AnimationComponent(Assets.animations["death"  ]!!)
     death.addComponent(animationComponent)
     death.transform.body.setLinearVelocity(0f,2f)
     var timer = 0f

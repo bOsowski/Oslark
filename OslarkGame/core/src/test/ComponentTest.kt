@@ -1,6 +1,7 @@
 package test
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.bosowski.oslark.components.AbstractComponent
 import com.bosowski.oslark.gameObjects.GameObject
 import org.junit.Test
@@ -17,7 +18,7 @@ class ComponentTest {
 
     @Test
     fun getNameTest(){
-        val testObject = GameObject()
+        val testObject = GameObject(bodyType = BodyDef.BodyType.StaticBody)
         testObject.addComponent(TestComponent())
         assert(testObject.getComponent("TestComponent") != null)
     }

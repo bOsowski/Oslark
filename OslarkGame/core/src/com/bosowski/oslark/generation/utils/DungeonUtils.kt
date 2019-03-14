@@ -15,7 +15,7 @@ import java.util.*
   private const val chanceOfDifferentWall = 0.05f
 
   fun getWall(cell: GameObject, direction: Direction, random: Random): GameObject{
-    var wall = GameObject(cell.transform.position)
+    var wall = GameObject(cell.transform.position, bodyType = BodyDef.BodyType.StaticBody)
     when (direction) {
       Direction.LEFT -> {
         val textureComponent = TextureComponent(Assets.textures["wallLeft"]!!)
@@ -53,7 +53,7 @@ import java.util.*
         return wall
       }
       else -> {
-        wall = GameObject(Vector2(cell.transform.position.x, cell.transform.position.y+1))
+        wall = GameObject(Vector2(cell.transform.position.x, cell.transform.position.y+1), bodyType = BodyDef.BodyType.StaticBody)
         val chance = random.nextFloat()
         var wallType = 4
         if (chance <= chanceOfDifferentWall) {

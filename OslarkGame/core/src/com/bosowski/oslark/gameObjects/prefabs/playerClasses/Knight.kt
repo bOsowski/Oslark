@@ -11,7 +11,7 @@ import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.gameObjects.prefabs.monsters.Monster
 import com.bosowski.oslark.gameObjects.prefabs.utility.ActionableText
 
-class Knight: GameObject(name = "player") {
+class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBody) {
 
   init {
     val shape = PolygonShape()

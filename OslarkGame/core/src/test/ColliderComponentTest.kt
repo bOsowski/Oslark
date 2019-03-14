@@ -11,7 +11,7 @@ class ColliderComponentTest {
 
   @Test
   fun conceptTest(){
-    val testObject = GameObject()
+    val testObject = GameObject(bodyType = BodyDef.BodyType.StaticBody)
     val body = testObject.transform.body
     val collider = ColliderComponent(BodyDef.BodyType.StaticBody, PolygonShape(), 0f)
     testObject.addComponent(collider)

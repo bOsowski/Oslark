@@ -1,6 +1,7 @@
 package com.bosowski.oslark.generation
 
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.bosowski.oslark.components.TextureComponent
 import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.gameObjects.GameObject
@@ -11,7 +12,7 @@ import java.util.*
 
 class DungeonCell(position: Vector2, private val random: Random, val index: Int){
 
-  val cell = GameObject(position,-1)
+  val cell = GameObject(position,-1, bodyType = BodyDef.BodyType.StaticBody)
 
   private val walls = HashMap<Direction, GameObject>()
 

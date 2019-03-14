@@ -49,9 +49,11 @@ class SteeringComponent(val body: Body, var speed: Float, var target: Vector2?, 
             0f
         }
 
-        World.physicsWorld.rayCast(callback, body.position, target)
-        if(World.rays[owner] != null){
-            World.rays[owner] = Pair<Vector2?, Vector2?>(body.position, Vector2(collisionPoint))
+        if(body.isActive){
+            World.physicsWorld.rayCast(callback, body.position, target)
+            if(World.rays[owner] != null && collisionPoint != null){
+                World.rays[owner] = Pair<Vector2?, Vector2?>(body.position, Vector2(collisionPoint))
+            }
         }
 
         if(World.player.transform.body == collidedFixture?.body){

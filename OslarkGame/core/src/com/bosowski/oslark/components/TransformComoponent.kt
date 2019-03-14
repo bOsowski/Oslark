@@ -8,8 +8,10 @@ import com.bosowski.oslark.World
 import com.bosowski.oslark.enums.Direction
 
 class TransformComoponent(
-    position: Vector2 = Vector2(),
-    var layer: Short = 0) : AbstractComponent() {
+  position: Vector2 = Vector2(),
+  bodyType: BodyDef.BodyType,
+  var layer: Short = 0
+) : AbstractComponent() {
   var body: Body
   var position: Vector2
     get() = body.position
@@ -18,7 +20,7 @@ class TransformComoponent(
 
   init{
     val bdef = BodyDef()
-    bdef.type = BodyDef.BodyType.KinematicBody
+    bdef.type = bodyType
     bdef.position.set(position)
     body = World.physicsWorld.createBody(bdef)
   }
