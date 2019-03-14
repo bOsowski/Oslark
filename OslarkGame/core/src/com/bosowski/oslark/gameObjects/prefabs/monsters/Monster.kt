@@ -40,7 +40,7 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
         collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape, density)
         addComponent(collider)
 
-        steeringComponent = SteeringComponent(collider.body, speed, World.player.transform.position, collider)
+        steeringComponent = SteeringComponent(transform.body, speed, World.player.transform.position, collider)
         addComponent(steeringComponent)
 
         creatureComponent = CreatureComponent(maxHealth = 1f)

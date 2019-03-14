@@ -13,11 +13,10 @@ class ColliderComponent(
     private val density: Float
 ): AbstractComponent() {
 
-  val body get() = owner.transform.body
   var direction: Vector2? = Vector2.Zero
 
   override fun awake() {
-    World.physicsWorld.destroyBody(body)
+    World.physicsWorld.destroyBody(owner.transform.body)
     val bdef = BodyDef()
     bdef.position.set(owner.transform.position)
     bdef.type = type
@@ -30,7 +29,7 @@ class ColliderComponent(
     fdef.density = density
 
 //    fdef.filter.categoryBits = owner.transform.layer
-    body.createFixture(fdef)
+    owner.transform.body.createFixture(fdef)
   }
 
   fun move(direction: Vector2, speed: Float){
