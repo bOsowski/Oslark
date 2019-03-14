@@ -56,7 +56,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       Settings.spawnTableMaze.forEach lit@{ k, v ->
         if(rand <= k && v != null && v.second <= cellDifficulty+1){
           val position = it.cell.transform.position.sub(-0f, -0.25f)
-          val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.${v.first}").kotlin
+          val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.monsters.${v.first}").kotlin
           val monster = kClass.constructors.first().call(position) as Monster
           monster.instantiate()
           spawnedMonsters.add(monster)
@@ -93,7 +93,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
 
           if(rand <= k && v != null && v.second <= roomDifficulty + 1) {
             val position = cell_k.sub(-0f, -0.25f)
-            val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.${v.first}").kotlin
+            val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.monsters.${v.first}").kotlin
             val monster = kClass.constructors.first().call(position) as Monster
             monster.instantiate()
             spawnedMonsters.add(monster)

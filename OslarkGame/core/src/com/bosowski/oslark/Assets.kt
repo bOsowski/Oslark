@@ -4,9 +4,12 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetErrorListener
 import com.badlogic.gdx.assets.AssetManager
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Animation
+import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.utils.Disposable
 import com.bosowski.oslark.enums.State
 import com.bosowski.oslark.utils.Constants
@@ -23,6 +26,8 @@ object Assets
   val textures = HashMap<String, TextureRegion>()
   val animations = HashMap<String, Animation<TextureRegion>>()
   val stateAnimations = HashMap<String, HashMap<State, Animation<TextureRegion>>>()
+  lateinit var font: BitmapFont
+
 
   fun init(assetManager: AssetManager) {
     Assets.assetManager = assetManager
@@ -79,6 +84,13 @@ object Assets
         }
       }
     }
+
+    val generator = FreeTypeFontGenerator(Gdx.files.internal("OpenSans-Regular.ttf"))
+    val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
+    parameter.borderWidth = 1f
+    parameter.borderColor = Color.BLACK
+    font = generator.generateFont(parameter)
+    generator.dispose()
   }
 
   override fun error(asset: AssetDescriptor<*>, throwable: Throwable) {

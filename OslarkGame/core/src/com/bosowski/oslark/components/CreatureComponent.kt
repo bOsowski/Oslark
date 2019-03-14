@@ -1,7 +1,9 @@
 package com.bosowski.oslark.components
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.bosowski.oslark.Assets
 import com.bosowski.oslark.World
+import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.gameObjects.prefabs.monsters.Monster
 import com.bosowski.oslark.utils.Util
 
@@ -15,7 +17,10 @@ class CreatureComponent(
   var currentHealth: Float = maxHealth
     set(value) {
       field = when {
-        value < 0 -> 0f
+        value < 0 -> {
+          die()
+          0f
+        }
         value > maxHealth -> maxHealth
         else -> value
       }
@@ -45,6 +50,23 @@ class CreatureComponent(
 
   override fun destroy() {
 
+  }
+
+  fun die(){
+    val death = GameObject(position = owner.transform.body.position, layer = owner.layer, name = "death")
+    val animationComponent = AnimationComponent(Assets.animations["death"]!!)
+    death.addComponent(animationComponent)
+    death.transform.body.setLinearVelocity(0f,2f)
+    var timer = 0f
+    val actionComponent = ActionComponent(ActionInterface { deltaTime ->
+      timer += deltaTime
+      if(timer >= 0.5f){
+        death.destroy()
+      }
+    })
+    death.addComponent(actionComponent)
+    death.instantiate()
+    owner.destroy()
   }
 
   fun getDamage(): Float{

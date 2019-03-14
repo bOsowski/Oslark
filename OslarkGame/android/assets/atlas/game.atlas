@@ -244,7 +244,7 @@ coin
   index: 0
 coin
   rotate: false
-  xy: 755, 31
+  xy: 827, 31
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -258,9 +258,37 @@ coin
   index: 2
 coin
   rotate: false
-  xy: 765, 31
+  xy: 837, 31
   size: 8, 8
   orig: 8, 8
+  offset: 0, 0
+  index: 3
+death
+  rotate: false
+  xy: 463, 29
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+death
+  rotate: false
+  xy: 481, 29
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+death
+  rotate: false
+  xy: 499, 29
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+death
+  rotate: false
+  xy: 517, 29
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: 3
 elf_female_hit
@@ -391,280 +419,280 @@ elf_male_move
   index: 3
 floor0
   rotate: false
-  xy: 686, 59
+  xy: 758, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 floor0
   rotate: false
-  xy: 704, 59
+  xy: 776, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 floor0
   rotate: false
-  xy: 722, 59
+  xy: 794, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 floor1
   rotate: false
-  xy: 740, 59
+  xy: 812, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 floor1
   rotate: false
-  xy: 758, 59
+  xy: 830, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 floor1
   rotate: false
-  xy: 776, 59
+  xy: 848, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 floor10
   rotate: false
-  xy: 650, 59
+  xy: 722, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor11
   rotate: false
-  xy: 668, 59
+  xy: 740, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor2
   rotate: false
-  xy: 463, 29
+  xy: 535, 29
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor3
   rotate: false
-  xy: 481, 29
+  xy: 596, 55
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor4
   rotate: false
-  xy: 499, 29
+  xy: 614, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor5
   rotate: false
-  xy: 517, 29
+  xy: 632, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor6
   rotate: false
-  xy: 535, 29
+  xy: 650, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor7
   rotate: false
-  xy: 596, 55
+  xy: 668, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor8
   rotate: false
-  xy: 614, 59
+  xy: 686, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor9
   rotate: false
-  xy: 632, 59
+  xy: 704, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 goblin_idle
   rotate: false
-  xy: 794, 59
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 0
-goblin_idle
-  rotate: false
-  xy: 812, 59
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 1
-goblin_idle
-  rotate: false
-  xy: 812, 59
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-goblin_idle
-  rotate: false
-  xy: 830, 59
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 2
-goblin_move
-  rotate: false
-  xy: 848, 59
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 0
-goblin_move
-  rotate: false
   xy: 866, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
-goblin_move
+  index: 0
+goblin_idle
   rotate: false
   xy: 884, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
-goblin_move
+  index: 1
+goblin_idle
+  rotate: false
+  xy: 884, 59
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+goblin_idle
   rotate: false
   xy: 902, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
-iceZombie_idle
+  index: 2
+goblin_move
   rotate: false
   xy: 920, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
-iceZombie_move
-  rotate: false
-  xy: 920, 59
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 0
-iceZombie_idle
+goblin_move
   rotate: false
   xy: 938, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
-iceZombie_idle
-  rotate: false
-  xy: 938, 59
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-iceZombie_move
-  rotate: false
-  xy: 938, 59
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-iceZombie_move
-  rotate: false
-  xy: 938, 59
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 1
-iceZombie_idle
+goblin_move
   rotate: false
   xy: 956, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
-iceZombie_move
-  rotate: false
-  xy: 956, 59
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 2
-imp_idle
+goblin_move
   rotate: false
   xy: 974, 59
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
+  index: 3
+iceZombie_idle
+  rotate: false
+  xy: 1004, 53
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+iceZombie_move
+  rotate: false
+  xy: 1004, 53
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+iceZombie_idle
+  rotate: false
+  xy: 560, 33
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+iceZombie_idle
+  rotate: false
+  xy: 560, 33
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+iceZombie_move
+  rotate: false
+  xy: 560, 33
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+iceZombie_move
+  rotate: false
+  xy: 560, 33
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+iceZombie_idle
+  rotate: false
+  xy: 578, 33
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+iceZombie_move
+  rotate: false
+  xy: 578, 33
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+imp_idle
+  rotate: false
+  xy: 596, 37
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
   index: 0
 imp_idle
   rotate: false
-  xy: 1004, 53
+  xy: 614, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 imp_idle
   rotate: false
-  xy: 1004, 53
+  xy: 614, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 imp_idle
   rotate: false
-  xy: 560, 33
+  xy: 632, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 imp_move
   rotate: false
-  xy: 578, 33
+  xy: 650, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 imp_move
   rotate: false
-  xy: 596, 37
+  xy: 668, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 imp_move
   rotate: false
-  xy: 614, 41
+  xy: 686, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 imp_move
   rotate: false
-  xy: 632, 41
+  xy: 704, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -853,56 +881,56 @@ maskedOrc_move
   index: 3
 muddy_idle
   rotate: false
-  xy: 650, 41
+  xy: 722, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 muddy_move
   rotate: false
-  xy: 650, 41
+  xy: 722, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 muddy_idle
   rotate: false
-  xy: 668, 41
+  xy: 740, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 muddy_move
   rotate: false
-  xy: 668, 41
+  xy: 740, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 muddy_idle
   rotate: false
-  xy: 686, 41
+  xy: 758, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 muddy_move
   rotate: false
-  xy: 686, 41
+  xy: 758, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 muddy_idle
   rotate: false
-  xy: 704, 41
+  xy: 776, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 muddy_move
   rotate: false
-  xy: 704, 41
+  xy: 776, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -1133,189 +1161,189 @@ orcWarrior_move
   index: 3
 skelet_idle
   rotate: false
-  xy: 722, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 0
-skelet_idle
-  rotate: false
-  xy: 740, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 1
-skelet_idle
-  rotate: false
-  xy: 758, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 2
-skelet_idle
-  rotate: false
-  xy: 776, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-skelet_move
-  rotate: false
   xy: 794, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
-skelet_move
+skelet_idle
   rotate: false
   xy: 812, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
-skelet_move
+skelet_idle
   rotate: false
   xy: 830, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
-skelet_move
+skelet_idle
   rotate: false
   xy: 848, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
-swampy_idle
+skelet_move
   rotate: false
   xy: 866, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
-swampy_move
-  rotate: false
-  xy: 866, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 0
-swampy_idle
+skelet_move
   rotate: false
   xy: 884, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
-swampy_move
-  rotate: false
-  xy: 884, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 1
-swampy_idle
+skelet_move
   rotate: false
   xy: 902, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
-swampy_move
+skelet_move
   rotate: false
-  xy: 902, 41
+  xy: 920, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 2
+  index: 3
 swampy_idle
-  rotate: false
-  xy: 920, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-swampy_move
-  rotate: false
-  xy: 920, 41
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-tinyZombie_idle
   rotate: false
   xy: 938, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
-tinyZombie_idle
+swampy_move
+  rotate: false
+  xy: 938, 41
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+swampy_idle
   rotate: false
   xy: 956, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
-tinyZombie_idle
+swampy_move
   rotate: false
   xy: 956, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
-tinyZombie_idle
+  index: 1
+swampy_idle
   rotate: false
   xy: 974, 41
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
-tinyZombie_move
+swampy_move
+  rotate: false
+  xy: 974, 41
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+swampy_idle
   rotate: false
   xy: 1004, 35
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 0
-tinyZombie_move
+  index: 3
+swampy_move
+  rotate: false
+  xy: 1004, 35
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+tinyZombie_idle
   rotate: false
   xy: 563, 15
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
-tinyZombie_move
+  index: 0
+tinyZombie_idle
   rotate: false
   xy: 581, 15
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+tinyZombie_idle
+  rotate: false
+  xy: 581, 15
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+tinyZombie_idle
+  rotate: false
+  xy: 621, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 tinyZombie_move
   rotate: false
-  xy: 621, 23
+  xy: 639, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+tinyZombie_move
+  rotate: false
+  xy: 657, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+tinyZombie_move
+  rotate: false
+  xy: 675, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 2
+tinyZombie_move
+  rotate: false
+  xy: 693, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 uiHeart0
   rotate: false
-  xy: 639, 23
+  xy: 711, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 uiHeart1
   rotate: false
-  xy: 657, 23
+  xy: 729, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 uiHeart2
   rotate: false
-  xy: 675, 23
+  xy: 747, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -1546,7 +1574,7 @@ weaponKatana
   index: -1
 weaponKnife
   rotate: false
-  xy: 747, 26
+  xy: 819, 26
   size: 6, 13
   orig: 6, 13
   offset: 0, 0
@@ -1798,56 +1826,56 @@ wogol_move
   index: 3
 zombie_idle
   rotate: false
-  xy: 693, 23
+  xy: 765, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 zombie_move
   rotate: false
-  xy: 693, 23
+  xy: 765, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 zombie_idle
   rotate: false
-  xy: 711, 23
+  xy: 783, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
 zombie_idle
   rotate: false
-  xy: 711, 23
+  xy: 783, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 3
 zombie_move
   rotate: false
-  xy: 711, 23
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-zombie_move
-  rotate: false
-  xy: 711, 23
+  xy: 783, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 1
+zombie_move
+  rotate: false
+  xy: 783, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
 zombie_idle
   rotate: false
-  xy: 729, 23
+  xy: 801, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 zombie_move
   rotate: false
-  xy: 729, 23
+  xy: 801, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

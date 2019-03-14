@@ -5,7 +5,6 @@ import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.badlogic.gdx.physics.box2d.PolygonShape
@@ -15,8 +14,6 @@ import com.bosowski.oslark.gameObjects.prefabs.monsters.Monster
 import com.bosowski.oslark.gameObjects.prefabs.monsters.Skeleton
 import com.bosowski.oslark.gameObjects.prefabs.utility.ActionableText
 import com.bosowski.oslark.screens.GameScreen
-import com.bosowski.oslark.utils.Util
-import java.util.*
 
 
 class Oslark : Game() {
@@ -43,16 +40,15 @@ class Oslark : Game() {
 
     val creatureComponent = CreatureComponent(maxHealth = 10f, level = 1, damage = Pair(1f,3f))
     creatureComponent.attack = ActionInterface {
-      World.gameObjects.forEach lit@{monster ->
+      for(monster in World.gameObjects){
         if(monster is Monster){
           // val attackArea = Rectangle(World.player.transform.body.position.x + collider.direction!!.x, World.player.transform.body.position.y + collider.direction!!.y, 1f, 1f)
           //if (attackArea.contains(monster.transform.body.position)) {
-          if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, monster.transform.position.x, monster.transform.position.y) < 300.0f){
+          if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, monster.transform.position.x, monster.transform.position.y) < 1.0f){
             val damage = creatureComponent.getDamage()
             ActionableText(monster.transform.position, "%.2f".format(damage), Color.GREEN).instantiate()
-              println("Attacked " + monster.name+".")
-              monster.creatureComponent.currentHealth -= damage
-              return@lit
+            monster.creatureComponent.currentHealth -= damage
+            break
           }
         }
       }

@@ -5,7 +5,7 @@ import com.bosowski.oslark.World
 import com.bosowski.oslark.components.AbstractComponent
 import com.bosowski.oslark.components.TransformComoponent
 
-open class GameObject(position: Vector2 = Vector2(), layer: Short = 0, var name: String = ""){
+open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var name: String = ""){
   val TAG: String by lazy { this.javaClass.name }
 
   val transform: TransformComoponent = TransformComoponent(position)

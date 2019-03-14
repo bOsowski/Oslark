@@ -7,7 +7,7 @@ import com.bosowski.oslark.components.ActionInterface
 class Demon(position: Vector2): Monster(position, "bigDemon", 5f, 350f, Vector2(3f, 3f)) {
 
     init {
-        aiComponent.action = ActionInterface { deltaTime ->
+        actionComponent.action = ActionInterface { deltaTime ->
             moveRandomly(deltaTime)
             steeringComponent.raycast(World.player.transform.position)
             steeringComponent.goTo(World.player.transform.position)

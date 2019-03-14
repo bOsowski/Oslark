@@ -21,5 +21,4 @@ class GameCharacter extends Creature {
   String toJson() {
     return "{super:${super.toJson()}, characterClass:${characterClass}, gender:${gender}}"
   }
-
 }
