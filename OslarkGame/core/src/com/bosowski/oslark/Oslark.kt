@@ -38,7 +38,7 @@ class Oslark : Game() {
     val inputComponent = InputComponent(animator = animator, speed = 5f, collider = collider)
     World.player.addComponent(inputComponent)
 
-    val creatureComponent = CreatureComponent(maxHealth = 10f, level = 1, damage = Pair(1f,3f))
+    val creatureComponent = CreatureComponent(maxHealth = 100f, level = 1, damage = Pair(1f,3f))
     creatureComponent.attack = ActionInterface {
       for(monster in World.gameObjects){
         if(monster is Monster){

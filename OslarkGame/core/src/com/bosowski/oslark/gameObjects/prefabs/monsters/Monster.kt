@@ -45,7 +45,7 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
 
         creatureComponent = CreatureComponent(maxHealth = 1f)
         creatureComponent.attack = ActionInterface {
-            if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, transform.position.x, transform.position.y) < 2.0f){
+            if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, transform.position.x, transform.position.y) < 1.0f){
                 val damage = creatureComponent.getDamage()
                 ActionableText(World.player.transform.position, "%.2f".format(damage), Color.RED).instantiate()
                 (World.player.getComponent("CreatureComponent") as CreatureComponent).currentHealth -= damage

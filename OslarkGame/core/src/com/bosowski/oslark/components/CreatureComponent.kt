@@ -7,14 +7,27 @@ import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.gameObjects.prefabs.monsters.Monster
 import com.bosowski.oslark.utils.Util
 
-class CreatureComponent(
-  var maxHealth: Float,
-  var level: Int = 1,
-  var damage:Pair<Float, Float> = Pair(1f, 1f), // min/max damage
-  var attack: ActionInterface? = null
-): AbstractComponent() {
+class CreatureComponent : AbstractComponent {
 
-  var currentHealth: Float = maxHealth
+  var maxHealth: Float
+    set(value) {
+      field = value
+      currentHealth = maxHealth
+    }
+  var level: Int
+  var damage: Pair<Float, Float>
+  var attack: ActionInterface?
+
+  // min/max damage
+  constructor(maxHealth: Float, level: Int = 1, damage: Pair<Float, Float> = Pair(1f, 1f), attack: ActionInterface? = null) : super() {
+    this.maxHealth = maxHealth
+    this.level = level
+    this.damage = damage
+    this.attack = attack
+    this.currentHealth = maxHealth
+  }
+
+  var currentHealth: Float
     set(value) {
       field = when {
         value < 0 -> {

@@ -130,7 +130,10 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       cell.clear()
     }
     spawnedMonsters.forEach{
-      it.destroy()
+      //destroy the monster only if it hasn't been previously destroyed.
+      if(World.gameObjects.contains(it)){
+        it.destroy()
+      }
     }
   }
 

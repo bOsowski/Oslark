@@ -619,14 +619,14 @@ iceZombie_move
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 1
+  index: 3
 iceZombie_move
   rotate: false
   xy: 560, 33
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
-  index: 3
+  index: 1
 iceZombie_idle
   rotate: false
   xy: 578, 33
@@ -1361,14 +1361,14 @@ undefined
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 1
+  index: 0
 undefined
   rotate: false
   xy: 239, 27
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
-  index: 0
+  index: 1
 wallDown
   rotate: false
   xy: 103, 1
