@@ -28,7 +28,7 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
       (owner.getComponent("CreatureComponent") as CreatureComponent).attack?.perform(deltaTime)
     }
 
-    owner.transform.body.linearVelocity = Vector2()
+    owner.transform.body?.linearVelocity = Vector2()
     //move owner UP
     if(Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Direction.UP.value, speed)
     //move owner DOWN
@@ -44,8 +44,8 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
     if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.S)) collider.move(Vector2(Direction.RIGHT.value).add(Direction.DOWN.value), speed)
 
     //If the player is going diagonal, adjust the velocity.
-    if(owner.transform.body.linearVelocity.x != 0f && owner.transform.body.linearVelocity.y != 0f){
-      owner.transform.body.linearVelocity = Vector2(owner.transform.body.linearVelocity.x/1.5f, owner.transform.body.linearVelocity.y/1.5f)
+    if(owner.transform.body?.linearVelocity!!.x != 0f && owner.transform.body?.linearVelocity!!.y != 0f){
+      owner.transform.body?.linearVelocity = Vector2(owner.transform.body?.linearVelocity!!.x/1.5f, owner.transform.body?.linearVelocity!!.y/1.5f)
     }
 
 //      if(owner.transform.body.linearVelocity == Vector2()){

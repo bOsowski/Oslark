@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.Fixture
 import com.badlogic.gdx.physics.box2d.RayCastCallback
 import com.bosowski.oslark.World
 
-class SteeringComponent(val body: Body, var speed: Float, var target: Vector2?, var collider: ColliderComponent): AbstractComponent() {
+class SteeringComponent(var speed: Float, var collider: ColliderComponent): AbstractComponent() {
 
     override fun awake() {
     }
@@ -29,7 +29,7 @@ class SteeringComponent(val body: Body, var speed: Float, var target: Vector2?, 
     }
 
     fun goTo(target: Vector2){
-        var direction:Vector2 = target.sub(body.position.x, body.position.y)
+        var direction:Vector2 = target.sub(owner.transform.position.x, owner.transform.position.y)
         direction = direction.nor()
         collider.move(direction, speed)
         //body.linearVelocity = Vector2(direction.x * speed, direction.y * speed)
@@ -37,8 +37,7 @@ class SteeringComponent(val body: Body, var speed: Float, var target: Vector2?, 
 
     //todo: This method sometimes throws an assertion error.
     fun raycast(target: Vector2): Boolean{
-
-        if(Vector2.dst(target.x, target.y, body.position.x, body.position.y) < 5){
+        if(Vector2.dst(target.x, target.y, owner.transform.position.x, owner.transform.position.y) < 5){
             return true
         }
         return false

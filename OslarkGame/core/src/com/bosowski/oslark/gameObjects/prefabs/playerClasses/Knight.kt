@@ -34,6 +34,10 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
             if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, monster.transform.position.x, monster.transform.position.y) < 1.0f && creatureComponent.canAttack){
               val damage = creatureComponent.getDamage()
               ActionableText(monster.transform.position, "%.2f".format(damage), Color.GREEN).instantiate()
+              if(monster.creatureComponent.currentHealth - damage <= 0f){
+                creatureComponent.currentExperience += monster.speed.toInt() + monster.creatureComponent.maxHealth.toInt()
+
+              }
               monster.creatureComponent.currentHealth -= damage
               //creatureComponent.canAttack = false
               break

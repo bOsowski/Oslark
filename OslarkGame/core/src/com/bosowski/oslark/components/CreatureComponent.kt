@@ -1,11 +1,13 @@
 package com.bosowski.oslark.components
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.physics.box2d.BodyDef
 import com.bosowski.oslark.Assets
 import com.bosowski.oslark.World
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.gameObjects.prefabs.monsters.Monster
+import com.bosowski.oslark.gameObjects.prefabs.utility.ActionableText
 import com.bosowski.oslark.utils.Util
 
 class CreatureComponent : AbstractComponent {
@@ -16,19 +18,50 @@ class CreatureComponent : AbstractComponent {
       currentHealth = maxHealth
     }
   var level: Int
+  private val experienceForSecondLevel:Int = 100
+  var experienceToNextLevel: Int = experienceForSecondLevel
+  var currentExperience: Int = 0
+    set(value) {
+      val expText = ActionableText(owner.transform.position, "+${value-field}exp!", Color.WHITE)
+      field = value
+      expText.instantiate()
+      if(currentExperience >= experienceToNextLevel){
+        experienceToNextLevel = Math.pow(experienceForSecondLevel.toDouble(), level.toDouble()).toInt()
+        level++
+        maxHealth += healthPerLevel
+        damage = Pair(damage.first+damagePerLevel.first, damage.second + damagePerLevel.second)
+        currentHealth = maxHealth
+        val levelUpText = ActionableText(owner.transform.position, "Leveled up to ${level}!", Color.WHITE)
+        levelUpText.instantiate()
+      }
+    }
+
   var damage: Pair<Float, Float>
   var attack: ActionInterface?
   var canAttack = true
   var attackSpeed: Float
 
+  val damagePerLevel: Pair<Float, Float>
+  val healthPerLevel: Float
+
   // min/max damage
-  constructor(maxHealth: Float, level: Int = 1, damage: Pair<Float, Float> = Pair(1f, 1f), attack: ActionInterface? = null, attackSpeed:Float = 1f) : super() {
+  constructor(maxHealth: Float,
+              level: Int = 1,
+              damage: Pair<Float, Float> = Pair(1f, 1f),
+              attack: ActionInterface? = null,
+              attackSpeed:Float = 1f,
+              damagePerLevel: Pair<Float, Float> = Pair(0f, 0f),
+              healthPerLevel: Float = 0f
+
+  ) : super() {
     this.maxHealth = maxHealth
     this.level = level
     this.damage = damage
     this.attack = attack
     this.currentHealth = maxHealth
     this.attackSpeed = attackSpeed
+    this.damagePerLevel = damagePerLevel
+    this.healthPerLevel = healthPerLevel
   }
 
   var currentHealth: Float
@@ -72,10 +105,10 @@ class CreatureComponent : AbstractComponent {
   }
 
   fun die(){
-    val death = GameObject(position = owner.transform.body.position, layer = 1, name = "death", bodyType = BodyDef.BodyType.KinematicBody)
-    val animationComponent = AnimationComponent(Assets.animations["death"  ]!!)
+    val death = GameObject(position = owner.transform.position, layer = 1, name = "death", bodyType = BodyDef.BodyType.KinematicBody)
+    val animationComponent = AnimationComponent(Assets.animations["death"]!!)
     death.addComponent(animationComponent)
-    death.transform.body.setLinearVelocity(0f,2f)
+    death.transform.body?.setLinearVelocity(0f,2f)
     var timer = 0f
     val actionComponent = ActionComponent(ActionInterface { deltaTime ->
       timer += deltaTime

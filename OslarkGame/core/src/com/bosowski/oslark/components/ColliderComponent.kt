@@ -16,20 +16,13 @@ class ColliderComponent(
   var direction: Vector2? = Vector2.Zero
 
   override fun awake() {
-    World.physicsWorld.destroyBody(owner.transform.body)
-    val bdef = BodyDef()
-    bdef.position.set(owner.transform.position)
-    bdef.type = type
-    bdef.fixedRotation = true
-    owner.transform.body = World.physicsWorld.createBody(bdef)
-
     val fdef = FixtureDef()
     fdef.shape = shape
     fdef.friction = 0f
     fdef.density = density
 
 //    fdef.filter.categoryBits = owner.transform.layer
-    owner.transform.body.createFixture(fdef)
+    owner.transform.body?.createFixture(fdef)
   }
 
   fun move(direction: Vector2, speed: Float){
@@ -37,7 +30,7 @@ class ColliderComponent(
     val velocity = Vector2(direction)
     velocity.x *= speed
     velocity.y *= speed
-    owner.transform.body.linearVelocity = velocity
+    owner.transform.body?.linearVelocity = velocity
     //owner.transform.body.linearVelocity = velocity
   }
 

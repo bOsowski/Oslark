@@ -28,7 +28,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
 
   override fun update(deltaTime: Float) {
     parentObjects.forEachIndexed {index, it ->
-      it.transform.body.setTransform(Vector2(- Constants.VIEWPORT_WIDTH/2 + index + 1 + owner.transform.position.x, Constants.VIEWPORT_HEIGHT/2 -1.5f + owner.transform.position.y), 0f)
+      it.transform.body?.setTransform(Vector2(- Constants.VIEWPORT_WIDTH/2 + index + 1 + owner.transform.position.x, Constants.VIEWPORT_HEIGHT/2 -1.5f + owner.transform.position.y), 0f)
     }
 
     (0 until creatureComponent.maxHealth.toInt()).forEach{

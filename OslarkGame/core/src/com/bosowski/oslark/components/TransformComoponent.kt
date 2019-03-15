@@ -12,16 +12,22 @@ class TransformComoponent(
   bodyType: BodyDef.BodyType,
   var layer: Short = 0
 ) : AbstractComponent() {
-  var body: Body
+  var body: Body?
   var position: Vector2
-    get() = body.position
-    set(value){body.position.set(value)}
+    get(){
+      if(body == null){
+        return Vector2.Zero
+      }
+      else return body!!.position
+    }
+    set(value){body?.position!!.set(value)}
 
 
   init{
     val bdef = BodyDef()
     bdef.type = bodyType
     bdef.position.set(position)
+    bdef.fixedRotation = true
     body = World.physicsWorld.createBody(bdef)
   }
 
@@ -35,5 +41,6 @@ class TransformComoponent(
 
   override fun destroy() {
     World.physicsWorld.destroyBody(body)
+    body = null
   }
 }
