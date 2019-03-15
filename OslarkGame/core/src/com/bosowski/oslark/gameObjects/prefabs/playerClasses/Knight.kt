@@ -1,5 +1,6 @@
 package com.bosowski.oslark.gameObjects.prefabs.playerClasses
 
+import box2dLight.PointLight
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
@@ -26,18 +27,17 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
     val creatureComponent = CreatureComponent(maxHealth = 100f, level = 1, damage = Pair(1f,3f))
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){
-
-      }
-      for(monster in World.gameObjects){
-        if(monster is Monster){
-          // val attackArea = Rectangle(World.player.transform.body.position.x + collider.direction!!.x, World.player.transform.body.position.y + collider.direction!!.y, 1f, 1f)
-          //if (attackArea.contains(monster.transform.body.position)) {
-          if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, monster.transform.position.x, monster.transform.position.y) < 1.0f && creatureComponent.canAttack){
-            val damage = creatureComponent.getDamage()
-            ActionableText(monster.transform.position, "%.2f".format(damage), Color.GREEN).instantiate()
-            monster.creatureComponent.currentHealth -= damage
-            creatureComponent.canAttack = false
-            break
+        for(monster in World.gameObjects){
+          if(monster is Monster){
+            // val attackArea = Rectangle(World.player.transform.body.position.x + collider.direction!!.x, World.player.transform.body.position.y + collider.direction!!.y, 1f, 1f)
+            //if (attackArea.contains(monster.transform.body.position)) {
+            if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, monster.transform.position.x, monster.transform.position.y) < 1.0f && creatureComponent.canAttack){
+              val damage = creatureComponent.getDamage()
+              ActionableText(monster.transform.position, "%.2f".format(damage), Color.GREEN).instantiate()
+              monster.creatureComponent.currentHealth -= damage
+              //creatureComponent.canAttack = false
+              break
+            }
           }
         }
       }
@@ -49,11 +49,10 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
 
     //light
     //todo(fix lighting filter. Currently raycasts can see the light..)
-    World.rayHandler.setAmbientLight(1f)
-//    val playerLight = PointLight(World.rayHandler, 5000, Color(0f,0f,0f,1f), 15f, 0f, 0f)
-//    playerLight.attachToBody(World.player.transform.body, 0f, -animator.dimension.y/2f)
-//    playerLight.setSoftnessLength(5f)
-//    playerLight.ignoreAttachedBody = true
-//    playerLight.setContactFilter(0,0,0)
+    World.rayHandler.setAmbientLight(0f)
+    val playerLight = PointLight(World.rayHandler, 5000, Color(0f,0f,0f,1f), 15f, 0f, 0f)
+    playerLight.attachToBody(transform.body, 0f, 0f)
+    playerLight.setSoftnessLength(2f)
+    playerLight.ignoreAttachedBody = true
   }
 }

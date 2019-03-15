@@ -40,14 +40,15 @@ object World
         if(it.active) it.update(deltaTime)
       }
     }
-    
+
+    physicsWorld.step(deltaTime, 3, 1)
+    rayHandler.updateAndRender()
+
+
     gameObjects.addAll(objectsToInstantiate)
     objectsToInstantiate.clear()
     gameObjects.removeAll(objectsToDestroy)
     objectsToDestroy.clear()
-
-    physicsWorld.step(deltaTime, 3, 1)
-    rayHandler.updateAndRender()
   }
 
   fun render(batch: SpriteBatch) {

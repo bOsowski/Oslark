@@ -10,7 +10,7 @@ open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var n
   val TAG: String by lazy { this.javaClass.name }
 
   val transform: TransformComoponent = TransformComoponent(position, bodyType)
-  private val components: MutableMap<String, AbstractComponent> = mutableMapOf(transform.name to transform)
+  private val components: LinkedHashMap<String, AbstractComponent> = linkedMapOf(transform.name to transform)
 
   init{
     transform.owner = this
@@ -39,11 +39,14 @@ open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var n
   fun addComponent(component: AbstractComponent){
     component.owner = this
     components[component.name] = component
+    components.remove(transform.name)
+    components[transform.name] = transform
     component.awake()
   }
 
   fun removeComponent(name: String){
     if(name != transform.name){
+      components[name]?.destroy()
       components.remove(name)
     }
   }

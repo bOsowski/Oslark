@@ -35,31 +35,38 @@ class SteeringComponent(val body: Body, var speed: Float, var target: Vector2?, 
         //body.linearVelocity = Vector2(direction.x * speed, direction.y * speed)
     }
 
+    //todo: This method sometimes throws an assertion error.
     fun raycast(target: Vector2): Boolean{
-        var closestFraction = 1f
-        var collisionPoint: Vector2? = null
-        var collidedFixture: Fixture? = null
 
-        val callback = RayCastCallback { fixture, point, normal, fraction ->
-            if (fraction < closestFraction) {
-                closestFraction = fraction
-                collisionPoint = point
-                collidedFixture = fixture
-            }
-            0f
-        }
-
-        if(body.isActive){
-            World.physicsWorld.rayCast(callback, body.position, target)
-            if(World.rays[owner] != null && collisionPoint != null){
-                World.rays[owner] = Pair<Vector2?, Vector2?>(body.position, Vector2(collisionPoint))
-            }
-        }
-
-        if(World.player.transform.body == collidedFixture?.body){
+        if(Vector2.dst(target.x, target.y, body.position.x, body.position.y) < 5){
             return true
         }
         return false
+
+//        var closestFraction = 10f
+//        var collisionPoint: Vector2? = null
+//        var collidedFixture: Fixture? = null
+//
+//        val callback = RayCastCallback { fixture, point, normal, fraction ->
+//            if (fraction < closestFraction) {
+//                closestFraction = fraction
+//                collisionPoint = Vector2(point)
+//                collidedFixture = fixture
+//            }
+//            0f
+//        }
+//
+//        if(body.isActive){
+//            World.physicsWorld.rayCast(callback, body.position, target)
+//            if(World.rays[owner] != null && collisionPoint != null){
+//                World.rays[owner] = Pair<Vector2?, Vector2?>(body.position, Vector2(collisionPoint))
+//            }
+//        }
+//
+//        if(World.player.transform.body == collidedFixture?.body){
+//            return true
+//        }
+//        return false
 
     }
 }
