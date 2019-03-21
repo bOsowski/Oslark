@@ -40,7 +40,9 @@ class TransformComoponent(
   override fun update(deltaTime: Float) {}
 
   override fun destroy() {
-    World.physicsWorld.destroyBody(body)
-    body = null
+    if(body != null){
+      World.physicsWorld.destroyBody(body)
+      body = null
+    }
   }
 }

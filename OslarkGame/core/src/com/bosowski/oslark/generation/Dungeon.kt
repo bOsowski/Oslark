@@ -53,14 +53,14 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       val rand = Util.randomInt(random, 0, totalSpawnRate)
       val cellDifficulty = Util.map(it.cell.transform.position.x, lowestX, highestX, 0f, highestMonsterLevel.toFloat()) //(it.cell.transform.position.y - lowestY) / (highestMonsterLevel-1)) + 1
 
-      Settings.spawnTableMaze.forEach lit@{ k, v ->
-        if(rand <= k && v != null && v.second <= cellDifficulty+1){
+      for(pair in Settings.spawnTableMaze){
+        if(rand <= pair.key && pair.value != null && pair.value!!.second <= cellDifficulty+1){
           val position = it.cell.transform.position.sub(-0f, -0.25f)
-          val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.monsters.${v.first}").kotlin
+          val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.monsters.${pair.value!!.first}").kotlin
           val monster = kClass.constructors.first().call(position) as Monster
           monster.instantiate()
           spawnedMonsters.add(monster)
-          return@lit
+          break
         }
       }
     }
@@ -89,14 +89,14 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
 
       room.cells.forEach{ cell_k, cell_v ->
         val rand = Util.randomInt(random, 0, totalSpawnRate)
-        Settings.spawnTableRooms.forEach lit@{ k, v ->
-
-          if(rand <= k && v != null && v.second <= roomDifficulty + 1) {
+        for(pair in Settings.spawnTableRooms){
+          if(rand <= pair.key && pair.value != null && pair.value!!.second <= roomDifficulty + 1) {
             val position = cell_k.sub(-0f, -0.25f)
-            val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.monsters.${v.first}").kotlin
+            val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.monsters.${pair.value!!.first}").kotlin
             val monster = kClass.constructors.first().call(position) as Monster
             monster.instantiate()
             spawnedMonsters.add(monster)
+            break
           }
         }
       }
@@ -118,8 +118,8 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     }
     createWallsAndInstantiate()
     spawnMonsters()
-    colourMazeCells()
-    colourRooms()
+    //colourMazeCells()
+    //colourRooms()
     created = true
     World.player.transform.position.set(dungeonCells.keys.first())
     return true

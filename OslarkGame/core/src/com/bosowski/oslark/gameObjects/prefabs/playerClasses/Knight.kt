@@ -52,11 +52,10 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
     addComponent(hudComponent)
 
     //light
-    //todo(fix lighting filter. Currently raycasts can see the light..)
-    World.rayHandler.setAmbientLight(0f)
-    val playerLight = PointLight(World.rayHandler, 5000, Color(0f,0f,0f,1f), 15f, 0f, 0f)
+    World.rayHandler.setAmbientLight(1f)
+    val playerLight = PointLight(World.rayHandler, 500, Color(0f,0f,0f,1f), 15f, 0f, 0f)
     playerLight.attachToBody(transform.body, 0f, 0f)
-    playerLight.setSoftnessLength(2f)
+    playerLight.setSoftnessLength(5f)
     playerLight.ignoreAttachedBody = true
   }
 }
