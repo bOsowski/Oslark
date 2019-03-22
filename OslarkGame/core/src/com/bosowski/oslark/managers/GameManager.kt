@@ -27,4 +27,8 @@ class GameManager : InputAdapter() {
     }
     return false
   }
+
+  fun renderUI(batch: SpriteBatch) {
+    World.renderUI(batch)
+  }
 }

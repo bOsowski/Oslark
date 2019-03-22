@@ -24,7 +24,7 @@ class CreatureComponent : AbstractComponent {
     }
   }
 
-  private val experienceForSecondLevel:Int = 100
+  private val experienceForSecondLevel:Int = 50
   var experienceToNextLevel: Int = experienceForSecondLevel
   var currentExperience: Int = 0
     set(value) {
@@ -32,14 +32,14 @@ class CreatureComponent : AbstractComponent {
       field = value
       expText.instantiate()
       if(currentExperience >= experienceToNextLevel){
-        experienceToNextLevel = Math.pow(experienceForSecondLevel.toDouble(), level.toDouble()).toInt()
         level++
         maxHealth += healthPerLevel
         damage = Pair(damage.first+damagePerLevel.first, damage.second + damagePerLevel.second)
         currentHealth = maxHealth
 
-        val levelUpText = ActionableText(owner.transform.position, "Leveled up to $value!", Color.WHITE)
+        val levelUpText = ActionableText(owner.transform.position, "Leveled up to $level!", Color.WHITE)
         levelUpText.instantiate()
+        experienceToNextLevel = experienceForSecondLevel * Math.pow(level.toDouble(), 2.toDouble()).toInt()
       }
     }
 

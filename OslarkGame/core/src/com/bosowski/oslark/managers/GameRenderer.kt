@@ -31,16 +31,16 @@ class GameRenderer
 
   fun render() {
     batch.projectionMatrix = camera.combined
+    World.rayHandler.setCombinedMatrix(camera)
     batch.begin()
     Gdx.graphics.setTitle("FPS: ${Gdx.graphics.framesPerSecond}")
-    World.rayHandler.setCombinedMatrix(camera)
     if(!debugView){
       gameManager.render(batch)
     }
     else{
+      shapeRanderer.projectionMatrix = batch.projectionMatrix
       debugRenderer.render(World.physicsWorld, batch.projectionMatrix)
       shapeRanderer.begin(ShapeRenderer.ShapeType.Line)
-      shapeRanderer.projectionMatrix = batch.projectionMatrix
       World.rays.values.forEach { u ->
         if(u.first != null && u.second != null){
           shapeRanderer.line(u.first, u.second)
@@ -48,6 +48,17 @@ class GameRenderer
       }
       shapeRanderer.end()
     }
+
+    batch.end()
+
+    World.rayHandler.updateAndRender()
+
+    batch.begin()
+
+    if(!debugView){
+      gameManager.renderUI(batch)
+    }
+
     batch.end()
   }
 

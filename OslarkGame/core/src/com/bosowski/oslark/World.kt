@@ -1,8 +1,11 @@
 package com.bosowski.oslark
 
 import box2dLight.RayHandler
+import com.badlogic.gdx.graphics.Camera
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
+import com.bosowski.oslark.components.TextureComponent
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.generation.Dungeon
 import com.bosowski.oslark.managers.GameRenderer
@@ -42,8 +45,6 @@ object World
     }
 
     physicsWorld.step(deltaTime, 3, 1)
-    rayHandler.updateAndRender()
-
 
     gameObjects.addAll(objectsToInstantiate)
     objectsToInstantiate.clear()
@@ -52,11 +53,12 @@ object World
   }
 
   fun render(batch: SpriteBatch) {
+
     gameObjects.forEach { gameObject ->
       //only render objects that are on screen.
       if(Vector2.dst(gameObject.transform.position.x, gameObject.transform.position.y, GameRenderer.camera.position.x, GameRenderer.camera.position.y) <= GameRenderer.camera.viewportWidth + GameRenderer.camera.viewportHeight ){
         gameObject.getComponents().forEach {
-          if(it.active) it.render(batch)
+          if(it is TextureComponent && it.active) it.render(batch)
         }
       }
     }
@@ -72,5 +74,16 @@ object World
         else -> 0
       }
     })
+  }
+
+  fun renderUI(batch: SpriteBatch) {
+    gameObjects.forEach { gameObject ->
+      //only render objects that are on screen.
+      if(Vector2.dst(gameObject.transform.position.x, gameObject.transform.position.y, GameRenderer.camera.position.x, GameRenderer.camera.position.y) <= GameRenderer.camera.viewportWidth + GameRenderer.camera.viewportHeight ){
+        gameObject.getComponents().forEach {
+          if(it !is TextureComponent && it.active) it.render(batch)
+        }
+      }
+    }
   }
 }
