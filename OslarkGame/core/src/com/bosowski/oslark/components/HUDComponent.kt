@@ -10,7 +10,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
   var healthBar = ArrayList<TextureComponent>()
 
   override fun awake() {
-    (1..creatureComponent.maxHealth.toInt()).forEach{ it ->
+    (1..creatureComponent.maxHealth.toInt()).forEach{
       healthBar.add(TextureComponent(Assets.textures["uiHeart2"]!!))
     }
   }
@@ -20,8 +20,6 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
   }
 
   override fun update(deltaTime: Float) {
-
-
     (0 until creatureComponent.maxHealth.toInt()).forEach{
       if(it <= creatureComponent.currentHealth-1.0){
         healthBar[it].texture = Assets.textures["uiHeart2"]!!

@@ -18,7 +18,6 @@ open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var n
   }
 
   fun instantiate(){
-    components.values.forEach { it.awake() }
     World.instantiate(this)
     components.values.forEach { it.start() }
   }

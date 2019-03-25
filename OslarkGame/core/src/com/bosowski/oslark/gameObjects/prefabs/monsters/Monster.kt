@@ -52,6 +52,9 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
                 creatureComponent.canAttack = false
             }
         }
+        creatureComponent.additionalBehaviours.add(ActionInterface {
+            creatureComponent.attack!!.perform(it)
+        })
 
         addComponent(creatureComponent)
 

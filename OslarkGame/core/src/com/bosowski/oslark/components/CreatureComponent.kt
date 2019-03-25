@@ -45,6 +45,7 @@ class CreatureComponent : AbstractComponent {
 
   var damage: Pair<Float, Float>
   var attack: ActionInterface?
+  var additionalBehaviours: ArrayList<ActionInterface> = ArrayList()
   var canAttack = true
   var attackSpeed: Float
 
@@ -97,6 +98,10 @@ class CreatureComponent : AbstractComponent {
     if(timer >= attackSpeed){
       canAttack = true
       timer = 0f
+    }
+
+    additionalBehaviours.forEach {
+      it.perform(deltaTime)
     }
 
     if(owner is Monster && canAttack){

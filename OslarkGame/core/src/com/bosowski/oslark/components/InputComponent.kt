@@ -24,6 +24,8 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
   override fun start() {}
 
   override fun update(deltaTime: Float) {
+    if ((owner.getComponent("CreatureComponent") as CreatureComponent).currentHealth <= 0) return
+
     if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
       (owner.getComponent("CreatureComponent") as CreatureComponent).attack?.perform(deltaTime)
     }

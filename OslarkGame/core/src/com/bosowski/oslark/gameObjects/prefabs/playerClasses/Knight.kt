@@ -24,13 +24,11 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
     val inputComponent = InputComponent(animator = animator, speed = 5f, collider = collider)
     addComponent(inputComponent)
 
-    val creatureComponent = CreatureComponent(maxHealth = 100f, level = 1, damage = Pair(1f,3f))
+    val creatureComponent = CreatureComponent(maxHealth = 10f, level = 1, damage = Pair(1f,3f))
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){
         for(monster in World.gameObjects){
           if(monster is Monster){
-            // val attackArea = Rectangle(World.player.transform.body.position.x + collider.direction!!.x, World.player.transform.body.position.y + collider.direction!!.y, 1f, 1f)
-            //if (attackArea.contains(monster.transform.body.position)) {
             if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, monster.transform.position.x, monster.transform.position.y) < 1.0f && creatureComponent.canAttack){
               val damage = creatureComponent.getDamage()
               ActionableText(monster.transform.position, "%.2f".format(damage), Color.GREEN).instantiate()
