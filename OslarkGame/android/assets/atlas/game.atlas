@@ -244,7 +244,7 @@ coin
   index: 0
 coin
   rotate: false
-  xy: 827, 31
+  xy: 863, 31
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -258,7 +258,7 @@ coin
   index: 2
 coin
   rotate: false
-  xy: 837, 31
+  xy: 873, 31
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -1327,23 +1327,37 @@ tinyZombie_move
   orig: 16, 16
   offset: 0, 0
   index: 3
-uiHeart0
+uiEnergy0
   rotate: false
   xy: 711, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-uiHeart1
+uiEnergy1
   rotate: false
   xy: 729, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-uiHeart2
+uiHeart0
   rotate: false
   xy: 747, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+uiHeart1
+  rotate: false
+  xy: 765, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+uiHeart2
+  rotate: false
+  xy: 783, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
@@ -1355,13 +1369,6 @@ undefined
   orig: 32, 32
   offset: 0, 0
   index: -1
-undefined
-  rotate: false
-  xy: 239, 27
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: 0
 undefined
   rotate: false
   xy: 239, 27
@@ -1369,6 +1376,13 @@ undefined
   orig: 32, 32
   offset: 0, 0
   index: 1
+undefined
+  rotate: false
+  xy: 239, 27
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: 0
 wallDown
   rotate: false
   xy: 103, 1
@@ -1574,7 +1588,7 @@ weaponKatana
   index: -1
 weaponKnife
   rotate: false
-  xy: 819, 26
+  xy: 855, 26
   size: 6, 13
   orig: 6, 13
   offset: 0, 0
@@ -1826,56 +1840,56 @@ wogol_move
   index: 3
 zombie_idle
   rotate: false
-  xy: 765, 23
+  xy: 801, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 0
 zombie_move
-  rotate: false
-  xy: 765, 23
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 0
-zombie_idle
-  rotate: false
-  xy: 783, 23
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 1
-zombie_idle
-  rotate: false
-  xy: 783, 23
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-zombie_move
-  rotate: false
-  xy: 783, 23
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 1
-zombie_move
-  rotate: false
-  xy: 783, 23
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: 3
-zombie_idle
   rotate: false
   xy: 801, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 0
+zombie_idle
+  rotate: false
+  xy: 819, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+zombie_idle
+  rotate: false
+  xy: 819, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+zombie_move
+  rotate: false
+  xy: 819, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 1
+zombie_move
+  rotate: false
+  xy: 819, 23
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: 3
+zombie_idle
+  rotate: false
+  xy: 837, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: 2
 zombie_move
   rotate: false
-  xy: 801, 23
+  xy: 837, 23
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

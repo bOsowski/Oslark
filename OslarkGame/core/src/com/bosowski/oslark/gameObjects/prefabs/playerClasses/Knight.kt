@@ -24,7 +24,7 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
     val inputComponent = InputComponent(animator = animator, speed = 5f, collider = collider)
     addComponent(inputComponent)
 
-    val creatureComponent = CreatureComponent(maxHealth = 10f, level = 1, damage = Pair(1f,3f))
+    val creatureComponent = CreatureComponent(maxHealth = 10f, maxEnergy = 2f, level = 1, damage = Pair(1f,3f))
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){
         for(monster in World.gameObjects){

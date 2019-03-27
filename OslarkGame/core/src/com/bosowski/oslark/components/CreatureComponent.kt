@@ -12,11 +12,41 @@ import com.bosowski.oslark.utils.Util
 
 class CreatureComponent : AbstractComponent {
 
+  var maxEnergy: Float
+    set(value) {
+      field = value
+      currentEnergy = field
+    }
+  var currentEnergy: Float
+    set(value) {
+      field = when {
+        value < 0 -> 0f
+
+        value > maxEnergy -> maxEnergy
+        else -> value
+      }
+    }
+
   var maxHealth: Float
     set(value) {
       field = value
-      currentHealth = maxHealth
+      currentHealth = field
     }
+
+  var currentHealth: Float
+    set(value) {
+      field = when {
+        value < 0 -> {
+          die()
+          0f
+        }
+        value > maxHealth -> maxHealth
+        else -> value
+      }
+    }
+
+  var timer:Float = 0f
+
   var level: Int = 1
   set(value) {
     if(value > 0){
@@ -54,6 +84,7 @@ class CreatureComponent : AbstractComponent {
 
   // min/max damage
   constructor(maxHealth: Float,
+              maxEnergy: Float = 0f,
               level: Int = 1,
               damage: Pair<Float, Float> = Pair(1f, 1f),
               attack: ActionInterface? = null,
@@ -70,21 +101,9 @@ class CreatureComponent : AbstractComponent {
     this.attackSpeed = attackSpeed
     this.damagePerLevel = damagePerLevel
     this.healthPerLevel = healthPerLevel
+    this.maxEnergy = maxEnergy
+    this.currentEnergy = maxEnergy
   }
-
-  var currentHealth: Float
-    set(value) {
-      field = when {
-        value < 0 -> {
-          die()
-          0f
-        }
-        value > maxHealth -> maxHealth
-        else -> value
-      }
-    }
-
-  var timer:Float = 0f
 
   override fun awake() {
   }
