@@ -3,7 +3,6 @@ package oslarkserver
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 import oslarkserver.gameObjects.GameCharacter
-import oslarkserver.gameObjects.Terrain
 
 @Secured(["ROLE_ADMIN", "ROLE_USER"])
 class ProfileController{
@@ -35,16 +34,6 @@ class ProfileController{
         if(character.user != User.getCurrentUser()){
             throw new Exception("This user does not have this character!")
         }
-        StringBuilder sb = new StringBuilder("{terrain:[")
-        Set<Terrain> terrain = Terrain.findAllByWorld(character.world)
-        terrain.eachWithIndex { Terrain it, index ->
-            sb.append(it.toJson())
-            if(index < terrain.size()-1){
-                sb.append(", ")
-            }
-        }
-        sb.append("]}")
-        render(status: 200, text: sb.toString())
     }
 
     def test(){
