@@ -89,7 +89,7 @@ object Assets
     val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
     parameter.borderWidth = 1f
     parameter.borderColor = Color.BLACK
-    parameter.size = 16
+    parameter.size = 18
     font = generator.generateFont(parameter)
     generator.dispose()
   }

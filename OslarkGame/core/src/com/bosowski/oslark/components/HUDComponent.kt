@@ -1,8 +1,10 @@
 package com.bosowski.oslark.components
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.bosowski.oslark.Assets
+import com.bosowski.oslark.managers.GameRenderer
 import com.bosowski.oslark.utils.Constants
 import kotlin.math.roundToInt
 
@@ -53,7 +55,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
       batch.draw(
         it.texture.texture,
         - Constants.VIEWPORT_WIDTH/2 + index + 1 + owner.transform.position.x,
-        Constants.VIEWPORT_HEIGHT/2 -1.5f + owner.transform.position.y, 0f, 0f,
+        Constants.VIEWPORT_HEIGHT/2 -2.5f + owner.transform.position.y, 0f, 0f,
         1f, 1f, 1f, 1f, 0f,
         it.texture.regionX,
         it.texture.regionY,
@@ -67,7 +69,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
       batch.draw(
         it.texture.texture,
         - Constants.VIEWPORT_WIDTH/2 + index + 1 + owner.transform.position.x,
-        Constants.VIEWPORT_HEIGHT/2 -2.5f + owner.transform.position.y, 0f, 0f,
+        Constants.VIEWPORT_HEIGHT/2 -3.5f + owner.transform.position.y, 0f, 0f,
         1f, 1f, 1f, 1f, 0f,
         it.texture.regionX,
         it.texture.regionY,
@@ -76,6 +78,14 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
         false, false
       )
     }
+
+    batch.projectionMatrix = GameRenderer.uiCamera.combined
+    Assets.font.color = Color.WHITE
+    Assets.font.draw(batch, "Score: 0",
+      - Constants.VIEWPORT_WIDTH_TEXT/2 + 40f + owner.transform.position.x*35,
+      Constants.VIEWPORT_HEIGHT_TEXT/2 -40 + owner.transform.position.y*60
+    )
+    batch.projectionMatrix = GameRenderer.camera.combined
   }
 
   override fun destroy() {

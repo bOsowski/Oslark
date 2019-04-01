@@ -63,7 +63,7 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
       do{
         World.dungeon?.clear()
         //      dungeon = Dungeon(Rectangle(-5f, -5f, 900f, 10f), 2, 7, 700, ThreadLocalRandom.current().nextLong())
-        World.dungeon = Dungeon(Rectangle(-10f, -10f, 20f, 20f), 2, 7, 15)
+        World.dungeon = Dungeon(Rectangle(-50f, -10f, 100f, 10f), 2, 7, 30)
         successfullyCreated = World.dungeon!!.create()
       }while(!successfullyCreated)
       sleep(250)

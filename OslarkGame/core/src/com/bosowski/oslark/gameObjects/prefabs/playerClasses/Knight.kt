@@ -24,7 +24,7 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
     val inputComponent = InputComponent(animator = animator, speed = 5f, collider = collider)
     addComponent(inputComponent)
 
-    val creatureComponent = CreatureComponent(maxHealth = 10f, maxEnergy = 2f, level = 1, damage = Pair(1f,3f))
+    val creatureComponent = CreatureComponent(maxHealth = 100f, maxEnergy = 2f, level = 1, damage = Pair(1f,3f))
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){
         for(monster in World.gameObjects){
@@ -34,7 +34,6 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
               ActionableText(monster.transform.position, "%.2f".format(damage), Color.GREEN).instantiate()
               if(monster.creatureComponent.currentHealth - damage <= 0f){
                 creatureComponent.currentExperience += monster.speed.toInt() + monster.creatureComponent.maxHealth.toInt()
-
               }
               monster.creatureComponent.currentHealth -= damage
               //creatureComponent.canAttack = false
@@ -50,7 +49,7 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
     addComponent(hudComponent)
 
     //light
-    World.rayHandler.setAmbientLight(0f)
+    World.rayHandler.setAmbientLight(1f)
     val playerLight = PointLight(World.rayHandler, 500, Color(0f,0f,0f,1f), 15f, 0f, 0f)
     playerLight.attachToBody(transform.body, 0f, 0f)
     playerLight.setSoftnessLength(5f)
