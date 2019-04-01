@@ -20,7 +20,8 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
   private var created = false
   private val random: Random = World.random
 
-  private val spawnedMonsters = ArrayList<Monster>()
+  val spawnedMonsters = ArrayList<Monster>()
+  var killedMonsters = 0
 
 //  private val monsterTypes = [Demon::class, Skeleton::class]
 
@@ -138,7 +139,14 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     //colourMazeCells()
     //colourRooms()
     created = true
-    World.player.transform.position.set(dungeonCells.keys.first())
+    var playerStartingPos = dungeonCells.keys.first()
+    dungeonCells.keys.forEach {
+      if(playerStartingPos.x > it.x){
+        playerStartingPos = it
+      }
+    }
+
+    World.player.transform.body!!.setTransform(Vector2(playerStartingPos.x, playerStartingPos.y + 0.25f), 0f)
     return true
   }
 

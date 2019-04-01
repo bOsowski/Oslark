@@ -55,7 +55,11 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
         creatureComponent.additionalBehaviours.add(ActionInterface {
             creatureComponent.attack!!.perform(it)
         })
-
+        creatureComponent.onDeathAction = ActionInterface {
+            if(World.dungeon != null){
+                World.dungeon!!.killedMonsters++
+            }
+        }
         addComponent(creatureComponent)
 
         actionComponent = ActionComponent(action)

@@ -81,6 +81,7 @@ class CreatureComponent : AbstractComponent {
 
   val damagePerLevel: Pair<Float, Float>
   val healthPerLevel: Float
+  var onDeathAction: ActionInterface? = null
 
   // min/max damage
   constructor(maxHealth: Float,
@@ -150,6 +151,7 @@ class CreatureComponent : AbstractComponent {
     death.addComponent(actionComponent)
     death.instantiate()
     owner.destroy()
+    onDeathAction?.perform(0f)
   }
 
   fun getDamage(): Float{

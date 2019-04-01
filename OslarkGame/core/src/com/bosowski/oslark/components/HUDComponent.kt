@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.bosowski.oslark.Assets
+import com.bosowski.oslark.World
 import com.bosowski.oslark.managers.GameRenderer
 import com.bosowski.oslark.utils.Constants
 import kotlin.math.roundToInt
@@ -84,6 +85,11 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
     Assets.font.draw(batch, "Score: 0",
       - Constants.VIEWPORT_WIDTH_TEXT/2 + 40f + owner.transform.position.x*35,
       Constants.VIEWPORT_HEIGHT_TEXT/2 -40 + owner.transform.position.y*60
+    )
+
+    Assets.font.draw(batch, "Killed ${World.dungeon?.killedMonsters}/${World.dungeon?.spawnedMonsters?.size} monsters",
+      - Constants.VIEWPORT_WIDTH_TEXT/2 + 40f + owner.transform.position.x*35,
+      Constants.VIEWPORT_HEIGHT_TEXT/2 -60f + owner.transform.position.y*60
     )
     batch.projectionMatrix = GameRenderer.camera.combined
   }
