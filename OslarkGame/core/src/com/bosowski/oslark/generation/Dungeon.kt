@@ -23,8 +23,6 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
   val spawnedMonsters = ArrayList<Monster>()
   var killedMonsters = 0
 
-//  private val monsterTypes = [Demon::class, Skeleton::class]
-
   var nodeIndex: Int = 0
     get() {
       field++

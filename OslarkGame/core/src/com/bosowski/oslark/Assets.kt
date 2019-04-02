@@ -87,9 +87,9 @@ object Assets
 
     val generator = FreeTypeFontGenerator(Gdx.files.internal("OpenSans-Regular.ttf"))
     val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
-    parameter.borderWidth = 1f
+    parameter.borderWidth = 2f
     parameter.borderColor = Color.BLACK
-    parameter.size = 18
+    parameter.size = 22
     font = generator.generateFont(parameter)
     generator.dispose()
   }

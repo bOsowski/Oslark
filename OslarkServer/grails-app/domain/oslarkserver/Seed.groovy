@@ -6,7 +6,6 @@ class Seed {
 
     static hasMany = [highscores: Highscore]
 
-
     static constraints = {
         value null: false
         value unique: true

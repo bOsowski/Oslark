@@ -10,6 +10,7 @@ import com.bosowski.oslark.components.*
 import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.gameObjects.prefabs.utility.ActionableText
+import kotlin.math.roundToInt
 
 abstract class Monster(position: Vector2, name: String, speed: Float, density: Float, scale: Vector2): GameObject(position, name = name, bodyType = BodyDef.BodyType.DynamicBody){
 
@@ -46,10 +47,15 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
         creatureComponent = CreatureComponent(maxHealth = 1f)
         creatureComponent.attack = ActionInterface {
             if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, transform.position.x, transform.position.y) < 1.0f && creatureComponent.canAttack){
+                creatureComponent.canAttack = false
                 val damage = creatureComponent.getDamage()
                 ActionableText(World.player.transform.position, "%.2f".format(damage), Color.RED).instantiate()
-                (World.player.getComponent("CreatureComponent") as CreatureComponent).currentHealth -= damage
-                creatureComponent.canAttack = false
+
+                val playerCreatureComponent = World.player.getComponent("CreatureComponent") as CreatureComponent
+                playerCreatureComponent.currentHealth -= damage
+
+                val playerHudComponent = World.player.getComponent("HUDComponent") as HUDComponent
+                playerHudComponent.updateHud()
             }
         }
         creatureComponent.additionalBehaviours.add(ActionInterface {
@@ -58,6 +64,7 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
         creatureComponent.onDeathAction = ActionInterface {
             if(World.dungeon != null){
                 World.dungeon!!.killedMonsters++
+                (World.player.getComponent("HUDComponent") as HUDComponent).score += (speed * 10).toInt()
             }
         }
         addComponent(creatureComponent)

@@ -14,6 +14,9 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
   var healthBar = ArrayList<TextureComponent>()
   var energyBar = ArrayList<TextureComponent>()
 
+  var score = 0
+  private var timer = 0f
+
   override fun awake() {
     (1..creatureComponent.maxHealth.toInt()).forEach{
       healthBar.add(TextureComponent(Assets.textures["uiHeart2"]!!))
@@ -28,6 +31,14 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
   }
 
   override fun update(deltaTime: Float) {
+    timer += deltaTime
+    if(timer >= 0.5f){
+      score -= 1
+      timer = 0f
+    }
+  }
+
+  fun updateHud(){
     (0 until creatureComponent.maxHealth.toInt()).forEach{
       if(it <= creatureComponent.currentHealth-1.0){
         healthBar[it].texture = Assets.textures["uiHeart2"]!!
@@ -82,7 +93,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
 
     batch.projectionMatrix = GameRenderer.uiCamera.combined
     Assets.font.color = Color.WHITE
-    Assets.font.draw(batch, "Score: 0",
+    Assets.font.draw(batch, "Score: $score",
       - Constants.VIEWPORT_WIDTH_TEXT/2 + 40f + owner.transform.position.x*35,
       Constants.VIEWPORT_HEIGHT_TEXT/2 -40 + owner.transform.position.y*60
     )
