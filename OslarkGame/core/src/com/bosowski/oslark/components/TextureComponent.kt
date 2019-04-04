@@ -24,8 +24,8 @@ open class TextureComponent(var texture: TextureRegion): AbstractComponent(){
 
     batch.draw(
         texture.texture,
-        owner.transform.position.x - origin.x,
-        owner.transform.position.y - origin.y, origin.x, origin.y,
+        owner!!.transform.position.x - origin.x,
+        owner!!.transform.position.y - origin.y, origin.x, origin.y,
         dimension.x, dimension.y, scale.x, scale.y, rotation,
         texture.regionX,
         texture.regionY,

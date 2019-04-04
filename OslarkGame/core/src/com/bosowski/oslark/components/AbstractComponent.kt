@@ -4,7 +4,7 @@ import com.bosowski.oslark.gameObjects.GameObject
 
 abstract class AbstractComponent: BehaviourInterface{
 
-  lateinit var owner: GameObject
+  var owner: GameObject? = null
   /**
    * For example, take a class Physics, which inherits
    * from this class. This property will return the

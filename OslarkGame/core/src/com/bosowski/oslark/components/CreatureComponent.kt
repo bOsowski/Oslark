@@ -25,6 +25,8 @@ class CreatureComponent : AbstractComponent {
         value > maxEnergy -> maxEnergy
         else -> value
       }
+
+      updateHUDComponent()
     }
 
   var maxHealth: Float
@@ -43,6 +45,8 @@ class CreatureComponent : AbstractComponent {
         value > maxHealth -> maxHealth
         else -> value
       }
+
+      updateHUDComponent()
     }
 
   var timer:Float = 0f
@@ -58,16 +62,17 @@ class CreatureComponent : AbstractComponent {
   var experienceToNextLevel: Int = experienceForSecondLevel
   var currentExperience: Int = 0
     set(value) {
-      val expText = ActionableText(owner.transform.position, "+${value-field}exp!", Color.WHITE)
+      val expText = ActionableText(owner!!.transform.position, "+${value-field}exp!", Color.WHITE)
       field = value
       expText.instantiate()
       if(currentExperience >= experienceToNextLevel){
         level++
         maxHealth += healthPerLevel
+        maxEnergy += energyPerLevel
         damage = Pair(damage.first+damagePerLevel.first, damage.second + damagePerLevel.second)
         currentHealth = maxHealth
 
-        val levelUpText = ActionableText(owner.transform.position, "Leveled up to $level!", Color.WHITE)
+        val levelUpText = ActionableText(owner!!.transform.position, "Leveled up to $level!", Color.WHITE)
         levelUpText.instantiate()
         experienceToNextLevel = experienceForSecondLevel * Math.pow(level.toDouble(), 2.toDouble()).toInt()
       }
@@ -77,11 +82,16 @@ class CreatureComponent : AbstractComponent {
   var attack: ActionInterface?
   var additionalBehaviours: ArrayList<ActionInterface> = ArrayList()
   var canAttack = true
-  var attackSpeed: Float
+  var actionSpeed: Float
+
 
   val damagePerLevel: Pair<Float, Float>
   val healthPerLevel: Float
+  val energyPerLevel: Float
   var onDeathAction: ActionInterface? = null
+
+  var healthRegenPerAction: Float
+  var energyRegenPerAction: Float
 
   // min/max damage
   constructor(maxHealth: Float,
@@ -89,9 +99,12 @@ class CreatureComponent : AbstractComponent {
               level: Int = 1,
               damage: Pair<Float, Float> = Pair(1f, 1f),
               attack: ActionInterface? = null,
-              attackSpeed:Float = 1f,
+              actionSpeed:Float = 1f,
               damagePerLevel: Pair<Float, Float> = Pair(0f, 0f),
-              healthPerLevel: Float = 0f
+              healthPerLevel: Float = 0f,
+              energyPerLevel: Float = 0f,
+              energyRegenPerAction: Float = 0f,
+              healthRegenPerAction: Float = 0f
 
   ) : super() {
     this.maxHealth = maxHealth
@@ -99,11 +112,14 @@ class CreatureComponent : AbstractComponent {
     this.damage = damage
     this.attack = attack
     this.currentHealth = maxHealth
-    this.attackSpeed = attackSpeed
+    this.actionSpeed = actionSpeed
     this.damagePerLevel = damagePerLevel
     this.healthPerLevel = healthPerLevel
     this.maxEnergy = maxEnergy
     this.currentEnergy = maxEnergy
+    this.energyPerLevel = energyPerLevel
+    this.healthRegenPerAction = healthRegenPerAction
+    this.energyRegenPerAction = energyRegenPerAction
   }
 
   override fun awake() {
@@ -115,8 +131,13 @@ class CreatureComponent : AbstractComponent {
   override fun update(deltaTime: Float) {
     //perform an attack each second if the owner is a monster.
     timer += deltaTime
-    if(timer >= attackSpeed){
+    if(timer >= actionSpeed){
       canAttack = true
+
+      //regenerate resources
+      currentHealth += healthRegenPerAction
+      currentEnergy += energyRegenPerAction
+
       timer = 0f
     }
 
@@ -137,7 +158,7 @@ class CreatureComponent : AbstractComponent {
   }
 
   fun die(){
-    val death = GameObject(position = owner.transform.position, layer = 1, name = "death", bodyType = BodyDef.BodyType.KinematicBody)
+    val death = GameObject(position = owner!!.transform.position, layer = 1, name = "death", bodyType = BodyDef.BodyType.KinematicBody)
     val animationComponent = AnimationComponent(Assets.animations["death"]!!)
     death.addComponent(animationComponent)
     death.transform.body?.setLinearVelocity(0f,2f)
@@ -150,11 +171,18 @@ class CreatureComponent : AbstractComponent {
     })
     death.addComponent(actionComponent)
     death.instantiate()
-    owner.destroy()
+    owner!!.destroy()
     onDeathAction?.perform(0f)
   }
 
   fun getDamage(): Float{
     return Util.randomFloat(World.random, damage.first, damage.second)
+  }
+
+  fun updateHUDComponent(){
+    if(owner != null && owner!!.getComponent("HUDComponent") != null){
+      val hudComponent = owner!!.getComponent("HUDComponent") as HUDComponent
+      hudComponent.updateHud()
+    }
   }
 }

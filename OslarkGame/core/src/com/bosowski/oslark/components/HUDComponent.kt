@@ -18,12 +18,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
   private var timer = 0f
 
   override fun awake() {
-    (1..creatureComponent.maxHealth.toInt()).forEach{
-      healthBar.add(TextureComponent(Assets.textures["uiHeart2"]!!))
-    }
-    (1..creatureComponent.maxEnergy.toInt()).forEach{
-      energyBar.add(TextureComponent(Assets.textures["uiEnergy1"]!!))
-    }
+
   }
 
   override fun start() {
@@ -39,6 +34,15 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
   }
 
   fun updateHud(){
+    healthBar.clear()
+    energyBar.clear()
+    (1..creatureComponent.maxHealth.toInt()).forEach{
+      healthBar.add(TextureComponent(Assets.textures["uiHeart2"]!!))
+    }
+    (1..creatureComponent.maxEnergy.toInt()).forEach{
+      energyBar.add(TextureComponent(Assets.textures["uiEnergy1"]!!))
+    }
+
     (0 until creatureComponent.maxHealth.toInt()).forEach{
       if(it <= creatureComponent.currentHealth-1.0){
         healthBar[it].texture = Assets.textures["uiHeart2"]!!
@@ -56,7 +60,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
         energyBar[it].texture = Assets.textures["uiEnergy1"]!!
       }
       else{
-        energyBar[it].texture = Assets.textures["uiHeart0"]!!
+        energyBar[it].texture = Assets.textures["uiEnergy0"]!!
       }
     }
   }
@@ -66,8 +70,8 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
     healthBar.forEachIndexed {index, it ->
       batch.draw(
         it.texture.texture,
-        - Constants.VIEWPORT_WIDTH/2 + index + 1 + owner.transform.position.x,
-        Constants.VIEWPORT_HEIGHT/2 -2.5f + owner.transform.position.y, 0f, 0f,
+        - Constants.VIEWPORT_WIDTH/2 + index + 1 + owner!!.transform.position.x,
+        Constants.VIEWPORT_HEIGHT/2 -2.5f + owner!!.transform.position.y, 0f, 0f,
         1f, 1f, 1f, 1f, 0f,
         it.texture.regionX,
         it.texture.regionY,
@@ -80,8 +84,8 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
     energyBar.forEachIndexed {index, it ->
       batch.draw(
         it.texture.texture,
-        - Constants.VIEWPORT_WIDTH/2 + index + 1 + owner.transform.position.x,
-        Constants.VIEWPORT_HEIGHT/2 -3.5f + owner.transform.position.y, 0f, 0f,
+        - Constants.VIEWPORT_WIDTH/2 + index + 1 + owner!!.transform.position.x,
+        Constants.VIEWPORT_HEIGHT/2 -3.5f + owner!!.transform.position.y, 0f, 0f,
         1f, 1f, 1f, 1f, 0f,
         it.texture.regionX,
         it.texture.regionY,
@@ -94,13 +98,13 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
     batch.projectionMatrix = GameRenderer.uiCamera.combined
     Assets.font.color = Color.WHITE
     Assets.font.draw(batch, "Score: $score",
-      - Constants.VIEWPORT_WIDTH_TEXT/2 + 40f + owner.transform.position.x*35,
-      Constants.VIEWPORT_HEIGHT_TEXT/2 -40 + owner.transform.position.y*60
+      - Constants.VIEWPORT_WIDTH_TEXT/2 + 40f + owner!!.transform.position.x*35,
+      Constants.VIEWPORT_HEIGHT_TEXT/2 -40 + owner!!.transform.position.y*60
     )
 
     Assets.font.draw(batch, "Killed ${World.dungeon?.killedMonsters}/${World.dungeon?.spawnedMonsters?.size} monsters",
-      - Constants.VIEWPORT_WIDTH_TEXT/2 + 40f + owner.transform.position.x*35,
-      Constants.VIEWPORT_HEIGHT_TEXT/2 -60f + owner.transform.position.y*60
+      - Constants.VIEWPORT_WIDTH_TEXT/2 + 40f + owner!!.transform.position.x*35,
+      Constants.VIEWPORT_HEIGHT_TEXT/2 -60f + owner!!.transform.position.y*60
     )
     batch.projectionMatrix = GameRenderer.camera.combined
   }

@@ -27,15 +27,15 @@ class AnimatorComponent(private val animations: HashMap<State, Animation<Texture
 
   override fun render(batch: SpriteBatch) {
 
-    state = if(owner.transform.body?.linearVelocity != Vector2.Zero){
+    state = if(owner!!.transform.body?.linearVelocity != Vector2.Zero){
       State.MOVE
     } else{
       State.IDLE
     }
 
     //flip the sprite depending on the direction.
-    if(owner.transform.body?.linearVelocity?.x != 0f){
-      var direction = owner.transform.body?.linearVelocity?.x
+    if(owner!!.transform.body?.linearVelocity?.x != 0f){
+      var direction = owner!!.transform.body?.linearVelocity?.x
 
       direction = if(direction != null && direction < 0) -1f
       else 1f

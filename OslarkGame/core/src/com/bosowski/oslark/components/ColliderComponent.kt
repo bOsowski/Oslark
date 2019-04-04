@@ -22,7 +22,7 @@ class ColliderComponent(
     fdef.density = density
 
 //    fdef.filter.categoryBits = owner.transform.layer
-    owner.transform.body?.createFixture(fdef)
+    owner!!.transform.body?.createFixture(fdef)
   }
 
   fun move(direction: Vector2, speed: Float){
@@ -30,7 +30,7 @@ class ColliderComponent(
     val velocity = Vector2(direction)
     velocity.x *= speed
     velocity.y *= speed
-    owner.transform.body?.linearVelocity = velocity
+    owner!!.transform.body?.linearVelocity = velocity
     //owner.transform.body.linearVelocity = velocity
   }
 
