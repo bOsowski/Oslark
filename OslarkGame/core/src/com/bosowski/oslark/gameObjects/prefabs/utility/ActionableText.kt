@@ -21,7 +21,7 @@ class ActionableText(position: Vector2, text: String, color: Color): GameObject(
     var timer = 0f
 
     override fun awake() {
-      owner.transform.body?.setLinearVelocity(0f, 3f)
+      owner!!.transform.body?.setLinearVelocity(0f, 3f)
     }
 
     override fun start() {}
@@ -30,14 +30,14 @@ class ActionableText(position: Vector2, text: String, color: Color): GameObject(
       timer += deltaTime
 
       if(timer > 0.5f){
-        owner.destroy()
+        owner!!.destroy()
       }
     }
 
     override fun render(batch: SpriteBatch) {
       batch.projectionMatrix = GameRenderer.uiCamera.combined
       Assets.font.color = color
-      Assets.font.draw(batch, text, (owner.transform.position.x)*35, (owner.transform.position.y+0.6f)*60)
+      Assets.font.draw(batch, text, (owner!!.transform.position.x)*35, (owner!!.transform.position.y+0.6f)*60)
       batch.projectionMatrix = GameRenderer.camera.combined
     }
 

@@ -22,6 +22,13 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
 
   val spawnedMonsters = ArrayList<Monster>()
   var killedMonsters = 0
+    set(value) {
+      field = value
+
+      if(field == spawnedMonsters.size){
+        //todo: end game logic here.
+      }
+    }
 
   var nodeIndex: Int = 0
     get() {

@@ -54,8 +54,7 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
                 val playerCreatureComponent = World.player.getComponent("CreatureComponent") as CreatureComponent
                 playerCreatureComponent.currentHealth -= damage
 
-                val playerHudComponent = World.player.getComponent("HUDComponent") as HUDComponent
-                playerHudComponent.updateHud()
+
             }
         }
         creatureComponent.additionalBehaviours.add(ActionInterface {

@@ -21,10 +21,17 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
     shape.setAsBox(0.3f, 0.125f, Vector2(0f, 0f), 0f)
     val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape, 100f)
     addComponent(collider)
-    val inputComponent = InputComponent(animator = animator, speed = 5f, collider = collider)
-    addComponent(inputComponent)
 
-    val creatureComponent = CreatureComponent(maxHealth = 100f, maxEnergy = 2f, level = 1, damage = Pair(1f,3f))
+    val creatureComponent = CreatureComponent(
+      maxHealth = 5f,
+      maxEnergy = 2f,
+      level = 1,
+      damage = Pair(1f,3f),
+      healthPerLevel = 2f,
+      energyPerLevel = 1f,
+      healthRegenPerAction = 0.25f,
+      energyRegenPerAction = 0.5f
+    )
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){
         for(monster in World.gameObjects){
@@ -36,7 +43,7 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
                 creatureComponent.currentExperience += monster.speed.toInt() + monster.creatureComponent.maxHealth.toInt()
               }
               monster.creatureComponent.currentHealth -= damage
-              //creatureComponent.canAttack = false
+              creatureComponent.canAttack = false
               break
             }
           }
@@ -44,6 +51,9 @@ class Knight: GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBod
       }
     }
     addComponent(creatureComponent)
+
+    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 5f, collider = collider)
+    addComponent(inputComponent)
 
     val hudComponent = HUDComponent(creatureComponent)
     addComponent(hudComponent)

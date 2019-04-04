@@ -16,7 +16,9 @@ import java.lang.Thread.sleep
 import java.util.concurrent.ThreadLocalRandom
 
 
-class InputComponent(private val speed: Float, var animator: AnimatorComponent? = null, var collider: ColliderComponent): AbstractComponent(){
+class InputComponent(private val speed: Float, var creatureComponent: CreatureComponent, var collider: ColliderComponent): AbstractComponent(){
+
+  var healTimer = 0f
 
   override fun awake() {
   }
@@ -24,38 +26,34 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
   override fun start() {}
 
   override fun update(deltaTime: Float) {
-    if ((owner.getComponent("CreatureComponent") as CreatureComponent).currentHealth <= 0) return
+    healTimer += deltaTime
+
+    if (creatureComponent.currentHealth <= 0) return
 
     if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-      (owner.getComponent("CreatureComponent") as CreatureComponent).attack?.perform(deltaTime)
+      creatureComponent.attack?.perform(deltaTime)
     }
 
-    owner.transform.body?.linearVelocity = Vector2()
-    //move owner UP
+    owner!!.transform.body?.linearVelocity = Vector2()
+    //move owner!! UP
     if(Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Direction.UP.value, speed)
-    //move owner DOWN
+    //move owner!! DOWN
     if(Gdx.input.isKeyPressed(Input.Keys.S)) collider.move(Direction.DOWN.value, speed)
-    //move owner RIGHT
+    //move owner!! RIGHT
     if(Gdx.input.isKeyPressed(Input.Keys.D)) collider.move(Direction.RIGHT.value, speed)
-    //move owner LEFT
+    //move owner!! LEFT
     if(Gdx.input.isKeyPressed(Input.Keys.A)) collider.move(Direction.LEFT.value, speed)
 
+    //DIAGONAL movement
     if(Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Vector2(Direction.LEFT.value).add(Direction.UP.value), speed)
     if(Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.S)) collider.move(Vector2(Direction.LEFT.value).add(Direction.DOWN.value), speed)
     if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Vector2(Direction.RIGHT.value).add(Direction.UP.value), speed)
     if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.S)) collider.move(Vector2(Direction.RIGHT.value).add(Direction.DOWN.value), speed)
 
     //If the player is going diagonal, adjust the velocity.
-    if(owner.transform.body?.linearVelocity!!.x != 0f && owner.transform.body?.linearVelocity!!.y != 0f){
-      owner.transform.body?.linearVelocity = Vector2(owner.transform.body?.linearVelocity!!.x/1.5f, owner.transform.body?.linearVelocity!!.y/1.5f)
+    if(owner!!.transform.body?.linearVelocity!!.x != 0f && owner!!.transform.body?.linearVelocity!!.y != 0f){
+      owner!!.transform.body?.linearVelocity = Vector2(owner!!.transform.body?.linearVelocity!!.x/1.5f, owner!!.transform.body?.linearVelocity!!.y/1.5f)
     }
-
-//      if(owner.transform.body.linearVelocity == Vector2()){
-//        animator?.state = State.IDLE
-//      }
-//    else{
-//        animator?.state = State.MOVE
-//      }
 
     //other inputs --- >
     if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
@@ -68,15 +66,22 @@ class InputComponent(private val speed: Float, var animator: AnimatorComponent? 
       }while(!successfullyCreated)
       sleep(250)
     }
+
+    if(Gdx.input.isKeyPressed(Input.Keys.Q) && creatureComponent.currentEnergy >= 1 && healTimer >= creatureComponent.actionSpeed){
+      creatureComponent.currentHealth += 1
+      creatureComponent.currentEnergy -= 1
+      healTimer = 0f
+    }
+
     if(Gdx.input.isKeyPressed(Input.Keys.O)){
       GameRenderer.debugView = !GameRenderer.debugView
     }
   }
 
   override fun render(batch: SpriteBatch) {
-    GameRenderer.camera.position.set(Vector3(owner.transform.position.x, owner.transform.position.y, 0f))
+    GameRenderer.camera.position.set(Vector3(owner!!.transform.position.x, owner!!.transform.position.y, 0f))
     GameRenderer.camera.update()
-    GameRenderer.uiCamera.position.set(Vector3(owner.transform.position.x*35, owner.transform.position.y*60, 0f))
+    GameRenderer.uiCamera.position.set(Vector3(owner!!.transform.position.x*35, owner!!.transform.position.y*60, 0f))
     GameRenderer.uiCamera.update()
   }
 
