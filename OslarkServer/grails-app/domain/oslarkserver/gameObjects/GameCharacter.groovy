@@ -21,4 +21,8 @@ class GameCharacter {
   String toString() {
     return "${characterClass} (${name})"
   }
+
+  String toJson(){
+    return "{name: ${name}, characterClass: ${characterClass}, gender: ${gender}}"
+  }
 }

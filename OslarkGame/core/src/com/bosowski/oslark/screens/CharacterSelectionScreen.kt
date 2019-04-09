@@ -3,10 +3,15 @@ package com.bosowski.oslark.screens
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.bosowski.oslark.managers.NetworkManager
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.bosowski.oslark.gameObjects.GameObject
 
 class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
   private val TAG = CharacterSelectionScreen::javaClass.name
@@ -32,26 +37,26 @@ class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
 
   override fun setUpUI() {
     //todo: Fix this.
-//    val label = Label("Choose your character", fieldSkins)
-//    label.setPosition((Gdx.graphics.width / 3).toFloat(), (Gdx.graphics.height - 100).toFloat())
-//    stage.addActor(label)
-//
-//    val characters = LinkedHashMap<String, Knight>()
-//
-//    for ((i, character) in characterArray.withIndex()) {
-//      val player = Knight(character as JSONObject)
-//      val characterButton = TextButton(player.name + "(level " + player.level + " " + player.characterClass, fieldSkins)
-//      characters[player.name] = player
-//      characterButton.setPosition(label.x, label.y - 50 * (i + 1))
-//      characterButton.addListener(object : ClickListener() {
-//        override fun touchDown(event: InputEvent?, x: Float, y: Float, point: Int, button: Int): Boolean {
-//          println("Picked " + player.name)
-//          game.screen = GameScreen(game)
-//          return true
-//        }
-//      })
-//      stage.addActor(characterButton)
-//    }
+    val label = Label("Choose your character", fieldSkins)
+    label.setPosition((Gdx.graphics.width / 3).toFloat(), (Gdx.graphics.height - 100).toFloat())
+    stage.addActor(label)
+
+    for ((i, character) in characterArray.withIndex()) {
+      val playerData = character as JSONObject
+      val characterButton = TextButton(playerData.getString("name") + " " + playerData.get("characterClass"), fieldSkins)
+      //characters[player.name] = player
+      characterButton.setPosition(label.x, label.y - 50 * (i + 1))
+      characterButton.addListener(object : ClickListener() {
+        override fun touchDown(event: InputEvent?, x: Float, y: Float, point: Int, button: Int): Boolean {
+          println("Picked " + playerData.getString("name"))
+          val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.playerClasses.${playerData.getString("characterClass").toLowerCase().capitalize()}").kotlin
+          val player = kClass.constructors.first().call(playerData.getString("gender").toLowerCase()) as GameObject
+          game.screen = SeedSelectionScreen(game, player)
+          return true
+        }
+      })
+      stage.addActor(characterButton)
+    }
   }
 
   override fun render(deltaTime: Float) {
