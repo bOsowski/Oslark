@@ -11,7 +11,7 @@ buildscript {
   }
   dependencies {
     classpath 'org.wisepersist:gwt-gradle-plugin:1.0.6'
-    classpath 'com.android.tools.build:gradle:3.2.0'
+    classpath 'com.android.tools.build:gradle:3.3.0'
     classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.5'
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
@@ -61,40 +61,40 @@ project(":desktop") {
   }
 }
 
-project(":android") {
-  apply plugin: "android"
-  apply plugin: "kotlin-android"
-
-  configurations { natives }
-
-  dependencies {
-    implementation project(":core")
-    implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
-    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
-    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
-    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
-    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
-    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
-    implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi"
-    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi-v7a"
-    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"
-    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
-    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
-    implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-    implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
-    implementation "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
-    compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-
-    compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
-    natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
-    natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
-    natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
-    natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
-    natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
-  }
-}
+//project(":android") {
+//  apply plugin: "android"
+//  apply plugin: "kotlin-android"
+//
+//  configurations { natives }
+//
+//  dependencies {
+//    implementation project(":core")
+//    implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+//    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
+//    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+//    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
+//    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+//    natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+//    implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+//    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi"
+//    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-armeabi-v7a"
+//    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"
+//    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
+//    natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
+//    implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+//    implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion"
+//    implementation "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
+//    implementation "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
+//    compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+//
+//    compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+//    natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi"
+//    natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-armeabi-v7a"
+//    natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
+//    natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
+//    natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
+//  }
+//}
 
 project(":ios") {
   apply plugin: "kotlin"
@@ -113,25 +113,25 @@ project(":ios") {
   }
 }
 
-project(":html") {
-  apply plugin: "gwt"
-  apply plugin: "war"
-
-
-  dependencies {
-    implementation project(":core")
-    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
-    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
-    implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion:sources"
-    implementation "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources"
-    implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion:sources"
-    implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion:sources"
-    implementation "com.badlogicgames.gdx:gdx-controllers:$gdxVersion:sources"
-    implementation "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion"
-    implementation "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion:sources"
-  }
-}
+//project(":html") {
+//  apply plugin: "gwt"
+//  apply plugin: "war"
+//
+//
+//  dependencies {
+//    implementation project(":core")
+//    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
+//    implementation "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
+//    implementation "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+//    implementation "com.badlogicgames.gdx:gdx-box2d:$gdxVersion:sources"
+//    implementation "com.badlogicgames.gdx:gdx-box2d-gwt:$gdxVersion:sources"
+//    implementation "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion:sources"
+//    implementation "com.badlogicgames.gdx:gdx-ai:$aiVersion:sources"
+//    implementation "com.badlogicgames.gdx:gdx-controllers:$gdxVersion:sources"
+//    implementation "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion"
+//    implementation "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion:sources"
+//  }
+//}
 
 project(":core") {
   apply plugin: "kotlin"

@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.gameObjects.prefabs.monsters.Skeleton
 import com.bosowski.oslark.gameObjects.prefabs.playerClasses.Knight
 import com.bosowski.oslark.screens.GameScreen
+import com.bosowski.oslark.screens.LoginScreen
 
 
 class Oslark : Game() {
@@ -19,14 +20,9 @@ class Oslark : Game() {
     // Load assets
     Assets.init(AssetManager())
 
-    setScreen(GameScreen(this))
+    setScreen(LoginScreen(this))
 
-    val player = Knight()
-    World.player = player
-    player.instantiate()
 
-    val skeletMonster = Skeleton(position = Vector2(1f, 1f))
-    skeletMonster.instantiate()
 
 //    val demon = Demon(position = Vector2(1f,1f))
 //    demon.instantiate()
