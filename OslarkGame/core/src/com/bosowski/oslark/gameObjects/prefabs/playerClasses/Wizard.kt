@@ -12,12 +12,11 @@ import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.gameObjects.prefabs.monsters.Monster
 import com.bosowski.oslark.gameObjects.prefabs.utility.ActionableText
 
-class Knight(gender: String): GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBody) {
+class Wizard(gender: String): GameObject(name = "player", bodyType = BodyDef.BodyType.DynamicBody) {
 
   init {
     val shape = PolygonShape()
-    println(Assets.stateAnimations.toString())
-    val animator = AnimatorComponent(Assets.stateAnimations["knight$gender"]!!)
+    val animator = AnimatorComponent(Assets.stateAnimations["wizard$gender"]!!)
     addComponent(animator)
     shape.setAsBox(0.3f, 0.125f, Vector2(0f, 0f), 0f)
     val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape, 100f)

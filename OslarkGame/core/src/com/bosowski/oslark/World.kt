@@ -4,6 +4,7 @@ import box2dLight.RayHandler
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.components.TextureComponent
 import com.bosowski.oslark.gameObjects.GameObject
@@ -18,7 +19,7 @@ object World
   val gameObjects = ArrayList<GameObject>()
   private val objectsToInstantiate = ArrayList<GameObject>()
   private val objectsToDestroy = ArrayList<GameObject>()
-  val random = Random( /*ThreadLocalRandom.current().nextLong()*/ 1 ) //todo: change this later to get seed fro server.
+  lateinit var random:Random
   var dungeon: Dungeon? = null
   lateinit var player: GameObject
 
@@ -85,5 +86,15 @@ object World
         }
       }
     }
+  }
+
+  fun createDungeon(){
+    var successfullyCreated: Boolean
+    do{
+      World.dungeon?.clear()
+      World.dungeon = Dungeon(Rectangle(-50f, -10f, 100f, 10f), 2, 7, 30)
+      successfullyCreated = World.dungeon!!.create()
+    }while(!successfullyCreated)
+    Thread.sleep(250)
   }
 }
