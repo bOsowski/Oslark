@@ -17,6 +17,7 @@ class GameScreen(game: Game, player: GameObject, seed: Long) : AbstractGameScree
     private var paused: Boolean = false
 
     init {
+        World.clearWorld()
         World.random = Random(seed)
         World.player = player
         World.createDungeon()

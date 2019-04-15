@@ -9,9 +9,11 @@ class Demon(position: Vector2): Monster(position, "bigDemon", 5f, 350f, Vector2(
     init {
         actionComponent.action = ActionInterface { deltaTime ->
             moveRandomly(deltaTime)
-            steeringComponent.raycast(World.player.transform.position)
+            steeringComponent.raycast(World.player?.transform!!.position)
             //steeringComponent.goTo(World.player.transform.position)
         }
+
         creatureComponent.maxHealth = 20f
+        creatureComponent.damage = Pair(3f,5f)
     }
 }

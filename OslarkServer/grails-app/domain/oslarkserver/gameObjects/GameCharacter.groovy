@@ -1,5 +1,6 @@
 package oslarkserver.gameObjects
 
+import oslarkserver.Seed
 import oslarkserver.User
 import oslarkserver.gameObjects.enums.CharacterClass
 import oslarkserver.gameObjects.enums.Gender
@@ -11,6 +12,7 @@ class GameCharacter {
   String name
 
   static transient belongsTo = [user: User]
+  static hasMany = [seeds: Seed]
 
   static constraints = {
     name unique: true
@@ -23,6 +25,6 @@ class GameCharacter {
   }
 
   String toJson(){
-    return "{name: ${name}, characterClass: ${characterClass}, gender: ${gender}}"
+    return "{name: ${name}, characterClass: ${characterClass}, gender: ${gender}, seeds:${seeds.toSorted()*.value.toString()}}"
   }
 }

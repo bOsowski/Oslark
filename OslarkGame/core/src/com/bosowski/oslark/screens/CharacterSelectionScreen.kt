@@ -51,7 +51,7 @@ class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
           println("Picked " + playerData.getString("name"))
           val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.playerClasses.${playerData.getString("characterClass").toLowerCase().capitalize()}").kotlin
           val player = kClass.constructors.first().call(playerData.getString("gender").toLowerCase()) as GameObject
-          game.screen = SeedSelectionScreen(game, player)
+          game.screen = SeedSelectionScreen(game, player, playerData)
           return true
         }
       })

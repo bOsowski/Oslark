@@ -14,7 +14,7 @@ class Imp(position: Vector2): Monster(position, "imp", 5f, 35f,  Vector2(1f,1f))
             moveRandomly(deltaTime)
           }
         }
-      creatureComponent.maxHealth = 3f
+      creatureComponent.maxHealth = 4f
     }
 
 }

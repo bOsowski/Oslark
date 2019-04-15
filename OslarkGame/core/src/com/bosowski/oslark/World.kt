@@ -36,6 +36,10 @@ object World
     objectsToDestroy.add(gameObject)
   }
 
+  fun clearWorld(){
+   // player.destroy()
+  }
+
   fun update(deltaTime: Float) {
     sortWorld()
 

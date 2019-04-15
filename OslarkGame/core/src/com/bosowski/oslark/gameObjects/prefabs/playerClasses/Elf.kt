@@ -23,13 +23,13 @@ class Elf(gender: String): GameObject(name = "player", bodyType = BodyDef.BodyTy
     addComponent(collider)
 
     val creatureComponent = CreatureComponent(
-      maxHealth = 5f,
-      maxEnergy = 2f,
+      maxHealth = 3f,
+      maxEnergy = 3f,
       level = 1,
-      damage = Pair(1f,3f),
-      healthPerLevel = 2f,
+      damage = Pair(1.5f,3.5f),
+      healthPerLevel = 1f,
       energyPerLevel = 1f,
-      healthRegenPerAction = 0.25f,
+      healthRegenPerAction = 0.5f,
       energyRegenPerAction = 0.5f
     )
     creatureComponent.attack = ActionInterface {
@@ -52,7 +52,7 @@ class Elf(gender: String): GameObject(name = "player", bodyType = BodyDef.BodyTy
     }
     addComponent(creatureComponent)
 
-    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 5f, collider = collider)
+    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 7f, collider = collider)
     addComponent(inputComponent)
 
     val hudComponent = HUDComponent(creatureComponent)
