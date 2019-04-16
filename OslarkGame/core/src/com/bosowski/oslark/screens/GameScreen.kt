@@ -18,6 +18,7 @@ class GameScreen(game: Game, player: GameObject, seed: Long) : AbstractGameScree
 
     init {
         World.clearWorld()
+        World.seed = seed
         World.random = Random(seed)
         World.player = player
         World.createDungeon()

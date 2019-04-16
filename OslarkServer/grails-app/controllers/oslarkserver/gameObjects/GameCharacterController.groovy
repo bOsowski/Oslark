@@ -29,6 +29,10 @@ class GameCharacterController {
         respond new GameCharacter(params)
     }
 
+    def findId(String name){
+        render(status: 200, text: GameCharacter.findByName(name)?.id?.toString())
+    }
+
     @Transactional
     def save(GameCharacter gameCharacter) {
         if (gameCharacter == null) {

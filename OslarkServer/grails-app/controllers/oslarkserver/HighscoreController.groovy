@@ -1,6 +1,7 @@
 package oslarkserver
 
 import grails.plugin.springsecurity.annotation.Secured
+import oslarkserver.gameObjects.GameCharacter
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -24,12 +25,46 @@ class HighscoreController {
         respond new Highscore(params)
     }
 
+    def characterHighscores(String characterName){
+        String highscoreJson = ""
+        def highscores = Highscore.findAllByGameCharacter(GameCharacter.findByName(characterName))
+        highscores.eachWithIndex { it, index ->
+            highscoreJson += it.toJson()
+            if(index < highscores.size()-1){
+                highscoreJson += ", "
+            }
+        }
+        render(status:200, text: "{highscores:["+highscoreJson+"]}")
+    }
+
+
+
     @Transactional
     def save(Highscore highscore) {
         if (highscore == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
+        }
+
+        if(highscore.gameCharacter == null){
+            def newHighscore = new Highscore()
+            newHighscore.gameCharacter = GameCharacter.findByName(request.getParameter("characterName"))
+            newHighscore.score = highscore.score
+            newHighscore.seed = highscore.seed
+            highscore = newHighscore
+        }
+
+        if(Seed.findByValue(highscore.seed?.value) == null){
+            Seed newSeed = new Seed(value: Seed.findAll().size())
+            println("Creating seed with value = ${newSeed.value}")
+            newSeed.validate()
+            newSeed.save(flush:true, failOnError: true)
+            def newHighscore = new Highscore()
+            newHighscore.gameCharacter = highscore.gameCharacter
+            newHighscore.score = highscore.score
+            newHighscore.seed = newSeed
+            highscore = newHighscore
         }
 
         if (highscore.hasErrors()) {

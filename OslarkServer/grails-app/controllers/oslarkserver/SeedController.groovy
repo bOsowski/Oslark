@@ -1,6 +1,7 @@
 package oslarkserver
 
 import grails.plugin.springsecurity.annotation.Secured
+import oslarkserver.gameObjects.GameCharacter
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -22,6 +23,10 @@ class SeedController {
 
     def create() {
         respond new Seed(params)
+    }
+
+    def findId(Long value){
+        render(status: 200, text: Seed.findByValue(value)?.id?.toString())
     }
 
     @Transactional

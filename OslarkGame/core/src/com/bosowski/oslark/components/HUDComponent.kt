@@ -14,7 +14,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
   var healthBar = ArrayList<TextureComponent>()
   var energyBar = ArrayList<TextureComponent>()
 
-  var score = 0
+  var score: Long = 0
   private var timer = 0f
 
   override fun awake() {

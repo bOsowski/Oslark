@@ -12,7 +12,6 @@ class GameCharacter {
   String name
 
   static transient belongsTo = [user: User]
-  static hasMany = [seeds: Seed]
 
   static constraints = {
     name unique: true
@@ -25,6 +24,6 @@ class GameCharacter {
   }
 
   String toJson(){
-    return "{name: ${name}, characterClass: ${characterClass}, gender: ${gender}, seeds:${seeds.toSorted()*.value.toString()}}"
+    return "{name: ${name}, characterClass: ${characterClass}, gender: ${gender}}"
   }
 }

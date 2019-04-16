@@ -19,9 +19,11 @@ object World
   val gameObjects = ArrayList<GameObject>()
   private val objectsToInstantiate = ArrayList<GameObject>()
   private val objectsToDestroy = ArrayList<GameObject>()
+  var seed: Long = -1
   lateinit var random:Random
   var dungeon: Dungeon? = null
   lateinit var player: GameObject
+  lateinit var playerName: String
 
   val rays: HashMap<GameObject, Pair<Vector2?, Vector2?>> = HashMap()
 

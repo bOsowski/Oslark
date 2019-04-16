@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.World
+import com.bosowski.oslark.components.HUDComponent
 import com.bosowski.oslark.components.TextureComponent
 import com.bosowski.oslark.gameObjects.prefabs.monsters.Monster
+import com.bosowski.oslark.managers.NetworkManager
 import com.bosowski.oslark.playerDomains.Settings
 import com.bosowski.oslark.utils.Util
 import java.util.ArrayList
@@ -27,6 +29,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
 
       if(field == spawnedMonsters.size){
         //todo: end game logic here.
+        NetworkManager.instance.addScore(score=(World.player.getComponent("HUDComponent") as HUDComponent).score, seed = World.seed, characterName = World.playerName)
       }
     }
 

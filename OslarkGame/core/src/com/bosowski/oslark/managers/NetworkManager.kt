@@ -23,7 +23,6 @@ class NetworkManager private constructor() {
   fun login(username: String, password: String) {
     val message = "username=$username&password=$password"
     POST("http://localhost:8080/login/authenticate", message)
-    //
   }
 
   @Throws(IOException::class)
@@ -32,8 +31,22 @@ class NetworkManager private constructor() {
   }
 
   @Throws(IOException::class)
-  fun loadWorld(characterName: String): String {
-    return POST("http://localhost:8080/profile/world", characterName)
+  fun addScore(score: Long, seed: Long, characterName: String){
+    val seedId = GET("http://localhost:8080/seed/findId?value=$seed")
+//    if(seedId == "null"){
+//      val message = "value=$seed"
+//      println(POST("http://localhost:8080/seed/save", message))
+//    }
+    addScore(score, seedId, characterName)
+  }
+
+  private fun addScore(score: Long, seedId: String, characterName: String){
+    val message = "seed.id=$seedId&characterName=$characterName&score=$score"
+    println(POST("http://localhost:8080/highscore/save", message))
+  }
+
+  fun getScores(characterName: String): String{
+    return GET("http://localhost:8080/highscore/characterHighscores?characterName=$characterName")
   }
 
   @Throws(IOException::class)

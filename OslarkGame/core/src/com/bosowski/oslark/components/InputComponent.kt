@@ -11,6 +11,7 @@ import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.enums.State
 import com.bosowski.oslark.generation.Dungeon
 import com.bosowski.oslark.managers.GameRenderer
+import com.bosowski.oslark.managers.NetworkManager
 import com.sun.org.apache.xpath.internal.operations.Bool
 import java.lang.Thread.sleep
 import java.util.concurrent.ThreadLocalRandom
@@ -65,6 +66,10 @@ class InputComponent(private val speed: Float, var creatureComponent: CreatureCo
       creatureComponent.currentEnergy -= 1
       healTimer = 0f
     }
+
+//    if(Gdx.input.isKeyPressed(Input.Keys.L)){
+//      NetworkManager.instance.addScore(score=(World.player.getComponent("HUDComponent") as HUDComponent).score, seed = World.seed, characterName = World.playerName)
+//    }
 
     if(Gdx.input.isKeyPressed(Input.Keys.O)){
       GameRenderer.debugView = !GameRenderer.debugView

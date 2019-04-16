@@ -16,4 +16,8 @@ class Highscore {
     String toString(){
         return "${score} (${gameCharacter})"
     }
+
+    String toJson(){
+        return "{seed:${seed.value}, score:$score}"
+    }
 }

@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.bosowski.oslark.gameObjects.GameObject
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox
+import com.bosowski.oslark.World
+import com.bosowski.oslark.managers.NetworkManager
 import org.json.JSONObject
 
 class SeedSelectionScreen(game: Game, var player: GameObject, var playerData: JSONObject) : AbstractGameScreen(game) {
@@ -38,10 +40,16 @@ class SeedSelectionScreen(game: Game, var player: GameObject, var playerData: JS
 
   override fun setUpUI() {
     val selectBox = SelectBox<String>(fieldSkins)
-    val seeds = playerData.getJSONArray("seeds")
+    World.playerName = playerData.getString("name")
     val array = com.badlogic.gdx.utils.Array<String>()
-    seeds.forEach {
-      array.add("#"+it.toString())
+    println(NetworkManager.instance.getScores(World.playerName))
+    val scores = JSONObject(NetworkManager.instance.getScores(World.playerName)).getJSONArray("highscores")
+    println(scores.toString())
+    scores.forEach {
+      val foundSeed = JSONObject(it.toString()).getLong("seed")
+      if(!array.contains("#$foundSeed")){
+        array.add("#$foundSeed")
+      }
     }
     array.add("#"+array.size.toString() + " (new)")
     selectBox.items = array

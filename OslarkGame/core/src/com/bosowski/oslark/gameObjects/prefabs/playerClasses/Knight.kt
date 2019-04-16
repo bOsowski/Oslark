@@ -27,10 +27,10 @@ class Knight(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
       maxHealth = 5f,
       maxEnergy = 2f,
       level = 1,
-      damage = Pair(1f,3f),
+      damage = Pair(20f,20f),
       healthPerLevel = 2f,
       energyPerLevel = 1f,
-      healthRegenPerAction = 0.25f,
+      healthRegenPerAction = 20.25f,
       energyRegenPerAction = 0.5f
     )
     creatureComponent.attack = ActionInterface {
