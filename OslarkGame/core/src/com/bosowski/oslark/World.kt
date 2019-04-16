@@ -1,11 +1,13 @@
 package com.bosowski.oslark
 
 import box2dLight.RayHandler
+import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.Camera
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.physics.box2d.BodyDef
 import com.bosowski.oslark.components.TextureComponent
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.generation.Dungeon
@@ -22,8 +24,9 @@ object World
   var seed: Long = -1
   lateinit var random:Random
   var dungeon: Dungeon? = null
-  lateinit var player: GameObject
+  var player: GameObject
   lateinit var playerName: String
+  var game: Game? = null
 
   val rays: HashMap<GameObject, Pair<Vector2?, Vector2?>> = HashMap()
 
@@ -38,8 +41,12 @@ object World
     objectsToDestroy.add(gameObject)
   }
 
+  init{
+    player = GameObject(bodyType = BodyDef.BodyType.StaticBody)
+  }
+
   fun clearWorld(){
-   // player.destroy()
+    player.destroy()
   }
 
   fun update(deltaTime: Float) {
@@ -47,7 +54,13 @@ object World
 
     gameObjects.forEach { gameObject ->
       gameObject.getComponents().forEach {
-        if(it.active) it.update(deltaTime)
+        try{
+          if(it.active) it.update(deltaTime)
+        }
+        catch (e: Exception){
+          println("Object failed to update. This is expected in case the object was destroyed.")
+        }
+
       }
     }
 
@@ -98,7 +111,7 @@ object World
     var successfullyCreated: Boolean
     do{
       World.dungeon?.clear()
-      World.dungeon = Dungeon(Rectangle(-50f, -10f, 100f, 10f), 2, 7, 30)
+      World.dungeon = Dungeon(Rectangle(-50f, -10f, 10f, 10f), 2, 7, 30)
       successfullyCreated = World.dungeon!!.create()
     }while(!successfullyCreated)
     Thread.sleep(250)

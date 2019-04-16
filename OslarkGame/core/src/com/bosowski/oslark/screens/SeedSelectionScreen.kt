@@ -16,6 +16,7 @@ import org.json.JSONObject
 class SeedSelectionScreen(game: Game, var player: GameObject, var playerData: JSONObject) : AbstractGameScreen(game) {
 
   init {
+    World.game = game
     setUpUI()
   }
 

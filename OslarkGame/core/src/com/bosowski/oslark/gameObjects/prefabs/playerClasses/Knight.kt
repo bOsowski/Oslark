@@ -44,7 +44,7 @@ class Knight(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
                 creatureComponent.currentExperience += monster.speed.toInt() + monster.creatureComponent.maxHealth.toInt()
               }
               monster.creatureComponent.currentHealth -= damage
-              creatureComponent.canAttack = false
+              //creatureComponent.canAttack = false
               break
             }
           }
@@ -53,7 +53,7 @@ class Knight(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
     }
     addComponent(creatureComponent)
 
-    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 5f, collider = collider)
+    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 15f, collider = collider)
     addComponent(inputComponent)
 
     val hudComponent = HUDComponent(creatureComponent)

@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.TextField
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.bosowski.oslark.World
 import com.bosowski.oslark.managers.NetworkManager
 import java.io.IOException
 
@@ -18,6 +19,7 @@ class LoginScreen(game: Game) : AbstractGameScreen(game) {
   lateinit var login: TextButton
 
   init {
+    World.game = game
     setUpUI()
   }
 

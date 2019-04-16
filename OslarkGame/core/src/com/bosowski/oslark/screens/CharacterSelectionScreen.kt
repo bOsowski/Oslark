@@ -11,6 +11,7 @@ import java.io.IOException
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.bosowski.oslark.World
 import com.bosowski.oslark.gameObjects.GameObject
 
 class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
@@ -19,6 +20,7 @@ class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
   private val characterArray: JSONArray
 
   init {
+    World.game = game
     var userJson: String? = null
     try {
       userJson = NetworkManager.instance.loadUser()
