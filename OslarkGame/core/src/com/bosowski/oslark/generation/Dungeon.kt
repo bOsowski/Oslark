@@ -31,7 +31,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       if(field == spawnedMonsters.size){
         //todo: end game logic here.
         val score = (World.player.getComponent("HUDComponent") as HUDComponent).score
-        NetworkManager.instance.addScore(score= score, seed = World.seed, characterName = World.playerName)
+        NetworkManager.instance.addScore(score= score, seed = World.seed, characterName = World.playerName!!)
         World.game!!.screen = EndGameScreen(World.game!!, score)
       }
     }

@@ -10,7 +10,6 @@ import com.bosowski.oslark.components.*
 import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.gameObjects.prefabs.utility.ActionableText
-import kotlin.math.roundToInt
 
 abstract class Monster(position: Vector2, name: String, speed: Float, density: Float, scale: Vector2): GameObject(position, name = name, bodyType = BodyDef.BodyType.DynamicBody){
 

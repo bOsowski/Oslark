@@ -17,7 +17,7 @@ class ProfileController{
     def profile(){
         User user = User.getCurrentUser()
         String charactersJson = ""
-        user.characters.eachWithIndex { it, index ->
+        user.characters.toSorted {a,b -> (a.name <=> b.name) }.eachWithIndex { it, index ->
             charactersJson += it.toJson()
             if(index < user.characters.size()-1){
                 charactersJson += ", "

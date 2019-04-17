@@ -25,7 +25,7 @@ object World
   lateinit var random:Random
   var dungeon: Dungeon? = null
   var player: GameObject
-  lateinit var playerName: String
+  var playerName: String? = null
   var game: Game? = null
 
   val rays: HashMap<GameObject, Pair<Vector2?, Vector2?>> = HashMap()
