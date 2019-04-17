@@ -4,9 +4,9 @@ import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.scenes.scene2d.InputEvent
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton
-import com.badlogic.gdx.scenes.scene2d.ui.TextField
+import com.badlogic.gdx.scenes.scene2d.ui.*
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.bosowski.oslark.Assets
 import com.bosowski.oslark.World
 import com.bosowski.oslark.managers.NetworkManager
 import java.io.IOException
@@ -14,17 +14,13 @@ import java.io.IOException
 
 class LoginScreen(game: Game) : AbstractGameScreen(game) {
 
-  lateinit var username: TextField
-  lateinit var password: TextField
-  lateinit var login: TextButton
-
   init {
     World.game = game
     setUpUI()
   }
 
   override fun render(deltaTime: Float) {
-    Gdx.gl.glClearColor(0f, 0f, 0f, 1f)
+    Gdx.gl.glClearColor(49f/255, 38f/255, 45f/255, 1f)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 
     stage.act(deltaTime)
@@ -44,19 +40,43 @@ class LoginScreen(game: Game) : AbstractGameScreen(game) {
   }
 
   override fun setUpUI() {
-    username = TextField("admin", fieldSkins)
-    password = TextField("admin", fieldSkins)
-    login = TextButton("Login", fieldSkins)
-    username.setPosition((Gdx.graphics.width / 2).toFloat(), (Gdx.graphics.height / 2).toFloat())
-    password.setPosition(username.x, username.y - 50)
-    login.setPosition(password.x, password.y - 50)
-    stage.addActor(username)
-    stage.addActor(password)
-    stage.addActor(login)
-    login.addListener(object : ClickListener() {
+    val backgroundContainer = Container<Image>()
+    stage.addActor(backgroundContainer)
+    backgroundContainer.setFillParent(true)
+    val background = Image(Assets.textures["background"])
+    backgroundContainer.actor = background
+    stage.addActor(backgroundContainer)
+
+    val mainTable = Table()
+    stage.addActor(mainTable)
+    mainTable.setFillParent(true)
+    mainTable.debug = false
+
+    val usernameGroup = Table()
+    val usernameLabel = Label("Username:", fieldSkins)
+    val usernameField = TextField("admin", fieldSkins)
+    //usernameGroup.setPosition((Gdx.graphics.width / 2).toFloat(), (Gdx.graphics.height / 2).toFloat())
+    usernameGroup.add(usernameLabel).width(100f)
+    usernameGroup.add(usernameField)
+    mainTable.add(usernameGroup).padBottom(15f)
+
+    mainTable.row()
+    val passwordGroup = Table()
+    val passwordLabel = Label("Password:", fieldSkins)
+    val passwordField = TextField("admin", fieldSkins)
+    //usernameGroup.setPosition((Gdx.graphics.width / 2).toFloat(), (Gdx.graphics.height / 2).toFloat())
+    passwordGroup.add(passwordLabel).width(100f)
+    passwordGroup.add(passwordField)
+    mainTable.add(passwordGroup).padBottom(25f)
+
+    mainTable.row()
+    val loginButton = TextButton("Login", fieldSkins)
+    mainTable.add(loginButton).width(100f)
+
+    loginButton.addListener(object : ClickListener() {
       override fun touchDown(event: InputEvent?, x: Float, y: Float, point: Int, button: Int): Boolean {
         try {
-          NetworkManager.instance.login(username.text, password.text)
+          NetworkManager.instance.login(usernameField.text, passwordField.text)
           game.screen = CharacterSelectionScreen(game)
         } catch (e: IOException) {
           //todo: Display some message to user indicating why login was not successful.
@@ -65,5 +85,6 @@ class LoginScreen(game: Game) : AbstractGameScreen(game) {
         return true
       }
     })
+
   }
 }

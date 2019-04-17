@@ -11,8 +11,8 @@ class AtlasBuilder{
 
         TexturePacker.Settings settings = new TexturePacker.Settings();
         settings.useIndexes = true;
-        settings.maxHeight = 1024;
-        settings.maxWidth = 1024;
+        settings.maxHeight = 1024*2*2;
+        settings.maxWidth = 1024*2*2;
         settings.debug = drawDebugOutline;
         settings.duplicatePadding = true;
         TexturePacker.process(settings, "sprites_RAW", "atlas", "game.atlas");
