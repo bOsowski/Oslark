@@ -50,11 +50,6 @@ object World
   }
 
   fun update(deltaTime: Float) {
-    //uncomment the below to freeze the world after level completion.
-    if((dungeon != null && dungeon!!.levelCompleted) || (player.getComponent("CreatureComponent") as CreatureComponent).currentHealth <= 0){
-      return
-    }
-
     sortWorld()
     gameObjects.forEach { gameObject ->
       gameObject.getComponents().forEach {

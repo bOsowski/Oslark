@@ -26,7 +26,7 @@ class Elf(gender: String): GameObject(name = "player", bodyType = BodyDef.BodyTy
       maxHealth = 3f,
       maxEnergy = 3f,
       level = 1,
-      damage = Pair(1.5f,3.5f),
+      damage = Pair(2f,3.5f),
       healthPerLevel = 1f,
       energyPerLevel = 1f,
       healthRegenPerAction = 0.5f,
