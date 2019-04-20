@@ -27,7 +27,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
 
   override fun update(deltaTime: Float) {
     timer += deltaTime
-    if(timer >= 0.5f){
+    if(timer >= 0.5f && World.dungeon != null && !World.dungeon!!.levelCompleted){
       score -= 1
       timer = 0f
     }

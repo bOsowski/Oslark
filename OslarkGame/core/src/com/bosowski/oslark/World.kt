@@ -8,10 +8,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.physics.box2d.BodyDef
+import com.bosowski.oslark.components.CreatureComponent
 import com.bosowski.oslark.components.TextureComponent
 import com.bosowski.oslark.gameObjects.GameObject
 import com.bosowski.oslark.generation.Dungeon
 import com.bosowski.oslark.managers.GameRenderer
+import com.bosowski.oslark.screens.GameScreen
 import java.util.*
 import kotlin.Comparator
 import kotlin.collections.HashMap
@@ -26,10 +28,8 @@ object World
   var dungeon: Dungeon? = null
   var player: GameObject
   var playerName: String? = null
-  var game: Game? = null
 
   val rays: HashMap<GameObject, Pair<Vector2?, Vector2?>> = HashMap()
-
   val physicsWorld:com.badlogic.gdx.physics.box2d.World = com.badlogic.gdx.physics.box2d.World(Vector2(), false)
   val rayHandler = RayHandler(physicsWorld)
 
@@ -50,17 +50,23 @@ object World
   }
 
   fun update(deltaTime: Float) {
-    sortWorld()
+    //uncomment the below to freeze the world after level completion.
+    if((dungeon != null && dungeon!!.levelCompleted) || (player.getComponent("CreatureComponent") as CreatureComponent).currentHealth <= 0){
+      return
+    }
 
+    sortWorld()
     gameObjects.forEach { gameObject ->
       gameObject.getComponents().forEach {
         try{
+          if((player.getComponent("CreatureComponent") as CreatureComponent).currentHealth <= 0){
+            return
+          }
           if(it.active) it.update(deltaTime)
         }
         catch (e: Exception){
           println("Object failed to update. This is expected in case the object was destroyed.")
         }
-
       }
     }
 
@@ -111,7 +117,7 @@ object World
     var successfullyCreated: Boolean
     do{
       World.dungeon?.clear()
-      World.dungeon = Dungeon(Rectangle(-50f, -10f, 10f, 10f), 2, 7, 30)
+      World.dungeon = Dungeon(Rectangle(-50f, -10f, 100f, 20f), 2, 7, 45)
       successfullyCreated = World.dungeon!!.create()
     }while(!successfullyCreated)
     Thread.sleep(250)

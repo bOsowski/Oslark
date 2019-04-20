@@ -27,11 +27,12 @@ class Knight(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
       maxHealth = 5f,
       maxEnergy = 2f,
       level = 1,
-      damage = Pair(20f,20f),
+      damage = Pair(1f,3f),
       healthPerLevel = 2f,
       energyPerLevel = 1f,
-      healthRegenPerAction = 20.25f,
-      energyRegenPerAction = 0.5f
+      healthRegenPerAction = 1f,
+      energyRegenPerAction = 0.5f,
+      damagePerLevel = Pair(0.25f, 0.5f)
     )
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){
@@ -44,7 +45,7 @@ class Knight(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
                 creatureComponent.currentExperience += monster.speed.toInt() + monster.creatureComponent.maxHealth.toInt()
               }
               monster.creatureComponent.currentHealth -= damage
-              //creatureComponent.canAttack = false
+              creatureComponent.canAttack = false
               break
             }
           }
@@ -53,14 +54,14 @@ class Knight(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
     }
     addComponent(creatureComponent)
 
-    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 15f, collider = collider)
+    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 3f, collider = collider)
     addComponent(inputComponent)
 
     val hudComponent = HUDComponent(creatureComponent)
     addComponent(hudComponent)
 
     //light
-    World.rayHandler.setAmbientLight(1f)
+    World.rayHandler.setAmbientLight(0f)
     val playerLight = PointLight(World.rayHandler, 500, Color(0f,0f,0f,1f), 15f, 0f, 0f)
     playerLight.attachToBody(transform.body, 0f, 0f)
     playerLight.setSoftnessLength(5f)

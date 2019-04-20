@@ -21,7 +21,6 @@ class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
   private val characterArray: JSONArray
 
   init {
-    World.game = game
     var userJson: String? = null
     try {
       userJson = NetworkManager.instance.loadUser()

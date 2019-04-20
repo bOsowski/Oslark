@@ -76,9 +76,8 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
         if(timer >= 2f){
             direction = Direction.getRandom(World.random)
             timer = 0f
-           // collider.move(direction.value, speed)
+            collider.move(direction.value, speed)
         }
-        //val velocity = Vector2(direction.value)
         timer += deltaTime
     }
 }

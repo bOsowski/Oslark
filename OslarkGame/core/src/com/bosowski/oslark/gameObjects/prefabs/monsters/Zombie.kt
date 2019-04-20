@@ -14,7 +14,7 @@ class Zombie(position: Vector2): Monster(position, "zombie", 0.5f, 80f,  Vector2
             moveRandomly(deltaTime)
           }
         }
-
+      creatureComponent.damage = Pair(1f,1.5f)
       creatureComponent.maxHealth = 4f
     }
 }

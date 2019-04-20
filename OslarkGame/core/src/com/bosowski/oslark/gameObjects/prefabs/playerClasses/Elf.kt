@@ -19,7 +19,7 @@ class Elf(gender: String): GameObject(name = "player", bodyType = BodyDef.BodyTy
     val animator = AnimatorComponent(Assets.stateAnimations["elf$gender"]!!)
     addComponent(animator)
     shape.setAsBox(0.3f, 0.125f, Vector2(0f, 0f), 0f)
-    val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape, 100f)
+    val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape, 45f)
     addComponent(collider)
 
     val creatureComponent = CreatureComponent(
@@ -30,7 +30,10 @@ class Elf(gender: String): GameObject(name = "player", bodyType = BodyDef.BodyTy
       healthPerLevel = 1f,
       energyPerLevel = 1f,
       healthRegenPerAction = 0.5f,
-      energyRegenPerAction = 0.5f
+      energyRegenPerAction = 0.5f,
+      damagePerLevel = Pair(0.5f, 0.5f),
+      actionSpeed = 0.75f
+
     )
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){
@@ -52,14 +55,14 @@ class Elf(gender: String): GameObject(name = "player", bodyType = BodyDef.BodyTy
     }
     addComponent(creatureComponent)
 
-    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 7f, collider = collider)
+    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 5f, collider = collider)
     addComponent(inputComponent)
 
     val hudComponent = HUDComponent(creatureComponent)
     addComponent(hudComponent)
 
     //light
-    World.rayHandler.setAmbientLight(1f)
+    World.rayHandler.setAmbientLight(0f)
     val playerLight = PointLight(World.rayHandler, 500, Color(0f,0f,0f,1f), 15f, 0f, 0f)
     playerLight.attachToBody(transform.body, 0f, 0f)
     playerLight.setSoftnessLength(5f)

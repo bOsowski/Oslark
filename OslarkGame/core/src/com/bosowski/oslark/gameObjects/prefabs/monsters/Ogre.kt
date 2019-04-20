@@ -14,6 +14,7 @@ class  Ogre(position: Vector2): Monster(position, "ogre", 5f, 150f, Vector2(1f,1
             moveRandomly(deltaTime)
           }
         }
-      creatureComponent.maxHealth = 5f
+      creatureComponent.damage = Pair(1f,3f)
+      creatureComponent.maxHealth = 10f
     }
 }

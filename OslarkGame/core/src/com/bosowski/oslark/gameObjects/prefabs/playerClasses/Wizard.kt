@@ -30,7 +30,8 @@ class Wizard(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
       healthPerLevel = 2f,
       energyPerLevel = 1f,
       healthRegenPerAction = 0.25f,
-      energyRegenPerAction = 0.5f
+      energyRegenPerAction = 0.5f,
+      damagePerLevel = Pair(0.25f, 0.75f)
     )
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){

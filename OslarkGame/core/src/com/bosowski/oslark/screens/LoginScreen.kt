@@ -15,7 +15,6 @@ import java.io.IOException
 class LoginScreen(game: Game) : AbstractGameScreen(game) {
 
   init {
-    World.game = game
     setUpUI()
   }
 

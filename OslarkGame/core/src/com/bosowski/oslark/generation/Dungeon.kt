@@ -10,7 +10,7 @@ import com.bosowski.oslark.components.TextureComponent
 import com.bosowski.oslark.gameObjects.prefabs.monsters.Monster
 import com.bosowski.oslark.managers.NetworkManager
 import com.bosowski.oslark.playerDomains.Settings
-import com.bosowski.oslark.screens.EndGameScreen
+import com.bosowski.oslark.screens.GameScreen
 import com.bosowski.oslark.utils.Util
 import java.util.ArrayList
 import java.util.Random
@@ -18,21 +18,24 @@ import java.util.Random
 class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int) {
 
   val dungeonCells = HashMap<Vector2, DungeonCell>()
+  var levelCompleted = false
   private val dungeonRooms = ArrayList<DungeonRoom>()
   private var maze: Maze? = null
   private var created = false
   private val random: Random = World.random
+  var gameScreen: GameScreen? = null
 
   val spawnedMonsters = ArrayList<Monster>()
   var killedMonsters = 0
     set(value) {
       field = value
-
-      if(field == spawnedMonsters.size){
-        //todo: end game logic here.
+      //End game logic
+      if(field == spawnedMonsters.size && !levelCompleted){
+        levelCompleted = true
         val score = (World.player.getComponent("HUDComponent") as HUDComponent).score
         NetworkManager.instance.addScore(score= score, seed = World.seed, characterName = World.playerName!!)
-        World.game!!.screen = EndGameScreen(World.game!!, score)
+        gameScreen!!.scoreLabel.setText("You have completed the level with a score of $score!")
+        World.rayHandler.setAmbientLight(1f)
       }
     }
 
@@ -150,6 +153,10 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     //colourMazeCells()
     //colourRooms()
     created = true
+    if(dungeonCells.isEmpty()){
+      create()
+      return false
+    }
     var playerStartingPos = dungeonCells.keys.first()
     dungeonCells.keys.forEach {
       if(playerStartingPos.x > it.x){
