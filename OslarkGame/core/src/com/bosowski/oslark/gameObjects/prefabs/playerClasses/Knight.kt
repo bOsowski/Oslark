@@ -60,11 +60,7 @@ class Knight(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
     val hudComponent = HUDComponent(creatureComponent)
     addComponent(hudComponent)
 
-    //light
-    World.rayHandler.setAmbientLight(0f)
-    val playerLight = PointLight(World.rayHandler, 500, Color(0f,0f,0f,1f), 15f, 0f, 0f)
-    playerLight.attachToBody(transform.body, 0f, 0f)
-    playerLight.setSoftnessLength(5f)
-    playerLight.ignoreAttachedBody = true
+    val lightComponent = LightComponent()
+    addComponent(lightComponent)
   }
 }

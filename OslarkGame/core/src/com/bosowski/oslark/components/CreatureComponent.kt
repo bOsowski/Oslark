@@ -58,7 +58,7 @@ class CreatureComponent : AbstractComponent {
     }
   }
 
-  private val experienceForSecondLevel:Int = 50
+  private val experienceForSecondLevel:Int = 25
   var experienceToNextLevel: Int = experienceForSecondLevel
   var currentExperience: Int = 0
     set(value) {

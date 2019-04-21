@@ -154,7 +154,6 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     //colourRooms()
     created = true
     if(dungeonCells.isEmpty()){
-      create()
       return false
     }
     var playerStartingPos = dungeonCells.keys.first()

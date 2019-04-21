@@ -112,7 +112,7 @@ object World
     var successfullyCreated: Boolean
     do{
       World.dungeon?.clear()
-      World.dungeon = Dungeon(Rectangle(-50f, -10f, 100f, 20f), 2, 7, 45)
+      World.dungeon = Dungeon(Rectangle(-50f, -10f, 100f, 10f), 2, 7, 45)
       successfullyCreated = World.dungeon!!.create()
     }while(!successfullyCreated)
     Thread.sleep(250)

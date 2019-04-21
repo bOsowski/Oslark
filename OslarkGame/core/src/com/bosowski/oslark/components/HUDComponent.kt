@@ -22,7 +22,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
   }
 
   override fun start() {
-
+    World.rayHandler.setAmbientLight(0f)
   }
 
   override fun update(deltaTime: Float) {
