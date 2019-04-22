@@ -22,31 +22,27 @@ class NetworkManager private constructor() {
   @Throws(IOException::class)
   fun login(username: String, password: String) {
     val message = "username=$username&password=$password"
-    POST("http://localhost:8080/login/authenticate", message)
+    POST("http://oslark.com/login/authenticate", message)
   }
 
   @Throws(IOException::class)
   fun loadUser(): String {
-    return GET("http://localhost:8080/profile/profile")
+    return GET("http://oslark.com/profile/profile")
   }
 
   @Throws(IOException::class)
   fun addScore(score: Long, seed: Long, characterName: String){
-    val seedId = GET("http://localhost:8080/seed/findId?value=$seed")
-//    if(seedId == "null"){
-//      val message = "value=$seed"
-//      println(POST("http://localhost:8080/seed/save", message))
-//    }
+    val seedId = GET("http://oslark.com/seed/findId?value=$seed")
     addScore(score, seedId, characterName)
   }
 
   private fun addScore(score: Long, seedId: String, characterName: String){
     val message = "seed.id=$seedId&characterName=$characterName&score=$score"
-    println(POST("http://localhost:8080/highscore/save", message))
+    println(POST("http://oslark.com/highscore/save", message))
   }
 
   fun getScores(characterName: String): String{
-    return GET("http://localhost:8080/highscore/characterHighscores?characterName=$characterName")
+    return GET("http://oslark.com/highscore/characterHighscores?characterName=$characterName")
   }
 
   @Throws(IOException::class)
