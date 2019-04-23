@@ -5,10 +5,11 @@ import com.bosowski.oslark.gameObjects.GameObject
 abstract class AbstractComponent: BehaviourInterface{
 
   var owner: GameObject? = null
+
   /**
-   * For example, take a class Physics, which inherits
+   * For example, take a class TransformComponent, which inherits
    * from this class. This property will return the
-   * "Physics".
+   * "TransformComponent".
    * The restriction here is that components classes
    * may not be created as inner classes.
    * @return The name of the inheriting component.
