@@ -22,12 +22,12 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
   }
 
   override fun start() {
-    World.rayHandler.setAmbientLight(0f)
+    World.instance!!.rayHandler.setAmbientLight(0f)
   }
 
   override fun update(deltaTime: Float) {
     timer += deltaTime
-    if(timer >= 0.5f && World.dungeon != null && !World.dungeon!!.levelCompleted){
+    if(timer >= 0.5f && World.instance!!.dungeon != null && !World.instance!!.dungeon!!.levelCompleted){
       score -= 1
       timer = 0f
     }
@@ -102,7 +102,7 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
       Constants.VIEWPORT_HEIGHT_TEXT/2 -40 + owner!!.transform.position.y*60
     )
 
-    Assets.font.draw(batch, "Killed ${World.dungeon?.killedMonsters}/${World.dungeon?.spawnedMonsters?.size} monsters",
+    Assets.font.draw(batch, "Killed ${World.instance!!.dungeon?.killedMonsters}/${World.instance!!.dungeon?.spawnedMonsters?.size} monsters",
       - Constants.VIEWPORT_WIDTH_TEXT/2 + 40f + owner!!.transform.position.x*35,
       Constants.VIEWPORT_HEIGHT_TEXT/2 -60f + owner!!.transform.position.y*60
     )

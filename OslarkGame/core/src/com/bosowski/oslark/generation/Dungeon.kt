@@ -22,7 +22,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
   private val dungeonRooms = ArrayList<DungeonRoom>()
   private var maze: Maze? = null
   private var created = false
-  private val random: Random = World.random
+  private val random: Random = World.instance!!.random
   var gameScreen: GameScreen? = null
 
   val spawnedMonsters = ArrayList<Monster>()
@@ -32,10 +32,10 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       //End game logic
       if(field == spawnedMonsters.size && !levelCompleted){
         levelCompleted = true
-        val score = (World.player.getComponent("HUDComponent") as HUDComponent).score
-        NetworkManager.instance.addScore(score= score, seed = World.seed, characterName = World.playerName!!)
+        val score = (World.instance!!.player.getComponent("HUDComponent") as HUDComponent).score
+        NetworkManager.instance.addScore(score= score, seed = World.instance!!.seed, characterName = World.instance!!.playerName!!)
         gameScreen!!.scoreLabel.setText("You have completed the level with a score of $score!")
-        World.rayHandler.setAmbientLight(1f)
+        World.instance!!.rayHandler.setAmbientLight(1f)
       }
     }
 
@@ -163,7 +163,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       }
     }
 
-    World.player.transform.body!!.setTransform(Vector2(playerStartingPos.x, playerStartingPos.y + 0.25f), 0f)
+    World.instance!!.player.transform.body!!.setTransform(Vector2(playerStartingPos.x, playerStartingPos.y + 0.25f), 0f)
     return true
   }
 
@@ -173,7 +173,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     }
     spawnedMonsters.forEach{
       //destroy the monster only if it hasn't been previously destroyed.
-      if(World.gameObjects.contains(it)){
+      if(World.instance!!.gameObjects.contains(it)){
         it.destroy()
       }
     }

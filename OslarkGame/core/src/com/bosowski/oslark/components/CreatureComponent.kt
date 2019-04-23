@@ -176,7 +176,7 @@ class CreatureComponent : AbstractComponent {
   }
 
   fun getDamage(): Float{
-    return Util.randomFloat(World.random, damage.first, damage.second)
+    return Util.randomFloat(World.instance!!.random, damage.first, damage.second)
   }
 
   fun updateHUDComponent(){

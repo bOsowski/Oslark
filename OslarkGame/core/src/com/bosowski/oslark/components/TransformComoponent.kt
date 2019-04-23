@@ -15,10 +15,9 @@ class TransformComoponent(
   var body: Body?
   var position: Vector2
     get(){
-      if(body == null){
-        return Vector2.Zero
-      }
-      else return body!!.position
+      return if(body == null){
+        Vector2.Zero
+      } else body!!.position
     }
     set(value){body?.position!!.set(value)}
 
@@ -28,7 +27,7 @@ class TransformComoponent(
     bdef.type = bodyType
     bdef.position.set(position)
     bdef.fixedRotation = true
-    body = World.physicsWorld.createBody(bdef)
+    body = World.instance!!.physicsWorld.createBody(bdef)
   }
 
   override fun render(batch: SpriteBatch) {}
@@ -41,7 +40,7 @@ class TransformComoponent(
 
   override fun destroy() {
     if(body != null){
-      World.physicsWorld.destroyBody(body)
+      World.instance!!.physicsWorld.destroyBody(body)
       body = null
     }
   }

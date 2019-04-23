@@ -18,13 +18,13 @@ open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var n
   }
 
   fun instantiate(){
-    World.instantiate(this)
+    World.instance!!.instantiate(this)
     components.values.forEach { it.start() }
   }
 
   fun destroy(){
     components.values.forEach { it.destroy() }
-    World.destroy(this)
+    World.instance!!.destroy(this)
   }
 
   fun getComponent(name: String): AbstractComponent?{

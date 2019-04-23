@@ -58,7 +58,7 @@ class InputComponent(private val speed: Float, var creatureComponent: CreatureCo
 
     //other inputs --- >
     if(Gdx.input.isKeyPressed(Input.Keys.ENTER)){
-      World.createDungeon()
+      World.instance!!.createDungeon()
     }
 
     if(Gdx.input.isKeyPressed(Input.Keys.Q) && creatureComponent.currentEnergy >= 1 && healTimer >= creatureComponent.actionSpeed){

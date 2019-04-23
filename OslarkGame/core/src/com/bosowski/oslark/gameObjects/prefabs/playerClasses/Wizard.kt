@@ -35,9 +35,9 @@ class Wizard(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
     )
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){
-        for(monster in World.gameObjects){
+        for(monster in World.instance!!.gameObjects){
           if(monster is Monster){
-            if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, monster.transform.position.x, monster.transform.position.y) < 1.0f && creatureComponent.canAttack){
+            if(Vector2.dst(World.instance!!.player.transform.position.x, World.instance!!.player.transform.position.y, monster.transform.position.x, monster.transform.position.y) < 1.0f && creatureComponent.canAttack){
               val damage = creatureComponent.getDamage()
               ActionableText(monster.transform.position, "%.2f".format(damage), Color.GREEN).instantiate()
               if(monster.creatureComponent.currentHealth - damage <= 0f){

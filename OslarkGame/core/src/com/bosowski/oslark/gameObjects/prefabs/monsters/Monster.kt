@@ -45,12 +45,12 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
 
         creatureComponent = CreatureComponent(maxHealth = 1f)
         creatureComponent.attack = ActionInterface {
-            if(Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, transform.position.x, transform.position.y) < 1.0f && creatureComponent.canAttack){
+            if(Vector2.dst(World.instance!!.player.transform.position.x, World.instance!!.player.transform.position.y, transform.position.x, transform.position.y) < 1.0f && creatureComponent.canAttack){
                 creatureComponent.canAttack = false
                 val damage = creatureComponent.getDamage()
-                ActionableText(World.player.transform.position, "%.2f".format(damage), Color.RED).instantiate()
+                ActionableText(World.instance!!.player.transform.position, "%.2f".format(damage), Color.RED).instantiate()
 
-                val playerCreatureComponent = World.player.getComponent("CreatureComponent") as CreatureComponent
+                val playerCreatureComponent = World.instance!!.player.getComponent("CreatureComponent") as CreatureComponent
                 playerCreatureComponent.currentHealth -= damage
 
 
@@ -60,9 +60,9 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
             creatureComponent.attack!!.perform(it)
         })
         creatureComponent.onDeathAction = ActionInterface {
-            if(World.dungeon != null){
-                World.dungeon!!.killedMonsters++
-                (World.player.getComponent("HUDComponent") as HUDComponent).score += (speed * 10).toInt()
+            if(World.instance!!.dungeon != null){
+                World.instance!!.dungeon!!.killedMonsters++
+                (World.instance!!.player.getComponent("HUDComponent") as HUDComponent).score += (speed * 10).toInt()
             }
         }
         addComponent(creatureComponent)
@@ -74,7 +74,7 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
 
     fun moveRandomly(deltaTime: Float){
         if(timer >= 2f){
-            direction = Direction.getRandom(World.random)
+            direction = Direction.getRandom(World.instance!!.random)
             timer = 0f
             collider.move(direction.value, speed)
         }

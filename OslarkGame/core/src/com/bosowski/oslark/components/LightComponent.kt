@@ -14,7 +14,7 @@ import java.util.HashMap
 
 class LightComponent() : AbstractComponent(){
 
-  val playerLight = PointLight(World.rayHandler, 500, Color(0f,0f,0f,1f), 15f, 0f, 0f)
+  val playerLight = PointLight(World.instance!!.rayHandler, 500, Color(0f,0f,0f,1f), 15f, 0f, 0f)
 
   override fun destroy() {
     playerLight.dispose()

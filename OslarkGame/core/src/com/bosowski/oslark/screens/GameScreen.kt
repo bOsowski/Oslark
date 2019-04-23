@@ -11,15 +11,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.bosowski.oslark.World
 import com.bosowski.oslark.components.CreatureComponent
-import com.bosowski.oslark.components.HUDComponent
 import com.bosowski.oslark.gameObjects.GameObject
-import com.bosowski.oslark.managers.GameManager
 import com.bosowski.oslark.managers.GameRenderer
 import java.util.*
 
 class GameScreen(game: Game, player: GameObject, seed: Long) : AbstractGameScreen(game) {
 
-    lateinit var gameManager: GameManager
     lateinit var gameRenderer: GameRenderer
     private var paused: Boolean = false
 
@@ -27,12 +24,11 @@ class GameScreen(game: Game, player: GameObject, seed: Long) : AbstractGameScree
 
 
     init {
-        World.clearWorld()
-        World.seed = seed
-        World.random = Random(seed)
-        World.player = player
-        World.createDungeon()
-        World.dungeon!!.gameScreen = this
+        World.instance!!.seed = seed
+        World.instance!!.random = Random(seed)
+        World.instance!!.player = player
+        World.instance!!.createDungeon()
+        World.instance!!.dungeon!!.gameScreen = this
         player.instantiate()
         setUpUI()
     }
@@ -45,14 +41,14 @@ class GameScreen(game: Game, player: GameObject, seed: Long) : AbstractGameScree
 
         // Do not update game world when paused.
         if (!paused) {
-            gameManager.update(deltaTime)
+            World.instance!!.update(deltaTime)
         }
         if (Gdx.input.isKeyPressed(Input.Keys.BACKSPACE)) {
             game.screen = CharacterSelectionScreen(game)
         }
 
-        if((World.player.getComponent("CreatureComponent") as CreatureComponent).currentHealth <= 0f || World.dungeon?.killedMonsters == World.dungeon?.spawnedMonsters?.size){
-            World.rayHandler.setAmbientLight(1f)
+        if((World.instance!!.player.getComponent("CreatureComponent") as CreatureComponent).currentHealth <= 0f || World.instance!!.dungeon?.killedMonsters == World.instance!!.dungeon?.spawnedMonsters?.size){
+            World.instance!!.rayHandler.setAmbientLight(1f)
             Gdx.input.inputProcessor = stage
             stage.act(deltaTime)
             stage.draw()
@@ -61,8 +57,7 @@ class GameScreen(game: Game, player: GameObject, seed: Long) : AbstractGameScree
     }
 
     override fun show() {
-        this.gameManager = GameManager()
-        this.gameRenderer = GameRenderer(gameManager)
+        this.gameRenderer = GameRenderer(World.instance!!)
     }
 
     override fun hide() {

@@ -18,7 +18,7 @@ import java.util.*
 import kotlin.Comparator
 import kotlin.collections.HashMap
 
-object World
+class World
 {
   val gameObjects = ArrayList<GameObject>()
   private val objectsToInstantiate = ArrayList<GameObject>()
@@ -26,7 +26,7 @@ object World
   var seed: Long = -1
   lateinit var random:Random
   var dungeon: Dungeon? = null
-  var player: GameObject
+  lateinit var player: GameObject
   var playerName: String? = null
 
   val rays: HashMap<GameObject, Pair<Vector2?, Vector2?>> = HashMap()
@@ -39,14 +39,6 @@ object World
 
   fun destroy(gameObject: GameObject){
     objectsToDestroy.add(gameObject)
-  }
-
-  init{
-    player = GameObject(bodyType = BodyDef.BodyType.StaticBody)
-  }
-
-  fun clearWorld(){
-    player.destroy()
   }
 
   fun update(deltaTime: Float) {
@@ -111,10 +103,16 @@ object World
   fun createDungeon(){
     var successfullyCreated: Boolean
     do{
-      World.dungeon?.clear()
-      World.dungeon = Dungeon(Rectangle(-50f, -10f, 100f, 10f), 2, 7, 45)
-      successfullyCreated = World.dungeon!!.create()
+      dungeon?.clear()
+      dungeon = Dungeon(Rectangle(-50f, -10f, 100f, 10f), 2, 7, 45)
+      successfullyCreated = dungeon!!.create()
     }while(!successfullyCreated)
     Thread.sleep(250)
   }
+
+  companion object {
+    var instance: World? = null
+  }
 }
+
+

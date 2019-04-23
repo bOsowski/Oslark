@@ -8,8 +8,8 @@ class  Ogre(position: Vector2): Monster(position, "ogre", 5f, 150f, Vector2(1f,1
 
     init {
         actionComponent.action = ActionInterface { deltaTime ->
-          if (steeringComponent.raycast(World.player.transform.position) && Vector2.dst(World.player.transform.position.x, World.player.transform.position.y, transform.position.x, transform.position.y) < 5f) {
-            steeringComponent.goTo(World.player.transform.position)
+          if (steeringComponent.raycast(World.instance!!.player.transform.position) && Vector2.dst(World.instance!!.player.transform.position.x, World.instance!!.player.transform.position.y, transform.position.x, transform.position.y) < 5f) {
+            steeringComponent.goTo(World.instance!!.player.transform.position)
           } else {
             moveRandomly(deltaTime)
           }

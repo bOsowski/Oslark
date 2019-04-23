@@ -21,6 +21,7 @@ class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
   private val characterArray: JSONArray
 
   init {
+    World.instance = World()
     var userJson: String? = null
     try {
       userJson = NetworkManager.instance.loadUser()
@@ -38,7 +39,7 @@ class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
   }
 
   override fun setUpUI() {
-    var player:GameObject? = null
+    var player:GameObject?
 
     val mainTable = Table()
     stage.addActor(mainTable)
@@ -94,12 +95,12 @@ class CharacterSelectionScreen(game: Game) : AbstractGameScreen(game) {
           println("Picked " + playerData.getString("name"))
           val kClass = Class.forName("com.bosowski.oslark.gameObjects.prefabs.playerClasses.${playerData.getString("characterClass").toLowerCase().capitalize()}").kotlin
           player = kClass.constructors.first().call(playerData.getString("gender").toLowerCase()) as GameObject
-          World.playerName = playerData.getString("name")
+          World.instance!!.playerName = playerData.getString("name")
 
           //set up available seeds.
           val array = com.badlogic.gdx.utils.Array<String>()
-          println(NetworkManager.instance.getScores(World.playerName!!))
-          val scores = JSONObject(NetworkManager.instance.getScores(World.playerName!!)).getJSONArray("highscores")
+          println(NetworkManager.instance.getScores(World.instance!!.playerName!!))
+          val scores = JSONObject(NetworkManager.instance.getScores(World.instance!!.playerName!!)).getJSONArray("highscores")
           println(scores.toString())
           scores.forEach {
             val foundSeed = JSONObject(it.toString()).getLong("seed")

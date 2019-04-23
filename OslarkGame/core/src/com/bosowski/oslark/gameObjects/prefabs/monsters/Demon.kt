@@ -9,8 +9,8 @@ class Demon(position: Vector2): Monster(position, "bigDemon", 5f, 350f, Vector2(
     init {
         actionComponent.action = ActionInterface { deltaTime ->
             moveRandomly(deltaTime)
-            steeringComponent.raycast(World.player.transform.position)
-            //steeringComponent.goTo(World.player.transform.position)
+            steeringComponent.raycast(World.instance!!.player.transform.position)
+            steeringComponent.goTo(World.instance!!.player.transform.position)
         }
 
         creatureComponent.maxHealth = 20f
