@@ -19,7 +19,7 @@ class Wizard(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
     val animator = AnimatorComponent(Assets.stateAnimations["wizard$gender"]!!)
     addComponent(animator)
     shape.setAsBox(0.3f, 0.125f, Vector2(0f, 0f), 0f)
-    val collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape, 100f)
+    val collider = ColliderComponent(shape, 100f)
     addComponent(collider)
 
     val creatureComponent = CreatureComponent(

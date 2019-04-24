@@ -40,7 +40,6 @@ open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var n
     components[component.name] = component
     components.remove(transform.name)
     components[transform.name] = transform
-    component.awake()
   }
 
   fun removeComponent(name: String){

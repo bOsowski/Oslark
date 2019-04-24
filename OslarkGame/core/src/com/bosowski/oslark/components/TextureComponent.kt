@@ -13,8 +13,6 @@ open class TextureComponent(var texture: TextureRegion): AbstractComponent(){
   var origin = Vector2(dimension.x / 2, 0f)
   var color = Color.WHITE
 
-  override fun awake() {}
-
   override fun start() {}
 
   override fun update(deltaTime: Float) {}

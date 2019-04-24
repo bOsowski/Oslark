@@ -17,10 +17,6 @@ class HUDComponent(var creatureComponent: CreatureComponent): AbstractComponent(
   var score: Long = 0
   private var timer = 0f
 
-  override fun awake() {
-
-  }
-
   override fun start() {
     World.instance!!.rayHandler.setAmbientLight(0f)
   }

@@ -122,9 +122,6 @@ class CreatureComponent : AbstractComponent {
     this.energyRegenPerAction = energyRegenPerAction
   }
 
-  override fun awake() {
-  }
-
   override fun start() {
   }
 

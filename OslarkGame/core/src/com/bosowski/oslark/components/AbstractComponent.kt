@@ -1,8 +1,9 @@
 package com.bosowski.oslark.components
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.bosowski.oslark.gameObjects.GameObject
 
-abstract class AbstractComponent: BehaviourInterface{
+abstract class AbstractComponent{
 
   var owner: GameObject? = null
 
@@ -20,4 +21,27 @@ abstract class AbstractComponent: BehaviourInterface{
   }
 
   var active = true
+
+  /**
+   * This method is called during the start of the game,
+   * after the awake method.
+   */
+  abstract fun start()
+
+  /**
+   * This method is called each frame
+   */
+  abstract fun update(deltaTime: Float)
+
+  /**
+   * This method is called each frame
+   */
+  abstract fun render(batch: SpriteBatch)
+
+  /**
+   * This method can be called to
+   * clean up anything that the component
+   * might have created.
+   */
+  abstract fun destroy()
 }

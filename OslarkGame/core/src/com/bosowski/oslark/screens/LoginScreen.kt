@@ -10,6 +10,7 @@ import com.bosowski.oslark.Assets
 import com.bosowski.oslark.World
 import com.bosowski.oslark.managers.NetworkManager
 import java.io.IOException
+import java.lang.Exception
 
 
 class LoginScreen(game: Game) : AbstractGameScreen(game) {
@@ -75,10 +76,15 @@ class LoginScreen(game: Game) : AbstractGameScreen(game) {
     loginButton.addListener(object : ClickListener() {
       override fun touchDown(event: InputEvent?, x: Float, y: Float, point: Int, button: Int): Boolean {
         try {
-          NetworkManager.instance.login(usernameField.text, passwordField.text)
+          println("login result")
+          if(NetworkManager.instance.login(usernameField.text, passwordField.text).contains("<title>        Login    </title>")){
+            throw Exception("Invalid Credentials")
+          }
           game.screen = CharacterSelectionScreen(game)
         } catch (e: IOException) {
           //todo: Display some message to user indicating why login was not successful.
+          e.printStackTrace()
+        } catch(e: Exception){
           e.printStackTrace()
         }
         return true

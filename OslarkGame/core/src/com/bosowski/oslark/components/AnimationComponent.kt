@@ -10,8 +10,6 @@ open class AnimationComponent(var animation: Animation<TextureRegion> = Assets.a
 
   var stateTime = 0f
 
-  override fun awake() {}
-
   override fun start() {}
 
   override fun update(deltaTime: Float) {}

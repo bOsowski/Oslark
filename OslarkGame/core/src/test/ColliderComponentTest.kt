@@ -13,7 +13,7 @@ class ColliderComponentTest {
   fun conceptTest(){
     val testObject = GameObject(bodyType = BodyDef.BodyType.StaticBody)
     val body = testObject.transform.body
-    val collider = ColliderComponent(BodyDef.BodyType.StaticBody, PolygonShape(), 0f)
+    val collider = ColliderComponent(PolygonShape(), 0f)
     testObject.addComponent(collider)
     assert(body == testObject.transform.body)
   }

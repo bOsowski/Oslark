@@ -25,7 +25,7 @@ import java.util.*
         //type = BodyDef.BodyType.StaticBody, centre = Vector2(- textureComponent.origin.x + 0.1f, 0f), width = 0.2f, height = 1f
         val shape = EdgeShape()
         shape.set(Vector2(-textureComponent.origin.x+textureComponent.dimension.x, -0.0f), Vector2(-textureComponent.origin.x+textureComponent.dimension.x, 1f))
-        val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape, 0f)
+        val colliderComponent = ColliderComponent(shape, 0f)
         wall.addComponent(colliderComponent)
         return wall
       }
@@ -37,7 +37,7 @@ import java.util.*
         //type = BodyDef.BodyType.StaticBody, centre = Vector2( - textureComponent.origin.x, 0f), width = 0.2f, height = 1f
         val shape = EdgeShape()
         shape.set(Vector2(-textureComponent.origin.x, -0.0f), Vector2(-textureComponent.origin.x, 1f))
-        val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape, 0f)
+        val colliderComponent = ColliderComponent(shape, 0f)
         wall.addComponent(colliderComponent)
         return wall
       }
@@ -48,7 +48,7 @@ import java.util.*
         //type = BodyDef.BodyType.StaticBody, centre = Vector2(0f,  - textureComponent.origin.y), width = 1f, height = 0.01f
         val shape = EdgeShape()
         shape.set(Vector2(-textureComponent.origin.x, -textureComponent.origin.y), Vector2(textureComponent.origin.x, -textureComponent.origin.y))
-        val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape, 0f)
+        val colliderComponent = ColliderComponent(shape, 0f)
         wall.addComponent(colliderComponent)
         return wall
       }
@@ -82,7 +82,7 @@ import java.util.*
         //type = BodyDef.BodyType.StaticBody, centre = Vector2(0f, -wallImage.origin.y), width = 1f, height = 0.01f
         val shape = EdgeShape()
         shape.set(Vector2(-wallImage.origin.x, -wallImage.origin.y), Vector2(wallImage.origin.x, -wallImage.origin.y))
-        val colliderComponent = ColliderComponent(BodyDef.BodyType.StaticBody, shape, 0f)
+        val colliderComponent = ColliderComponent(shape, 0f)
         wall.addComponent(colliderComponent)
         return wall
       }

@@ -12,9 +12,6 @@ import com.bosowski.oslark.World
 
 class SteeringComponent(var speed: Float, var collider: ColliderComponent): AbstractComponent() {
 
-    override fun awake() {
-    }
-
     override fun start() {
     }
 

@@ -37,7 +37,7 @@ abstract class Monster(position: Vector2, name: String, speed: Float, density: F
         //println("Sprite dimension: "+animatorComponent.dimension.toString())
         shape.setAsBox(scale.x / 4, scale.y/ 9, Vector2(0f, 0f), 0f)
 
-        collider = ColliderComponent(BodyDef.BodyType.DynamicBody, shape, density)
+        collider = ColliderComponent(shape, density)
         addComponent(collider)
 
         steeringComponent = SteeringComponent(speed, collider)

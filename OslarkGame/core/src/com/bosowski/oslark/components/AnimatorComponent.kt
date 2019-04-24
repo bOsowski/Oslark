@@ -19,7 +19,9 @@ class AnimatorComponent(private val animations: HashMap<State, Animation<Texture
     }
   }
 
-  override fun awake() { animation = animations[state]!! }
+  init{
+    animation = animations[state]!!
+  }
 
   override fun start() {}
 

@@ -20,9 +20,9 @@ class NetworkManager private constructor() {
   }
 
   @Throws(IOException::class)
-  fun login(username: String, password: String) {
+  fun login(username: String, password: String): String {
     val message = "username=$username&password=$password"
-    POST("http://oslark.com/login/authenticate", message)
+    return POST("http://oslark.com/login/authenticate", message)
   }
 
   @Throws(IOException::class)

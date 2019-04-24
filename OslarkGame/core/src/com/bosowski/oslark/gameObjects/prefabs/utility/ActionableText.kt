@@ -20,11 +20,9 @@ class ActionableText(position: Vector2, text: String, color: Color): GameObject(
   class TextComponent(val text: String, val color: Color): AbstractComponent(){
     var timer = 0f
 
-    override fun awake() {
+    override fun start() {
       owner!!.transform.body?.setLinearVelocity(0f, 3f)
     }
-
-    override fun start() {}
 
     override fun update(deltaTime: Float) {
       timer += deltaTime

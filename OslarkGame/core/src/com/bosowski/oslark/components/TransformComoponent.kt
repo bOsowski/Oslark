@@ -32,8 +32,6 @@ class TransformComoponent(
 
   override fun render(batch: SpriteBatch) {}
 
-  override fun awake() {}
-
   override fun start() {}
 
   override fun update(deltaTime: Float) {}

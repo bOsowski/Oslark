@@ -20,8 +20,6 @@ class LightComponent() : AbstractComponent(){
     playerLight.dispose()
   }
 
-  override fun awake() {}
-
   override fun start() {
     playerLight.attachToBody(owner?.transform!!.body, 0f, 0f)
     playerLight.setSoftnessLength(5f)

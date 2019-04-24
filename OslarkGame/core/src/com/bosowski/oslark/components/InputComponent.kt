@@ -21,9 +21,6 @@ class InputComponent(private val speed: Float, var creatureComponent: CreatureCo
 
   var healTimer = 0f
 
-  override fun awake() {
-  }
-
   override fun start() {}
 
   override fun update(deltaTime: Float) {
