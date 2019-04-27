@@ -158,12 +158,11 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       return false
     }
 
+    createWallsAndInstantiate()
+
     while(spawnedMonsters.isEmpty()){
       spawnMonsters()
     }
-
-    createWallsAndInstantiate()
-
 
     var playerStartingPos = dungeonCells.keys.first()
     dungeonCells.keys.forEach {
