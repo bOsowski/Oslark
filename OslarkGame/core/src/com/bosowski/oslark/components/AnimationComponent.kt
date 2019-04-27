@@ -19,16 +19,17 @@ open class AnimationComponent(var animation: Animation<TextureRegion> = Assets.a
       stateTime += Gdx.graphics.deltaTime
       texture = animation.getKeyFrame(stateTime) as TextureRegion
 
-    batch.draw(
-        texture.texture,
-        owner!!.transform.position.x - origin.x,
-        owner!!.transform.position.y - origin.y, origin.x, origin.y,
-        dimension.x, dimension.y, scale.x, scale.y, rotation,
-        texture.regionX,
-        texture.regionY,
-        texture.regionWidth,
-        texture.regionHeight,
-        false, false
-    )
+    super.render(batch)
+//    batch.draw(
+//        texture.texture,
+//        owner!!.transform.position.x - origin.x,
+//        owner!!.transform.position.y - origin.y, origin.x, origin.y,
+//        dimension.x, dimension.y, scale.x, scale.y, rotation,
+//        texture.regionX,
+//        texture.regionY,
+//        texture.regionWidth,
+//        texture.regionHeight,
+//        false, false
+//    )
   }
 }

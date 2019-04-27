@@ -101,13 +101,7 @@ class World
   }
 
   fun createDungeon(){
-    var successfullyCreated: Boolean
-    do{
-      dungeon?.clear()
       dungeon = Dungeon(Rectangle(-50f, -10f, 100f, 10f), 2, 7, 45)
-      successfullyCreated = dungeon!!.create()
-    }while(!successfullyCreated)
-    Thread.sleep(250)
   }
 
   companion object {

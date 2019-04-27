@@ -77,14 +77,11 @@ class Maze(private val parentArea: Rectangle, private val rooms: ArrayList<Dunge
               currentPosition = Vector2(stack.pop())
             }
           }
-          println("Maze created.")
         }
         y += 2
       }
       x += 2
     }
-
-    println("FINISHED")
   }
 
   fun clear() {
