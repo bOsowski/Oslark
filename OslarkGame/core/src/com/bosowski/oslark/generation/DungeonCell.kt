@@ -12,9 +12,10 @@ import com.bosowski.oslark.components.ColliderComponent
 import com.bosowski.oslark.utils.Util
 import java.util.*
 
-class DungeonCell(position: Vector2, private val random: Random, val index: Int){
+class DungeonCell(position: Vector2, private val random: Random, val index: Int): Generation{
 
   val cell = GameObject(position,-1, bodyType = BodyDef.BodyType.StaticBody)
+  private val chanceOfDifferentFloor = 0.25f
 
   private val walls = HashMap<Direction, GameObject>()
 
@@ -44,7 +45,7 @@ class DungeonCell(position: Vector2, private val random: Random, val index: Int)
     }
   }
 
-  fun clear() {
+  override fun clear() {
     for (wall in walls.values) {
       wall.destroy()
     }
@@ -65,10 +66,6 @@ class DungeonCell(position: Vector2, private val random: Random, val index: Int)
 
   private fun addWall(direction: Direction) {
     walls[direction] = getWall(cell, direction, random)
-  }
-
-  companion object {
-    private const val chanceOfDifferentFloor = 0.25f
   }
 
   private fun getWall(cell: GameObject, direction: Direction, random: Random): GameObject {

@@ -64,9 +64,9 @@ class InputComponent(private val speed: Float, var creatureComponent: CreatureCo
       healTimer = 0f
     }
 
-//    if(Gdx.input.isKeyPressed(Input.Keys.L)){
-//      NetworkManager.instance.addScore(score=(World.player.getComponent("HUDComponent") as HUDComponent).score, seed = World.seed, characterName = World.playerName)
-//    }
+    if(Gdx.input.isKeyPressed(Input.Keys.L)){
+      NetworkManager.instance.addScore(score=(World.instance!!.player.getComponent("HUDComponent") as HUDComponent).score, seed = World.instance!!.seed, characterName = World.instance!!.playerName!!)
+    }
 
     if(Gdx.input.isKeyPressed(Input.Keys.O)){
       GameRenderer.debugView = !GameRenderer.debugView

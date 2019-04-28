@@ -64,6 +64,8 @@ class LoginScreen(game: Game) : AbstractGameScreen(game) {
     val passwordGroup = Table()
     val passwordLabel = Label("Password:", fieldSkins)
     val passwordField = TextField("admin", fieldSkins)
+    passwordField.isPasswordMode = true
+    passwordField.setPasswordCharacter('*')
     //usernameGroup.setPosition((Gdx.graphics.width / 2).toFloat(), (Gdx.graphics.height / 2).toFloat())
     passwordGroup.add(passwordLabel).width(100f)
     passwordGroup.add(passwordField)

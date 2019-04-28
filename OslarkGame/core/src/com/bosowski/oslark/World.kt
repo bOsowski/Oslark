@@ -101,6 +101,7 @@ class World
   }
 
   fun createDungeon(){
+      dungeon?.clear()
       dungeon = Dungeon(Rectangle(-50f, -10f, 100f, 10f), 2, 7, 45)
   }
 

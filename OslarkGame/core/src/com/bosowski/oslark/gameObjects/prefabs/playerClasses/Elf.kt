@@ -19,7 +19,7 @@ class Elf(gender: String): GameObject(name = "player", bodyType = BodyDef.BodyTy
     val animator = AnimatorComponent(Assets.stateAnimations["elf$gender"]!!)
     addComponent(animator)
     shape.setAsBox(0.3f, 0.125f, Vector2(0f, 0f), 0f)
-    val collider = ColliderComponent(shape, 45f)
+    val collider = ColliderComponent(shape, 60f)
     addComponent(collider)
 
     val creatureComponent = CreatureComponent(

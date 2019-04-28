@@ -11,7 +11,7 @@ import java.util.HashMap
 import java.util.Random
 import java.util.Stack
 
-class Maze(private val parentArea: Rectangle, private val rooms: ArrayList<DungeonRoom>, private val random: Random, val dungeon: Dungeon) {
+class Maze(private val parentArea: Rectangle, private val rooms: ArrayList<DungeonRoom>, private val random: Random, val dungeon: Dungeon): Generation {
 
   val cells = HashMap<Vector2, DungeonCell>()
 
@@ -84,7 +84,7 @@ class Maze(private val parentArea: Rectangle, private val rooms: ArrayList<Dunge
     }
   }
 
-  fun clear() {
+  override fun clear() {
     for (cell in cells.values) {
       cell.clear()
     }

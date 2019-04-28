@@ -9,7 +9,7 @@ import java.util.ArrayList
 import java.util.HashMap
 import java.util.Random
 
-class DungeonRoom(private val minSize: Int, private val maxSize: Int, private val parentArea: Rectangle, private val otherRooms: ArrayList<DungeonRoom>, private val random: Random, val dungeon: Dungeon) {
+class DungeonRoom(private val minSize: Int, private val maxSize: Int, private val parentArea: Rectangle, private val otherRooms: ArrayList<DungeonRoom>, private val random: Random, val dungeon: Dungeon): Generation {
 
   val cells = HashMap<Vector2, DungeonCell>()
   var bounds: Rectangle? = null
@@ -55,7 +55,9 @@ class DungeonRoom(private val minSize: Int, private val maxSize: Int, private va
     for (direction in Direction.directions) {
       var x = bounds!!.x.toInt()
       while (x < bounds!!.x + bounds!!.width) {
-        if ((otherCells.containsKey(Vector2(x.toFloat(), bounds!!.y).add(direction.value)) || otherCells.containsKey(Vector2(x.toFloat(), bounds!!.y + bounds!!.height).add(direction.value)))
+        if (
+          (otherCells.containsKey(Vector2(x.toFloat(), bounds!!.y).add(direction.value))
+            || otherCells.containsKey(Vector2(x.toFloat(), bounds!!.y + bounds!!.height).add(direction.value)))
             && !cells.containsKey(Vector2(x.toFloat(), bounds!!.y).add(direction.value))
             && !cells.containsKey(Vector2(x.toFloat(), bounds!!.y + bounds!!.height).add(direction.value))) {
           return false
@@ -64,7 +66,8 @@ class DungeonRoom(private val minSize: Int, private val maxSize: Int, private va
       }
       var y = bounds!!.y.toInt()
       while (y < bounds!!.y + bounds!!.height) {
-        if ((otherCells.containsKey(Vector2(bounds!!.x, y.toFloat()).add(direction.value)) || otherCells.containsKey(Vector2(bounds!!.x + bounds!!.width, y.toFloat()).add(direction.value)))
+        if ((otherCells.containsKey(Vector2(bounds!!.x, y.toFloat()).add(direction.value))
+            || otherCells.containsKey(Vector2(bounds!!.x + bounds!!.width, y.toFloat()).add(direction.value)))
             && !cells.containsKey(Vector2(bounds!!.x, y.toFloat()).add(direction.value))
             && !cells.containsKey(Vector2(bounds!!.x + bounds!!.width, y.toFloat()).add(direction.value))) {
           return false
@@ -75,7 +78,7 @@ class DungeonRoom(private val minSize: Int, private val maxSize: Int, private va
     return true
   }
 
-  fun clear() {
+  override fun clear() {
     for (cell in cells.values) {
       cell.clear()
     }

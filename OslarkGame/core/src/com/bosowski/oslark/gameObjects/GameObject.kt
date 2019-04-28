@@ -38,14 +38,10 @@ open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var n
   fun addComponent(component: AbstractComponent){
     component.owner = this
     components[component.name] = component
-    components.remove(transform.name)
-    components[transform.name] = transform
   }
 
   fun removeComponent(name: String){
-    if(name != transform.name){
       components[name]?.destroy()
       components.remove(name)
-    }
   }
 }

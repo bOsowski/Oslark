@@ -8,10 +8,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef
 import com.badlogic.gdx.physics.box2d.Shape
 import com.bosowski.oslark.World
 
-class ColliderComponent(
-    val shape: Shape,
-    val density: Float
-): AbstractComponent() {
+class ColliderComponent(private val shape: Shape, private val density: Float): AbstractComponent() {
 
   var direction: Vector2? = Vector2.Zero
   var fixture: Fixture? = null
@@ -29,7 +26,6 @@ class ColliderComponent(
     fdef.shape = shape
     fdef.friction = 0f
     fdef.density = density
-
     fixture = owner!!.transform.body?.createFixture(fdef)
   }
 

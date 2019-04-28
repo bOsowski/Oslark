@@ -20,19 +20,20 @@ class Knight(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
     val animator = AnimatorComponent(Assets.stateAnimations["knight$gender"]!!)
     addComponent(animator)
     shape.setAsBox(0.3f, 0.125f, Vector2(0f, 0f), 0f)
-    val collider = ColliderComponent(shape, 100f)
+    val collider = ColliderComponent(shape, 125f)
     addComponent(collider)
 
     val creatureComponent = CreatureComponent(
       maxHealth = 5f,
-      maxEnergy = 2f,
+      maxEnergy = 0f,
       level = 1,
       damage = Pair(1f,3f),
       healthPerLevel = 2f,
-      energyPerLevel = 1f,
-      healthRegenPerAction = 1f,
+      energyPerLevel = 0f,
+      healthRegenPerAction = 1.5f,
       energyRegenPerAction = 0.5f,
-      damagePerLevel = Pair(0.25f, 0.5f)
+      damagePerLevel = Pair(0.25f, 0.5f),
+      actionSpeed = 1f
     )
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){

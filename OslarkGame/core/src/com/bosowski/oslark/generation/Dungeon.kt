@@ -15,7 +15,9 @@ import com.bosowski.oslark.utils.Util
 import java.util.ArrayList
 import java.util.Random
 
-class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int) {
+class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, private val maxRoomSize: Int, private val roomCreationAttempts: Int) : Generation{
+
+  val TAG = Dungeon::class.java.name
 
   val dungeonCells = HashMap<Vector2, DungeonCell>()
   var levelCompleted = false
@@ -46,12 +48,45 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     }
 
   init{
-    do{}
     while(!create())
+    Gdx.app.log( TAG,"The maze has been successfully created after $creationAttempts attempts.")
+  }
+
+  private fun create() : Boolean{
+    creationAttempts++
+    clear()
+    createRooms()
+    createMazes()
+    shrinkMazes()
+    removeIsolatedRooms()
+
+    if(findIsolatedAreas() > 1){
+      Gdx.app.log( TAG,"An isolated area has been found.")
+      return false
+    }
+    else if(dungeonCells.isEmpty()){
+      Gdx.app.log( TAG,"No cells exist in the dungeon.")
+      return false
+    }
+
+    createWallsAndInstantiate()
+
+    while(spawnedMonsters.isEmpty()){
+      spawnMonsters()
+    }
+
+    var playerStartingPos = dungeonCells.keys.first()
+    dungeonCells.keys.forEach {
+      if(playerStartingPos.x > it.x){
+        playerStartingPos = it
+      }
+    }
+
+    World.instance!!.player.transform.body!!.setTransform(Vector2(playerStartingPos.x, playerStartingPos.y + 0.25f), 0f)
+    return true
   }
 
   fun spawnMonsters(){
-
     var totalSpawnRate = 0
     var highestMonsterLevel = 0
     Settings.spawnTableMaze.forEach {
@@ -71,10 +106,9 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     //spawn monsters in maze. Make sure the monster is 1x1.
     maze!!.cells.values.forEach { it ->
       val rand = Util.randomInt(random, 0, totalSpawnRate)
-      val cellDifficulty = Util.map(it.cell.transform.position.x, lowestX, highestX, 0f, highestMonsterLevel.toFloat()) //(it.cell.transform.position.y - lowestY) / (highestMonsterLevel-1)) + 1
+      val cellDifficulty = Util.map(it.cell.transform.position.x, lowestX, highestX, 0f, highestMonsterLevel.toFloat())
       var canSpawnMonster = false
       for(pair in Settings.spawnTableMaze){
-        //println("Trying to spawn ${pair.value?.first}")
         if(pair.value != null && pair.value!!.second <= cellDifficulty + 1){
           canSpawnMonster = true
         }
@@ -91,8 +125,6 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
         }
       }
     }
-
-    //println("Instantiated ${spawnedMonsters.size} monsters.")
 
     totalSpawnRate = 0
     highestMonsterLevel = 0
@@ -118,7 +150,6 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
         val rand = Util.randomInt(random, 0, totalSpawnRate)
         var canSpawnMonster = false
         for(pair in Settings.spawnTableRooms){
-          //println("Trying to spawn ${pair.value?.first}")
           if(pair.value != null && pair.value!!.second <= roomDifficulty + 1){
             canSpawnMonster = true
           }
@@ -138,57 +169,18 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
     }
   }
 
-  fun create() : Boolean{
-    creationAttempts++
-    clear()
-    createRooms()
-    createMazes()
-    shrinkMazes()
-    removeIsolatedRooms()
-
-    //colourMazeCells()
-    //colourRooms()
-
-    if(findIsolatedAreas() > 1){
-      println("An isolated area has been found.")
-      return false
-    }
-    else if(dungeonCells.isEmpty()){
-      println("No cells exist in the dungeon.")
-      return false
-    }
-
-    createWallsAndInstantiate()
-
-    while(spawnedMonsters.isEmpty()){
-      spawnMonsters()
-    }
-
-    var playerStartingPos = dungeonCells.keys.first()
-    dungeonCells.keys.forEach {
-      if(playerStartingPos.x > it.x){
-        playerStartingPos = it
-      }
-    }
-
-    World.instance!!.player.transform.body!!.setTransform(Vector2(playerStartingPos.x, playerStartingPos.y + 0.25f), 0f)
-    println("The maze has been successfully created after $creationAttempts attempts.")
-    return true
-  }
-
-  fun clear() {
+  override fun clear() {
     for (cell in dungeonCells.values) {
       cell.clear()
     }
+    spawnedMonsters.forEach{
+      it.destroy()
+    }
+
     maze?.clear()
     dungeonRooms.clear()
     dungeonCells.clear()
-    spawnedMonsters.forEach{
-      //destroy the monster only if it hasn't been previously destroyed.
-      if(World.instance!!.gameObjects.contains(it)){
-        it.destroy()
-      }
-    }
+    spawnedMonsters.clear()
   }
 
   private fun colourMazeCells(){
@@ -219,7 +211,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
   }
 
   private fun createRooms() {
-    //Gdx.app.log(TAG, "Creating rooms..")
+    Gdx.app.log(TAG, "Creating rooms..")
     for (i in 0 until roomCreationAttempts) {
       val room = DungeonRoom(minRoomSize, maxRoomSize, bounds, dungeonRooms, random, this)
       if (room.create()) {
@@ -227,7 +219,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
         dungeonCells.putAll(room.cells)
       }
     }
-    //Gdx.app.log(TAG, "Finished creating rooms.")
+    Gdx.app.log(TAG, "Finished creating rooms.")
   }
 
   private fun createMazes() {
@@ -239,7 +231,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
   }
 
   private fun shrinkMazes() {
-    //Gdx.app.log(TAG, "Shrinking mazes..")
+    Gdx.app.log(TAG, "Shrinking mazes..")
     var entryIterator: MutableIterator<Any>
     var deletedAny = true
     while (deletedAny) {
@@ -254,11 +246,11 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
         }
       }
     }
-    //Gdx.app.log(TAG, "Finished shrinking mazes..")
+    Gdx.app.log(TAG, "Finished shrinking mazes..")
   }
 
   private fun removeIsolatedRooms() {
-    //Gdx.app.log(TAG, "Removing isolated rooms..")
+    Gdx.app.log(TAG, "Removing isolated rooms..")
     val iter = dungeonRooms.iterator()
     while (iter.hasNext()) {
       val room = iter.next()
@@ -270,7 +262,7 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
         iter.remove()
       }
     }
-    //Gdx.app.log(TAG, "Finished removing isolated rooms..")
+    Gdx.app.log(TAG, "Finished removing isolated rooms..")
   }
 
   private fun createWallsAndInstantiate() {
@@ -283,12 +275,12 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
   }
 
   private fun findIsolatedAreas(): Int{
-    //Gdx.app.log(TAG, "Joining isolated areas..")
-    var allCells: HashMap<Vector2, DungeonCell> = HashMap()
-    allCells.putAll(dungeonCells)
+    Gdx.app.log(TAG, "Joining isolated areas..")
+    val allCells: HashMap<Vector2, DungeonCell> = HashMap()
     val clusters: ArrayList<ArrayList<DungeonCell>> = ArrayList()
-
     val visitedCells: ArrayList<DungeonCell> = ArrayList()
+
+    allCells.putAll(dungeonCells)
 
     fun getCluster(neighbors: ArrayList<DungeonCell>): ArrayList<DungeonCell>{
       for(i in 0 until neighbors.size) {
@@ -307,33 +299,9 @@ class Dungeon(private val bounds: Rectangle, private val minRoomSize: Int, priva
       neighbours.add(firstCell)
       clusters.add(getCluster(neighbours))
       visitedCells.clear()
-      //Gdx.app.debug(TAG, "Creating cluster.")
     }
 
-//    val colors = listOf(Color.RED, Color.BLUE, Color.GOLD, Color.GRAY, Color.PURPLE)
-//    var index = 0
-//    clusters.forEach {
-//      val color = colors[index]
-//      if(index < colors.size){
-//        index++
-//      }
-//      else{
-//        index = 0
-//      }
-//      it.forEach {
-//        it.cell.getComponents().forEach {
-//          if(it is TextureComponent){
-//            it.color = color
-//          }
-//        }
-//      }
-//    }
-
-    //Gdx.app.log(TAG, "Finished joining isolated areas.. amount of clusters = ${clusters.size}")
+    Gdx.app.log(TAG, "Finished calculating isolated areas.. amount of isolated areas = ${clusters.size}")
     return clusters.size
-  }
-
-  companion object {
-    val TAG = Dungeon::class.java.name
   }
 }

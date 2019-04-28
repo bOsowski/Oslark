@@ -19,19 +19,20 @@ class Wizard(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
     val animator = AnimatorComponent(Assets.stateAnimations["wizard$gender"]!!)
     addComponent(animator)
     shape.setAsBox(0.3f, 0.125f, Vector2(0f, 0f), 0f)
-    val collider = ColliderComponent(shape, 100f)
+    val collider = ColliderComponent(shape, 40f)
     addComponent(collider)
 
     val creatureComponent = CreatureComponent(
-      maxHealth = 5f,
-      maxEnergy = 2f,
+      maxHealth = 4f,
+      maxEnergy = 4f,
       level = 1,
-      damage = Pair(1f,3f),
-      healthPerLevel = 2f,
+      damage = Pair(0f,7f),
+      healthPerLevel = 1f,
       energyPerLevel = 1f,
-      healthRegenPerAction = 0.25f,
-      energyRegenPerAction = 0.5f,
-      damagePerLevel = Pair(0.25f, 0.75f)
+      healthRegenPerAction = 1f,
+      energyRegenPerAction = 1f,
+      damagePerLevel = Pair(0.25f, 1.5f),
+      actionSpeed = 1.5f
     )
     creatureComponent.attack = ActionInterface {
       if(creatureComponent.canAttack){
@@ -53,7 +54,7 @@ class Wizard(gender: String): GameObject(name = "player", bodyType = BodyDef.Bod
     }
     addComponent(creatureComponent)
 
-    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 5f, collider = collider)
+    val inputComponent = InputComponent(creatureComponent = creatureComponent, speed = 4f, collider = collider)
     addComponent(inputComponent)
 
     val hudComponent = HUDComponent(creatureComponent)
