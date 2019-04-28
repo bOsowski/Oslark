@@ -59,7 +59,6 @@ dependencies {
     testRuntime "net.sourceforge.htmlunit:htmlunit:2.18"
     runtime 'mysql:mysql-connector-java:5.1.36'
     compile 'org.grails.plugins:spring-security-core:3.1.2'
-    compile "com.badlogicgames.gdx:gdx-backend-lwjgl:1.9.8"
 }
 
 assets {

@@ -1,7 +1,7 @@
-package oslarkserver
+package oslarkserver.gameObjects
 
 import grails.plugin.springsecurity.annotation.Secured
-import oslarkserver.gameObjects.GameCharacter
+import oslarkserver.gameObjects.Seed
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional

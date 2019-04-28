@@ -1,6 +1,8 @@
 package oslarkserver
 
 import grails.test.mixin.*
+import oslarkserver.gameObjects.Seed
+import oslarkserver.gameObjects.SeedController
 import spock.lang.*
 
 @TestFor(SeedController)

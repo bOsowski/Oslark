@@ -1,6 +1,7 @@
 package oslarkserver
 
 import grails.test.mixin.TestFor
+import oslarkserver.gameObjects.HighscoreController
 import spock.lang.Specification
 
 /**

@@ -57,35 +57,6 @@ class GameCharacterController {
         }
     }
 
-//    def edit(GameCharacter gameCharacter) {
-//        respond gameCharacter
-//    }
-
-//    @Transactional
-//    def update(GameCharacter gameCharacter) {
-//        if (gameCharacter == null) {
-//            transactionStatus.setRollbackOnly()
-//            notFound()
-//            return
-//        }
-//
-//        if (gameCharacter.hasErrors()) {
-//            transactionStatus.setRollbackOnly()
-//            respond gameCharacter.errors, view:'edit'
-//            return
-//        }
-//
-//        gameCharacter.save flush:true
-//
-//        request.withFormat {
-//            form multipartForm {
-//                flash.message = message(code: 'default.updated.message', args: [message(code: 'gameCharacter.label', default: 'GameCharacter'), gameCharacter.id])
-//                redirect gameCharacter
-//            }
-//            '*'{ respond gameCharacter, [status: OK] }
-//        }
-//    }
-
     @Transactional
     def delete(GameCharacter gameCharacter) {
         if(gameCharacter.user != User.getCurrentUser()){

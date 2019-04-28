@@ -1,6 +1,6 @@
 package oslarkserver.gameObjects
 
-import oslarkserver.Seed
+
 import oslarkserver.User
 import oslarkserver.gameObjects.enums.CharacterClass
 import oslarkserver.gameObjects.enums.Gender

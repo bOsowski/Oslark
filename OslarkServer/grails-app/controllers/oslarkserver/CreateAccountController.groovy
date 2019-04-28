@@ -16,11 +16,6 @@ class CreateAccountController {
 
     }
 
-//    def save(){
-//        println("Trying to save new user.. ${params}")
-//        respond new User(username: params.username, firstName: params.firstName, lastName: params.lastName, emailAddress: params.emailAddress)
-//    }
-
     @Transactional
     def save() {
         println(request.getParameterMap())

@@ -1,6 +1,4 @@
-package oslarkserver
-
-import oslarkserver.gameObjects.GameCharacter
+package oslarkserver.gameObjects
 
 class Highscore {
 
@@ -10,6 +8,7 @@ class Highscore {
 
     static constraints = {
         seed null: false
+        gameCharacter null: false
     }
 
     @Override

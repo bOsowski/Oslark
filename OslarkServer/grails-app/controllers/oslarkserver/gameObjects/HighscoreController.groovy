@@ -1,7 +1,9 @@
-package oslarkserver
+package oslarkserver.gameObjects
 
 import grails.plugin.springsecurity.annotation.Secured
 import oslarkserver.gameObjects.GameCharacter
+import oslarkserver.gameObjects.Highscore
+import oslarkserver.gameObjects.Seed
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -19,10 +21,6 @@ class HighscoreController {
 
     def show(Highscore highscore) {
         respond highscore
-    }
-
-    def create() {
-        respond new Highscore(params)
     }
 
     def characterHighscores(String characterName){
@@ -81,55 +79,6 @@ class HighscoreController {
                 redirect highscore
             }
             '*' { respond highscore, [status: CREATED] }
-        }
-    }
-
-    def edit(Highscore highscore) {
-        respond highscore
-    }
-
-    @Transactional
-    def update(Highscore highscore) {
-        if (highscore == null) {
-            transactionStatus.setRollbackOnly()
-            notFound()
-            return
-        }
-
-        if (highscore.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond highscore.errors, view:'edit'
-            return
-        }
-
-        highscore.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'highscore.label', default: 'Highscore'), highscore.id])
-                redirect highscore
-            }
-            '*'{ respond highscore, [status: OK] }
-        }
-    }
-
-    @Transactional
-    def delete(Highscore highscore) {
-
-        if (highscore == null) {
-            transactionStatus.setRollbackOnly()
-            notFound()
-            return
-        }
-
-        highscore.delete flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'highscore.label', default: 'Highscore'), highscore.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
         }
     }
 

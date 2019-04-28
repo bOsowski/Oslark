@@ -1,4 +1,4 @@
-package oslarkserver
+package oslarkserver.gameObjects
 
 class Seed {
 
