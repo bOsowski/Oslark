@@ -36,6 +36,7 @@ class ColliderComponent(private val shape: Shape, private val density: Float): A
   override fun destroy() {
     if(fixture != null){
       owner!!.transform.body?.destroyFixture(fixture)
+      fixture = null
     }
   }
 }

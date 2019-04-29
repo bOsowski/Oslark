@@ -19,7 +19,6 @@ open class TextureComponent(var texture: TextureRegion): AbstractComponent(){
 
   override fun render(batch: SpriteBatch) {
     batch.color = color
-
     batch.draw(
         texture.texture,
         owner!!.transform.position.x - origin.x,

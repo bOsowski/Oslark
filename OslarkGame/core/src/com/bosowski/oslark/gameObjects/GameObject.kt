@@ -23,7 +23,6 @@ open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var n
   }
 
   fun destroy(){
-    components.values.forEach { it.destroy() }
     World.instance!!.destroy(this)
   }
 
@@ -38,6 +37,8 @@ open class GameObject(position: Vector2 = Vector2(), val layer: Short = 0, var n
   fun addComponent(component: AbstractComponent){
     component.owner = this
     components[component.name] = component
+    components.remove(transform.name)
+    components[transform.name] = transform
   }
 
   fun removeComponent(name: String){

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2
 import com.bosowski.oslark.World
 import com.bosowski.oslark.enums.Direction
 import com.bosowski.oslark.enums.State
+import java.lang.IllegalArgumentException
 import java.util.HashMap
 
 
@@ -17,7 +18,6 @@ class LightComponent() : AbstractComponent(){
   val playerLight = PointLight(World.instance!!.rayHandler, 500, Color(0f,0f,0f,1f), 15f, 0f, 0f)
 
   override fun destroy() {
-    playerLight.dispose()
   }
 
   override fun start() {

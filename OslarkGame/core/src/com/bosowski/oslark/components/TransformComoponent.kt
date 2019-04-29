@@ -27,7 +27,7 @@ class TransformComoponent(
     bdef.type = bodyType
     bdef.position.set(position)
     bdef.fixedRotation = true
-    body = World.instance!!.physicsWorld.createBody(bdef)
+    body = World.instance?.physicsWorld?.createBody(bdef)
   }
 
   override fun render(batch: SpriteBatch) {}
@@ -38,7 +38,7 @@ class TransformComoponent(
 
   override fun destroy() {
     if(body != null){
-      World.instance!!.physicsWorld.destroyBody(body)
+      World.instance?.physicsWorld?.destroyBody(body)
       body = null
     }
   }

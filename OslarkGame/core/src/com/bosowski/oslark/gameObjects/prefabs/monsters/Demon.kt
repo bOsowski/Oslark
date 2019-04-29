@@ -13,7 +13,7 @@ class Demon(position: Vector2): Monster(position, "bigDemon", 5f, 350f, Vector2(
             steeringComponent.goTo(World.instance!!.player.transform.position)
         }
 
-        creatureComponent.maxHealth = 20f
-        creatureComponent.damage = Pair(1f,5f)
+        creatureComponent.maxHealth = 15f
+        creatureComponent.damage = Pair(1f,3f)
     }
 }

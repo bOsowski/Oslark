@@ -34,19 +34,19 @@ class InputComponent(private val speed: Float, var creatureComponent: CreatureCo
 
     owner!!.transform.body?.linearVelocity = Vector2()
     //move owner!! UP
-    if(Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Direction.UP.value, speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.UP)) collider.move(Direction.UP.value, speed)
     //move owner!! DOWN
-    if(Gdx.input.isKeyPressed(Input.Keys.S)) collider.move(Direction.DOWN.value, speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) collider.move(Direction.DOWN.value, speed)
     //move owner!! RIGHT
-    if(Gdx.input.isKeyPressed(Input.Keys.D)) collider.move(Direction.RIGHT.value, speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) collider.move(Direction.RIGHT.value, speed)
     //move owner!! LEFT
-    if(Gdx.input.isKeyPressed(Input.Keys.A)) collider.move(Direction.LEFT.value, speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) collider.move(Direction.LEFT.value, speed)
 
     //DIAGONAL movement
-    if(Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Vector2(Direction.LEFT.value).add(Direction.UP.value), speed)
-    if(Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.S)) collider.move(Vector2(Direction.LEFT.value).add(Direction.DOWN.value), speed)
-    if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.W)) collider.move(Vector2(Direction.RIGHT.value).add(Direction.UP.value), speed)
-    if(Gdx.input.isKeyPressed(Input.Keys.D) && Gdx.input.isKeyPressed(Input.Keys.S)) collider.move(Vector2(Direction.RIGHT.value).add(Direction.DOWN.value), speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.UP)) collider.move(Vector2(Direction.LEFT.value).add(Direction.UP.value), speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)) collider.move(Vector2(Direction.LEFT.value).add(Direction.DOWN.value), speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.UP)) collider.move(Vector2(Direction.RIGHT.value).add(Direction.UP.value), speed)
+    if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && Gdx.input.isKeyPressed(Input.Keys.DOWN)) collider.move(Vector2(Direction.RIGHT.value).add(Direction.DOWN.value), speed)
 
     //If the player is going diagonal, adjust the velocity.
     if(owner!!.transform.body?.linearVelocity!!.x != 0f && owner!!.transform.body?.linearVelocity!!.y != 0f){

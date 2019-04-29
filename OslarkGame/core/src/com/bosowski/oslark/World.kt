@@ -61,6 +61,9 @@ class World
 
     gameObjects.addAll(objectsToInstantiate)
     objectsToInstantiate.clear()
+    objectsToDestroy.forEach {
+      it.getComponents().forEach { it.destroy() }
+    }
     gameObjects.removeAll(objectsToDestroy)
     objectsToDestroy.clear()
   }
